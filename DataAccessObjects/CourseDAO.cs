@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DataAccessObjects
 {
-    internal class CourseDAO : IDAO<Course>
+    public class CourseDAO : IDAO<Course>
     {
         public void Add(Course entity)
         {
