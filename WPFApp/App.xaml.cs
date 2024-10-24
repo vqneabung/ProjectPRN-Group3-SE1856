@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using BussinessObjects;
+using DataAccessObjects;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System.Configuration;
 using System.Data;
@@ -35,7 +37,7 @@ namespace WPFApp
 
         private void ConfigureService(IServiceCollection services)
         {
-            //configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
+            configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
 
             //services.AddTransient<LoginPage>();
             //services.AddTransient<HomePage>();
@@ -50,11 +52,18 @@ namespace WPFApp
 
             //services.AddSingleton<IConfiguration>(configuration);
 
-            //services.AddSingleton<BookingReservationDAO>();
-            //services.AddSingleton<CustomerDAO>();
-            //services.AddSingleton<RoomInformationDAO>();
-            //services.AddSingleton<RoomTypeDAO>();
-            //services.AddSingleton<BookingDetailDAO>();
+            services.AddSingleton<AssignmentDAO>();
+            services.AddSingleton<BlogNewsDAO>();
+            services.AddSingleton<CourseDAO>();
+            services.AddSingleton<DepartmentDAO>();
+            services.AddSingleton<DocumentDAO>();
+            services.AddSingleton<EnrollmentDAO>();
+            services.AddSingleton<ForumDAO>();
+            services.AddSingleton<PostDAO>();
+            services.AddSingleton<SubmissionDAO>();
+            services.AddSingleton<UserDAO>();
+
+
 
             //services.AddSingleton<IRoomInformationRepository, RoomInformationRepository>();
             //services.AddSingleton<IRoomInformationService, RoomInformationService>();
@@ -67,7 +76,7 @@ namespace WPFApp
             //services.AddSingleton<IBookingDetailRepository, BookingDetailRepository>();
             //services.AddSingleton<IBookingDetailService, BookingDetailService>();
 
-            //services.AddDbContext<FuminiHotelManagementContext>();
+            services.AddDbContext<LmsContext>();
 
 
 

@@ -7,31 +7,57 @@ using System.Threading.Tasks;
 
 namespace DataAccessObjects
 {
-    internal class BlogNewsDAO : IDAO<BlogNews>
+    public class BlogNewsDAO : IDAO<BlogNews>
     {
+        private readonly LmsContext _context;
+
+        public BlogNewsDAO(LmsContext context)
+        {
+            _context = context;
+        }
+
         public void Add(BlogNews entity)
         {
-            throw new NotImplementedException();
+            _context.BlogNews.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(BlogNews entity)
         {
-            throw new NotImplementedException();
+            _context.BlogNews.Remove(entity);
+            _context.SaveChanges();
         }
 
         public BlogNews Get(int id)
         {
-            throw new NotImplementedException();
+           var blogNews = _context.BlogNews.Find(id);
+            if (blogNews == null)
+            {
+                return null;
+            }
+            else
+            {
+                return blogNews;
+            }
         }
 
         public IEnumerable<BlogNews> GetAll()
         {
-            throw new NotImplementedException();
+            var blogNews = _context.BlogNews.ToList();
+            if (blogNews == null)
+            {
+                return null;
+            }
+            else
+            {
+                return blogNews;
+            }
         }
 
         public void Update(BlogNews entity)
         {
-            throw new NotImplementedException();
+           _context.BlogNews.Update(entity);
+            _context.SaveChanges();
         }
     }
 }
