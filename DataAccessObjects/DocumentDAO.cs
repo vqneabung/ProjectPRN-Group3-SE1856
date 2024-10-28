@@ -9,27 +9,65 @@ namespace DataAccessObjects
 {
     public class DocumentDAO : IDAO<Document>
     {
+        private readonly LmsContext lmsContext;
+        public DocumentDAO(LmsContext context)
+        {
+            lmsContext = context;
+        }
         public void Add(Document entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                lmsContext.Documents.Add(entity);
+                lmsContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+        public void Update(Document entity)
+        {
+            try
+            {
+                lmsContext.Entry<Document>(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                lmsContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public void Delete(Document entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var temp = lmsContext.Documents.SingleOrDefault(c => c.DocumentId == entity.DocumentId);
+                lmsContext.Documents.Remove(temp);
+                lmsContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
-
         public Document Get(int id)
         {
-            throw new NotImplementedException();
+            return lmsContext.Documents.FirstOrDefault(c => c.DocumentId == id);
         }
-
         public IEnumerable<Document> GetAll()
         {
-            throw new NotImplementedException();
+            IEnumerable<Document> list = new List<Document>();
+            try
+            {
+                list = lmsContext.Documents.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return list;
         }
-
-        public void Update(Document entity)
-        { }
     }
 }

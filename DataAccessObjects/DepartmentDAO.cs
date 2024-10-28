@@ -9,28 +9,67 @@ namespace DataAccessObjects
 {
     public class DepartmentDAO : IDAO<Department>
     {
+        private readonly LmsContext lmsContext;
+        public DepartmentDAO (lmsContext context)
+        {
+            lmsContext=context;
+        }
         public void Add(Department entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                lmsContext.Departments.Add(entity);
+                lmsContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
-
+        public void Update(Department entity)
+        {
+            try
+            {
+                lmsContext.Entry<Department>(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                lmsContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
         public void Delete(Department entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var temp = lmsContext.Courses.SingleOrDefault(c => c.DepartmentId == entity.DepartmentId);
+                lmsContext.Departments.Remove(temp);
+                lmsContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public Department Get(int id)
         {
-            throw new NotImplementedException();
+            return lmsContext.Departments.FirstOrDefault(c => c.DepartmentId == id);
         }
 
         public IEnumerable<Department> GetAll()
         {
-            throw new NotImplementedException();
+            IEnumerable<Department> list = new List<Department>();
+            try
+            {
+                list = lmsContext.Departments.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return list;
         }
 
-        public void Update(Department entity)
-        {
-        }
     }
 }

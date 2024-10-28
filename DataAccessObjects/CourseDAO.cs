@@ -9,29 +9,68 @@ namespace DataAccessObjects
 {
     public class CourseDAO : IDAO<Course>
     {
+        private readonly LmsContext lmsContext;
+        public CourseDAO (LmsContext context)
+        {
+            lmsContext = context;
+        }
         public void Add(Course entity)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(Course entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Course Get(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<Course> GetAll()
-        {
-            throw new NotImplementedException();
+            try
+            {
+                lmsContext.Courses.Add(entity);
+                lmsContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public void Update(Course entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                lmsContext.Entry<Course>(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                lmsContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public void Delete(Course entity)
+        {
+            try
+            {
+                var temp = lmsContext.Courses.SingleOrDefault(c => c.CourseId == entity.CourseId);
+                lmsContext.Remove(temp);
+                lmsContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+            throw new Exception(ex.Message);
+            }
+        }
+
+        public Course Get(int id)
+        {
+            return lmsContext.Courses.FirstOrDefault(c => c.CourseId == id);
+        }
+
+        public IEnumerable<Course> GetAll()
+        {
+            IEnumerable<Course> list = new List<Course>();
+            try
+            {
+                list = lmsContext.Courses.ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return list;
         }
     }
 }
