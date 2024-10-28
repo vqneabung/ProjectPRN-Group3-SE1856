@@ -27,9 +27,9 @@ namespace Repositories
            _blogNewsDAO.Delete(entity);
         }
 
-        public BlogNews? Get(int id)
+        public BlogNews? GetByID(int id)
         {
-            return _blogNewsDAO.Get(id);
+            return _blogNewsDAO.GetByID(id);
         }
 
         public IEnumerable<BlogNews>? GetAll()

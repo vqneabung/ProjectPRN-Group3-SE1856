@@ -28,7 +28,7 @@ namespace DataAccessObjects
             _context.SaveChanges();
         }
 
-        public BlogNews Get(int id)
+        public BlogNews GetByID(int id)
         {
            var blogNews = _context.BlogNews.Find(id);
             if (blogNews == null)

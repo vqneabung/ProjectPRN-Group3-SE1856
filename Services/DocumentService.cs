@@ -29,9 +29,9 @@ namespace Services
             documentRepository.Delete(entity);
         }
 
-        public Document? Get(int id)
+        public Document? GetByID(int id)
         {
-            return documentRepository.Get(id);
+            return documentRepository.GetByID(id);
         }
 
         public IEnumerable<Document>? GetAll()

@@ -19,7 +19,7 @@ namespace DataAccessObjects
             throw new NotImplementedException();
         }
 
-        public User Get(int id)
+        public User GetByID(int id)
         {
             throw new NotImplementedException();
         }

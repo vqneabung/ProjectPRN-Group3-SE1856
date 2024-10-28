@@ -52,7 +52,7 @@ namespace DataAccessObjects
             }
         }
 
-        public Department Get(int id)
+        public Department GetByID(int id)
         {
             return lmsContext.Departments.FirstOrDefault(c => c.DepartmentId == id);
         }

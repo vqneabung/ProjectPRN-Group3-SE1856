@@ -27,9 +27,9 @@ namespace Repositories
         {
             departmentDAO.Delete(entity);
         }
-        public Department? Get(int id)
+        public Department? GetByID(int id)
         {
-            return departmentDAO.Get(id);
+            return departmentDAO.GetByID(id);
         }
         public IEnumerable<Department>? GetAll()
         {

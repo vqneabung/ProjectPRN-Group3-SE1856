@@ -13,7 +13,7 @@ namespace DataAccessObjects
         void Add(T entity);
         void Update(T entity);
         void Delete(T entity);
-        T? Get(int id);
+        T? GetByID(int id);
         IEnumerable<T>? GetAll();
 
     }

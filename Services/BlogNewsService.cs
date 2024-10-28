@@ -29,7 +29,7 @@ namespace Services
 
         public BlogNews? Get(int id)
         {
-            var blogNews = _repository.Get(id);
+            var blogNews = _repository.GetByID(id);
             return blogNews;
         }
 

@@ -9,29 +9,51 @@ namespace DataAccessObjects
 {
     public class AssignmentDAO : IDAO<Assignment>
     {
-        public void Add(Assignment entity)
+        private readonly LmsContext _context;
+
+        public AssignmentDAO(LmsContext context)
         {
-            throw new NotImplementedException();
+            _context = context;
+        }
+        public void Add(Assignment assigment)
+        {
+            try
+            {
+                _context.Assignments.Add(assigment);
+                _context.SaveChanges();
+            }catch (Exception ex) { throw new Exception(ex.Message); }
         }
 
-        public void Delete(Assignment entity)
+        public void Delete(Assignment assigment)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Remove(assigment);
+                _context.SaveChanges();
+            }
+            catch (Exception ex) { throw new Exception(ex.Message); }
         }
 
-        public Assignment Get(int id)
+        public Assignment GetByID(int id) 
         {
-            throw new NotImplementedException();
+            Assignment assignment = _context.Assignments.FirstOrDefault(a => a.AssignmentId == id);
+            return assignment !=null ? assignment : null;
         }
 
         public IEnumerable<Assignment> GetAll()
         {
-            throw new NotImplementedException();
+            var Assignments = _context.Assignments.ToList();
+            return Assignments != null && Assignments.Any() ? Assignments : null;
         }
 
-        public void Update(Assignment entity)
+        public void Update(Assignment assigment)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _context.Update(assigment);
+                _context.SaveChanges();
+            }
+            catch (Exception ex) { throw new Exception(ex.Message); }
         }
     }
 }

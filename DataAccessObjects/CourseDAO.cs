@@ -54,7 +54,7 @@ namespace DataAccessObjects
             }
         }
 
-        public Course Get(int id)
+        public Course GetByID(int id)
         {
             return lmsContext.Courses.FirstOrDefault(c => c.CourseId == id);
         }

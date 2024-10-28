@@ -30,7 +30,7 @@ namespace Services
         }
         public Department? Get(int id)
         {
-            return departmentRepository.Get(id);
+            return departmentRepository.GetByID(id);
         }
         public IEnumerable<Department>? GetAll()
         {

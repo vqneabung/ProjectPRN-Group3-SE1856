@@ -52,7 +52,7 @@ namespace DataAccessObjects
                 throw new Exception(ex.Message);
             }
         }
-        public Document Get(int id)
+        public Document GetByID(int id)
         {
             return lmsContext.Documents.FirstOrDefault(c => c.DocumentId == id);
         }
