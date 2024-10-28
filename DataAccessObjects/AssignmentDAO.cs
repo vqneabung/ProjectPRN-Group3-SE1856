@@ -7,31 +7,32 @@ using System.Threading.Tasks;
 
 namespace DataAccessObjects
 {
-    public class AssignmentDAO : IDAO<Assignment>
+    public class AssignmentDAO
     {
-        public void Add(Assignment entity)
+        public static void Add(Assignment assigment)
         {
-            throw new NotImplementedException();
+            
         }
 
-        public void Delete(Assignment entity)
+        public static void Delete(Assignment assigment)
         {
-            throw new NotImplementedException();
+            
         }
 
-        public Assignment Get(int id)
+        public static List<Assignment> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                List<Assignment> list = new List<Assignment>();
+                using var db = new LmsContext();
+                return list = [.. db.Assignments];
+            }
+            catch (Exception e) { throw new Exception(e.Message); }
         }
 
-        public IEnumerable<Assignment> GetAll()
+        public static void Update(Assignment assigment)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Update(Assignment entity)
-        {
-            throw new NotImplementedException();
+            
         }
     }
 }
