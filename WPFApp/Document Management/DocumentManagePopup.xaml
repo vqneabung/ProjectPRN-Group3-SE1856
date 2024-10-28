@@ -1,0 +1,32 @@
+﻿<Window x:Class="WPFApp.Document_Management.DocumentManagePopup"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApp.Document_Management"
+        mc:Ignorable="d"
+        FontSize="15"
+        Title="DocumentManagePopup" Height="300" Width="350">
+    <Grid Background="#FF009688">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Label  Content="Document Manage" HorizontalAlignment="Left" Margin="69,0,0,0" VerticalAlignment="Center" FontSize="24" Grid.ColumnSpan="2"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Height="25"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Height="25"/>
+        <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Height="25"/>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
+        <Button Content="Close" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Background="#FFF6D7DA"/>
+        <Button Grid.Column="1" Content="Submit" HorizontalAlignment="Left" Margin="70,80,0,0" Grid.Row="4" VerticalAlignment="Top" Background="#FFD4EDDA"/>
+    </Grid>
+</Window>

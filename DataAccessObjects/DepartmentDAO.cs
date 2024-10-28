@@ -10,7 +10,7 @@ namespace DataAccessObjects
     public class DepartmentDAO : IDAO<Department>
     {
         private readonly LmsContext lmsContext;
-        public DepartmentDAO (lmsContext context)
+        public DepartmentDAO (LmsContext context)
         {
             lmsContext=context;
         }

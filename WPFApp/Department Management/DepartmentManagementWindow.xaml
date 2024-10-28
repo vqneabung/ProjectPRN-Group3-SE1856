@@ -5,8 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp.Department_Management"
         mc:Ignorable="d"
+        FontSize="15"
         Title="DepartmentManagementWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Background="#FF009688">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
+            <Button Content="Home" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
+            <Button Content="Manage" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
+            <Button Content="Profile" HorizontalAlignment="Left" Margin="530,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Button Content="Search" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FF3A4551" Foreground="White"/>
+            <Button Content="Create" HorizontalAlignment="Left" Margin="5,90,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFD4EDDA"/>
+            <Button Content="Update" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFFFFDCD"/>
+            <Button Content="Delete" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFF6D7DA"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBox TextWrapping="Wrap" Margin="0,10,0,0" Width="720" Height="30" FontSize="20"/>
+            <DataGrid Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="320">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
     </Grid>
 </Window>
