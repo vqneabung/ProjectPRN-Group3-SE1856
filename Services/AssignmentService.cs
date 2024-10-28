@@ -8,25 +8,38 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class AssignmentService : IAssignmentService
+    public class AssignmentService : IService<Assignment>
     {
-        private readonly IAssignmentRepository _iAssignmentRepository;
+        private readonly IRepository<Assignment> _repository;
 
-        public AssignmentService()
+        public AssignmentService(IRepository<Assignment> repository)
         {
-            _iAssignmentRepository = new AssignmentRepository();
+            _repository = repository;
         }
 
-        public void Add(Assignment assigment)
-            => _iAssignmentRepository.Add(assigment);
+        public void Add(Assignment entity)
+        {
+            _repository.Add(entity);
+        }
 
-        public void Delete(Assignment assigment)
-            => _iAssignmentRepository.Delete(assigment);
+        public void Delete(Assignment entity)
+        {
+            _repository.Delete(entity);
+        }
 
-        public List<Assignment> GetAll()
-            => _iAssignmentRepository.GetAll();
+        public Assignment? Get(int id)
+        {
+            return _repository.GetByID(id);
+        }
 
-        public void Update(Assignment assigment)
-            => _iAssignmentRepository.Update(assigment);
+        public IEnumerable<Assignment>? GetAll()
+        {
+            return _repository.GetAll();
+        }
+
+        public void Update(Assignment entity)
+        {
+            _repository.Update(entity);
+        }
     }
 }

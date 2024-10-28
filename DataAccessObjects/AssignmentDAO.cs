@@ -7,32 +7,53 @@ using System.Threading.Tasks;
 
 namespace DataAccessObjects
 {
-    public class AssignmentDAO
+    public class AssignmentDAO : IDAO<Assignment>
     {
-        public static void Add(Assignment assigment)
-        {
-            
-        }
+        private readonly LmsContext _context;
 
-        public static void Delete(Assignment assigment)
+        public AssignmentDAO(LmsContext context)
         {
-            
+            _context = context;
         }
-
-        public static List<Assignment> GetAll()
+        public void Add(Assignment assigment)
         {
             try
             {
-                List<Assignment> list = new List<Assignment>();
-                using var db = new LmsContext();
-                return list = [.. db.Assignments];
-            }
-            catch (Exception e) { throw new Exception(e.Message); }
+                _context.Assignments.Add(assigment);
+                _context.SaveChanges();
+            }catch (Exception ex) { throw new Exception(ex.Message); }
         }
 
-        public static void Update(Assignment assigment)
+        public void Delete(Assignment assigment)
         {
-            
+            try
+            {
+                _context.Remove(assigment);
+                _context.SaveChanges();
+            }
+            catch (Exception ex) { throw new Exception(ex.Message); }
+        }
+
+        public Assignment GetByID(int id) 
+        {
+            Assignment assignment = _context.Assignments.FirstOrDefault(a => a.AssignmentId == id);
+            return assignment !=null ? assignment : null;
+        }
+
+        public IEnumerable<Assignment> GetAll()
+        {
+            var Assignments = _context.Assignments.ToList();
+            return Assignments != null && Assignments.Any() ? Assignments : null;
+        }
+
+        public void Update(Assignment assigment)
+        {
+            try
+            {
+                _context.Update(assigment);
+                _context.SaveChanges();
+            }
+            catch (Exception ex) { throw new Exception(ex.Message); }
         }
     }
 }

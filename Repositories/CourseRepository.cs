@@ -28,9 +28,9 @@ namespace Repositories
             courseDAO.Delete(entity);
         }
 
-        public Course? Get(int id)
+        public Course? GetByID(int id)
         {
-            return courseDAO.Get(id);
+            return courseDAO.GetByID(id);
         }
 
         public IEnumerable<Course>? GetAll()

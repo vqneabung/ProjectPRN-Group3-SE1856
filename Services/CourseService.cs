@@ -29,9 +29,9 @@ namespace Services
             courseRepository.Delete(entity);
         }
 
-        public Course? Get(int id)
+        public Course? GetByID(int id)
         {
-            return courseRepository.Get(id);
+            return courseRepository.GetByID(id);
         }
 
         public IEnumerable<Course>? GetAll()

@@ -8,18 +8,34 @@ using System.Threading.Tasks;
 
 namespace Repositories
 {
-    public class AssignmentRepository : IAssignmentRepository
+    public class AssignmentRepository : IRepository<Assignment>
     {
-        public void Add(Assignment assigment)
-            => AssignmentDAO.Add(assigment);
+        private readonly AssignmentDAO _assignmentDAO;
 
-        public void Delete(Assignment assigment)
-            => AssignmentDAO.Delete(assigment);
+        public AssignmentRepository(AssignmentDAO assignmentDAO)
+        {
+            _assignmentDAO = assignmentDAO;
+        }
 
-        public List<Assignment> GetAll()
-            => AssignmentDAO.GetAll();
+        public void Add(Assignment entity)
+        {
+            _assignmentDAO.Add(entity);
+        }
 
-        public void Update(Assignment assigment)
-            => AssignmentDAO.Update(assigment);
+        public void Delete(Assignment entity)
+        {
+            _assignmentDAO.Delete(entity);
+        }
+
+        public Assignment? GetByID(int id)
+            => _assignmentDAO.GetByID(id);
+
+        public IEnumerable<Assignment>? GetAll()
+            => _assignmentDAO.GetAll();
+
+        public void Update(Assignment entity)
+        {
+            _assignmentDAO.Update(entity);
+        }
     }
 }

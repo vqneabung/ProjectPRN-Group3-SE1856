@@ -28,9 +28,9 @@ namespace Repositories
             documentDAO.Delete(entity);
         }
 
-        public Document? Get(int id)
+        public Document? GetByID(int id)
         {
-            return documentDAO.Get(id);
+            return documentDAO.GetByID(id);
         }
 
         public IEnumerable<Document>? GetAll()

@@ -27,9 +27,9 @@ namespace Repositories
             _forumDAO.Delete(entity);
         }
 
-        public Forum? Get(int id)
+        public Forum? GetByID(int id)
         {
-           return _forumDAO.Get(id);
+           return _forumDAO.GetByID(id);
         }
 
         public IEnumerable<Forum> GetAll()

@@ -19,7 +19,7 @@ namespace DataAccessObjects
             throw new NotImplementedException();
         }
 
-        public Post Get(int id)
+        public Post GetByID(int id)
         {
             throw new NotImplementedException();
         }

@@ -30,7 +30,7 @@ namespace DataAccessObjects
             _context.SaveChanges();
         }
 
-        public Forum? Get(int id)
+        public Forum? GetByID(int id)
         {
             var forum = _context.Forums.Find(id);
             if (forum == null)

@@ -19,7 +19,7 @@ namespace DataAccessObjects
 
         }
 
-        public CourseType Get(int id)
+        public CourseType GetByID(int id)
         {
             return null;
         }

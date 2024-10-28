@@ -61,7 +61,7 @@ namespace WPFApp
             services.AddSingleton<ForumDAO>();
             services.AddSingleton<PostDAO>();
             services.AddSingleton<SubmissionDAO>();
-            services.AddSingleton<UserDAO>();
+            services.AddSingleton<UserDAO>();   
 
 
 

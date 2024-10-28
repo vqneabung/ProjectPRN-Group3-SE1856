@@ -29,7 +29,7 @@ namespace Services
 
         public Forum? Get(int id)
         {
-            var forum = _repository.Get(id);
+            var forum = _repository.GetByID(id);
             return forum;
         }
 
