@@ -2,6 +2,8 @@
 using DataAccessObjects;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Repositories;
+using Services;
 using System.Configuration;
 using System.Data;
 using System.IO;
@@ -40,15 +42,6 @@ namespace WPFApp
             configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
 
             //services.AddTransient<LoginPage>();
-            //services.AddTransient<HomePage>();
-            //services.AddTransient<AdminPage>();
-            //services.AddTransient<ProfilePage>();
-            //services.AddTransient<BookingReservationPage>();
-            //services.AddTransient<ManageRoomPage>();
-            //services.AddTransient<ManageRoomTypePage>();
-            //services.AddTransient<ManageCustomerPage>();
-            //services.AddTransient<Booking>();
-            //services.AddTransient<BookingReservationPageForCustomer>();
 
             //services.AddSingleton<IConfiguration>(configuration);
 
@@ -63,18 +56,11 @@ namespace WPFApp
             services.AddSingleton<SubmissionDAO>();
             services.AddSingleton<UserDAO>();   
 
+            services.AddScoped<IRepository<Forum>, ForumRespository>();
+
 
 
             //services.AddSingleton<IRoomInformationRepository, RoomInformationRepository>();
-            //services.AddSingleton<IRoomInformationService, RoomInformationService>();
-            //services.AddSingleton<ICustomerRepository, CustomerRepository>();
-            //services.AddSingleton<ICustomerService, CustomerService>();
-            //services.AddSingleton<IRoomTypeRepository, RoomTypeRepository>();
-            //services.AddSingleton<IRoomTypeService, RoomTypeService>();
-            //services.AddSingleton<IBookingReservationService, BookingReservationService>();
-            //services.AddSingleton<IBookingReservationRepository, BookingReservationRepository>();
-            //services.AddSingleton<IBookingDetailRepository, BookingDetailRepository>();
-            //services.AddSingleton<IBookingDetailService, BookingDetailService>();
 
             services.AddDbContext<LmsContext>();
 
