@@ -9,6 +9,7 @@ using System.Data;
 using System.IO;
 using System.Text;
 using System.Windows;
+using WPFApp.Blog___News.BlogNewsData;
 
 namespace WPFApp
 {
@@ -41,10 +42,8 @@ namespace WPFApp
         {
             configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
 
-            //services.AddTransient<LoginPage>();
 
-            //services.AddSingleton<IConfiguration>(configuration);
-
+            //DAO
             services.AddSingleton<AssignmentDAO>();
             services.AddSingleton<BlogNewsDAO>();
             services.AddSingleton<CourseDAO>();
@@ -56,14 +55,23 @@ namespace WPFApp
             services.AddSingleton<SubmissionDAO>();
             services.AddSingleton<UserDAO>();   
 
-            services.AddScoped<IRepository<Forum>, ForumRespository>();
+            services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
+            //Repository
+            services.AddScoped<IRepository<BussinessObjects.Enrollment>, EnrollmentRepository>();
+            services.AddScoped<IRepository<BlogNews>, BlogNewsRepository>();
+            services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
 
 
+            //Service
+            services.AddScoped<IService<BussinessObjects.Forum>, ForumService>();
+            services.AddScoped<IService<BussinessObjects.Enrollment>, EnrollmentService>();
+            services.AddScoped<IService<BlogNews>, BlogNewsService>();
 
-            //services.AddSingleton<IRoomInformationRepository, RoomInformationRepository>();
-
+            //Context
             services.AddDbContext<LmsContext>();
 
+            //Data
+            services.AddScoped<IBlogNewsData,BlogNewsData>();
 
 
         }
