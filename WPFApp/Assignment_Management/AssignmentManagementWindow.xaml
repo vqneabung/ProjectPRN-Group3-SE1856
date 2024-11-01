@@ -9,16 +9,16 @@
     <Grid Background="#FF009688">
         <!--10x10-->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -32,27 +32,56 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        
-        <TextBlock 
-            Grid.Row="0"
-            Grid.Column="0" Grid.ColumnSpan="4"
-            VerticalAlignment="Center" HorizontalAlignment="Center"
-            TextWrapping="Wrap"
-            Text="Assignment Management" 
-            FontSize="20" Foreground="White" FontWeight="Bold"
+
+        <!--Header-->
+        <Button x:Name="btn1" Grid.Column="0" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+        <Button x:Name="btn2" Grid.Column="1" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+        <Button x:Name="btn3" Grid.Column="2" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+        <Button x:Name="btn4" Grid.Column="9" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+
+        <!--Search bar-->
+        <Button Click="Search_btn"  
+                Grid.Column="0" Grid.Row="1"
+                Content="Search" 
+                Width="70" Height="30" 
+                Background="#FFBAB1DC"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="9"
+                 Text="Search box" x:Name="txtSearch"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Left" 
+                 Height="35" Width="630"
+                 FontSize="18" 
         />
         
         
-        <DataGrid 
+        <!--Assignment Buttons-->
+        <Button Click="Add_btn" Content="Add" Width="70" Height="30" Grid.Column="0" Grid.Row="4"
+                Background="#FF52EF78"/>
+        <Button Click="Update_btn" Content="Update" Width="70" Height="30" Grid.Column="0" Grid.Row="5"
+                Background="#FFEFA152"/>
+        <Button Click="Delete_btn" Content="Delete" Width="70" Height="30" Grid.Column="0" Grid.Row="6"
+                Background="#FFEF5252"/>
+        
+        <DataGrid
             x:Name="AssignmentData"
-            Grid.Row="5" Grid.RowSpan="5"
-            Grid.Column="0" Grid.ColumnSpan="8"
+            Grid.Row="4" Grid.RowSpan="6"
+            Grid.Column="1" Grid.ColumnSpan="9"
             VerticalAlignment="Top" HorizontalAlignment="Left"
-            d:ItemsSource="{d:SampleData ItemCount=4}"
-        />
-        
-        
-        
+            Height="250" Width="700"
+            Background="#FF3D5454"
+        >
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="40" Header="Id" Binding="{Binding }"/>
+                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
+                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
+                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
+                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
+            </DataGrid.Columns>
+            
+        </DataGrid>
+
+
+
 
 
 
