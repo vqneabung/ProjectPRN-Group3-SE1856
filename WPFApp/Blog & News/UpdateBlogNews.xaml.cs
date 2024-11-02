@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using BussinessObjects;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,12 +21,12 @@ namespace WPFApp.Blog___News
     /// Interaction logic for CreateBlogNews.xaml
     /// </summary>
     /// 
-    public partial class CreateBlogNews : Window
+    public partial class UpdateBlogNews : Window
     {
-        private readonly BlogNewsService _blogNewsService;
+        private readonly IService<BlogNews> _blogNewsService;
         private readonly IBlogNewsData _blogNewsData;
 
-        public CreateBlogNews(BlogNewsService blogNewsService, IBlogNewsData blogNewsData)
+        public UpdateBlogNews(IService<BlogNews> blogNewsService, IBlogNewsData blogNewsData)
         {
             InitializeComponent();
             _blogNewsService = blogNewsService;
@@ -45,13 +46,13 @@ namespace WPFApp.Blog___News
         {
             var title = tbTitle.Text;
             var content = GetRichTextBoxContents(rtbContent);
-            var category = tbCategory.Text; 
+            var category = tbCategory.Text;
 
             var blogNews = new BussinessObjects.BlogNews
             {
                 Title = title,
                 Content = content,
-                PostDate = DateOnly.FromDateTime(DateTime.Now)
+                PostDate = DateOnly.FromDateTime(DateTime.Now),
                 Category = category
             };
 

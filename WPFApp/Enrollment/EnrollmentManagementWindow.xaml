@@ -30,26 +30,26 @@
             <StackPanel Orientation="Vertical">
                 <StackPanel>
                     <Label Content="Enrollment Id"/>
-                    <TextBox x:Name="EnrollmentId_TextBox"/>
+                    <TextBox x:Name="tbEnrollmentId"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Student"/>
-                    <TextBox x:Name="Student_TextBox"/>
+                    <TextBox x:Name="tbStudent"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Course"/>
-                    <TextBox x:Name="Course_TextBox"/>
+                    <TextBox x:Name="tbCourse"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="Status"/>
-                    <TextBox x:Name="Status_TextBox"/>
+                    <TextBox x:Name="tbStatus"/>
                 </StackPanel>
                 <StackPanel>
                     <Label Content="EnrollmentDate"/>
-                    <TextBox x:Name="EnrollmentDate_TextBox"/>
+                    <TextBox x:Name="tbEnrollmentDate"/>
                 </StackPanel>
             </StackPanel>
-            <DataGrid x:Name="dgEnrollment" Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="320" AutoGenerateColumns="False" SelectionChanged="dgEnrollment_SelectionChanged">
+            <DataGrid x:Name="dgEnrollment" Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="320" AutoGenerateColumns="False">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Enrollment ID" Binding="{Binding EnrollmentID}" Width="*"/>
                     <DataGridTextColumn Header="Student ID" Binding="{Binding StudentID}" Width="*"/>

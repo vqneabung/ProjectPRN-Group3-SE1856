@@ -9,7 +9,10 @@ using System.Data;
 using System.IO;
 using System.Text;
 using System.Windows;
+using WPFApp.Blog___News;
 using WPFApp.Blog___News.BlogNewsData;
+using WPFApp.Enrollment;
+using WPFApp.Forum;
 
 namespace WPFApp
 {
@@ -34,14 +37,15 @@ namespace WPFApp
             //var login = ServiceProvider.GetRequiredService<LoginPage>();
             //login.Show();
 
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+
 
         }
 
 
         private void ConfigureService(IServiceCollection services)
         {
-            configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
-
 
             //DAO
             services.AddSingleton<AssignmentDAO>();
@@ -72,6 +76,12 @@ namespace WPFApp
 
             //Data
             services.AddScoped<IBlogNewsData,BlogNewsData>();
+
+            //Windows
+            services.AddScoped<CreateBlogNews>();
+            services.AddScoped<MainWindow>();
+            services.AddScoped<EnrollmentManagementWindow>();
+            services.AddScoped<ForumWindow>();
 
 
         }

@@ -21,19 +21,19 @@ namespace WPFApp
     /// </summary>
     public partial class AssignmentManagementWindow : Window
     {
-        private readonly IAssignmentService _iAssignmentService;
+        private readonly AssignmentService _AssignmentService;
 
-        public AssignmentManagementWindow()
+        public AssignmentManagementWindow(AssignmentService assignmentService)
         {
             InitializeComponent();
-            _iAssignmentService = new AssignmentService();
+            _AssignmentService = assignmentService;
         }
 
         public void loadData()
         {
             try
             {
-                var assignmentList = _iAssignmentService.GetAll();
+                var assignmentList = _AssignmentService.GetAll();
                 AssignmentData.ItemsSource = assignmentList;
             } catch (Exception ex) { throw new Exception(ex.Message); }
         }

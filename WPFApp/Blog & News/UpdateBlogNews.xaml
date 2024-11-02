@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPFApp.Blog___News"
         mc:Ignorable="d"
         Title="CreateBlogNews" Height="450" Width="800">
-    <Grid Background="#FF009688">
+    <Grid Background="#FF009688" Margin="0,0,0,-51">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
@@ -26,8 +26,10 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
             <Label Content="Title"/>
-            <TextBox TextWrapping="Wrap" Text="Title" Width="721" Height="37" x:Name="tbTitle"  TextChanged="tbTitle_TextChanged" Margin="0 0 0 10"/>
-            <TextBox TextWrapping="Wrap" Text="Category" Width="721" Height="37" x:Name="tbCategory"  TextChanged="tbCategory_TextChanged" Margin="0 0 0 10"/>
+            <TextBox TextWrapping="Wrap" Text="Title" Width="721" Height="37" x:Name="tbTitle" Margin="0 0 0 10"/>
+            <Label Content="Category"/>
+            <TextBox TextWrapping="Wrap" Text="Category" Width="721" Height="37" x:Name="tbCategory" Margin="0 0 0 10"/>
+            <Label Content="Content"/>
             <RichTextBox Height="235" x:Name="rtbContent">
                 <FlowDocument>
                     <Paragraph>

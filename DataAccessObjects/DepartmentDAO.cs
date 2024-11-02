@@ -42,9 +42,9 @@ namespace DataAccessObjects
         {
             try
             {
-                var temp = lmsContext.Courses.SingleOrDefault(c => c.DepartmentId == entity.DepartmentId);
-                lmsContext.Departments.Remove(temp);
-                lmsContext.SaveChanges();
+                //var temp = lmsContext.Courses.SingleOrDefault(c => c.DepartmentId == entity.DepartmentId);
+                //lmsContext.Departments.Remove(temp);
+                //lmsContext.SaveChanges();
             }
             catch (Exception ex)
             {

@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:WPFApp.Forum"
         mc:Ignorable="d"
         Title="ForumWindow" Height="450" Width="800">
-    <Grid Background="#FF009688">
+    <Grid Background="#FF009688" Margin="0,0,-417,-314">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="797*"/>
+            <RowDefinition Height="32*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="80"/>
@@ -20,21 +21,21 @@
             <Button Content="Manage" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
             <Button Content="Profile" HorizontalAlignment="Left" Margin="530,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button Content="Search" x:Name="btnSearch" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FF3A4551" Foreground="White" Click="btnSearch_Click"/>
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
             <Button Content="Create" x:Name="btnCreate" HorizontalAlignment="Left" Margin="5,90,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFD4EDDA" Click="btnCreate_Click"/>
-            <Button Content="Update" x:Name="btnUpdate" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFFFFDCD" Click="btnUpdate_Click"/>
             <Button Content="Delete" x:Name="btnDelete" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFF6D7DA" Click="btnDelete_Click"/>
+            <Button Content="Enter" x:Name="btnCreate_Copy" Height="30" Width="70" Background="#FFD4EDDA" Click="btnCreate_Click"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBox TextWrapping="Wrap" Margin="0,10,0,0" Width="720" Height="30" FontSize="20"/>
-            <DataGrid x:Name="dgForum"  Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="320">
+        <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
+            <Label Content="Course"/>
+            <TextBox TextWrapping="Wrap" Text="TextBox" Width="1136" Height="46"/>
+            <Label Content="Title" Height="35"/>
+            <TextBox TextWrapping="Wrap" Text="TextBox" Width="1136" Height="39"/>
+            <DataGrid x:Name="dgForum"  Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="536">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding ''}" Width="*"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding ''}" Width="*"/>
+                    <DataGridTextColumn Header="Create Date" Binding="{Binding ''}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

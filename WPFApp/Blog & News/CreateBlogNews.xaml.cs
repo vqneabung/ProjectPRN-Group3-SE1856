@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using BussinessObjects;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,10 +20,11 @@ namespace WPFApp.Blog___News
     /// Interaction logic for CreateBlogNews.xaml
     /// </summary>
     /// 
-    public partial class UpdateBlogNews : Window
+    public partial class CreateBlogNews : Window
     {
-        private readonly BlogNewsService _blogNewsService;
-        public UpdateBlogNews(BlogNewsService blogNewsService)
+        private readonly IService<BlogNews> _blogNewsService;
+
+        public CreateBlogNews(IService<BlogNews> blogNewsService)
         {
             InitializeComponent();
             _blogNewsService = blogNewsService;
