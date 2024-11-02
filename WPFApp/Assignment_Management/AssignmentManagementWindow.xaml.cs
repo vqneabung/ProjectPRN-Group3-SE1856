@@ -1,4 +1,5 @@
 ﻿using BussinessObjects;
+using Repositories;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -21,12 +22,12 @@ namespace WPFApp
     /// </summary>
     public partial class AssignmentManagementWindow : Window
     {
-        private readonly AssignmentService _AssignmentService;
+        private readonly IService<Assignment> _iAssignmentService;
 
-        public AssignmentManagementWindow(AssignmentService assignmentService)
+        public AssignmentManagementWindow(IService<Assignment> iAssignmentService)
         {
             InitializeComponent();
-            _AssignmentService = assignmentService;
+            _iAssignmentService = iAssignmentService;
         }
 
         public void loadData()
