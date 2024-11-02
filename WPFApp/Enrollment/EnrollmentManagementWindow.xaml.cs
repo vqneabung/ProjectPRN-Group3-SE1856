@@ -38,19 +38,38 @@ namespace WPFApp.Enrollment
 
         }   
 
-        private void CreateEnrollment_Click(object sender, RoutedEventArgs e)
+  private void CreateEnrollment_Click(object sender, RoutedEventArgs e)
         {
-
+            var newEnrollment = new BussinessObjects.Enrollment
+            {
+                // Set properties for the new enrollment
+                StudentId = 1, // Example value
+                CourseId = 1, // Example value
+                EnrollmentDate = DateOnly.FromDateTime(DateTime.Now)
+            };
+            _enrollmentService.Add(newEnrollment);
+            LoadEnrollments();
         }
 
         private void UpdateEnrollment_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dgEnrollment.SelectedItem is BussinessObjects.Enrollment selectedEnrollment)
+            {
+                selectedEnrollment.StudentId = 2; // Example value
+                selectedEnrollment.CourseId = 2; // Example value
+                selectedEnrollment.EnrollmentDate = DateOnly.FromDateTime(DateTime.Now);
+                _enrollmentService.Update(selectedEnrollment);
+                LoadEnrollments();
+            }
         }
 
         private void DeleteEnrollment_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dgEnrollment.SelectedItem is BussinessObjects.Enrollment selectedEnrollment)
+            {
+                _enrollmentService.Delete(selectedEnrollment);
+                LoadEnrollments();
+            }
         }
 
     }

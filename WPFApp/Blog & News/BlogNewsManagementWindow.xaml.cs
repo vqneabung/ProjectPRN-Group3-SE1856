@@ -40,22 +40,47 @@ namespace WPFApp.Blog___News
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-
+            CreateBlogNews createBlogNews = App.ServiceProvider.GetRequiredService<CreateBlogNews>();
+            createBlogNews.ShowDialog();
+            LoadBlogNews();
         }
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
-
+            string searchTerm = txtSearch.Text;
+            var filteredBlogNews = _blogNewsService.GetAll()
+                .Where(bn => bn.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                             bn.Content.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+            dgBlogNews.ItemsSource = filteredBlogNews;
         }
 
-        private void btnUpdate_Click_1(object sender, RoutedEventArgs e)
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-            UpdateBlogNews updateBlogNews = App.ServiceProvider.GetRequiredService<UpdateBlogNews>();
+            if (dgBlogNews.SelectedItem is BlogNews selectedBlogNews)
+            {
+                UpdateBlogNews updateBlogNews = App.ServiceProvider.GetRequiredService<UpdateBlogNews>();
+                updateBlogNews.LoadBlogNews(selectedBlogNews);
+                updateBlogNews.ShowDialog();
+                LoadBlogNews();
+            }
+            else
+            {
+                MessageBox.Show("Please select a blog news item to update.");
+            }
         }
 
-        private void btnDelete_Click_2(object sender, RoutedEventArgs e)
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dgBlogNews.SelectedItem is BlogNews selectedBlogNews)
+            {
+                _blogNewsService.Delete(selectedBlogNews);
+                LoadBlogNews();
+            }
+            else
+            {
+                MessageBox.Show("Please select a blog news item to delete.");
+            }
         }
     }
 }
