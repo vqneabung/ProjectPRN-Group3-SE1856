@@ -19,6 +19,8 @@ public partial class LmsContext : DbContext
 
     public virtual DbSet<BlogNews> BlogNews { get; set; }
 
+    public virtual DbSet<Class> Classes { get; set; }
+
     public virtual DbSet<Course> Courses { get; set; }
 
     public virtual DbSet<CourseType> CourseTypes { get; set; }
@@ -45,26 +47,26 @@ public partial class LmsContext : DbContext
     {
         modelBuilder.Entity<Assignment>(entity =>
         {
-            entity.HasKey(e => e.AssignmentId).HasName("PK__Assignme__32499E571125442E");
+            entity.HasKey(e => e.AssignmentId).HasName("PK__Assignme__32499E57F797EA08");
 
             entity.ToTable("Assignment");
 
             entity.Property(e => e.AssignmentId)
                 .ValueGeneratedNever()
                 .HasColumnName("AssignmentID");
-            entity.Property(e => e.CourseId).HasColumnName("CourseID");
+            entity.Property(e => e.ClassId).HasColumnName("ClassID");
             entity.Property(e => e.Description).HasMaxLength(255);
             entity.Property(e => e.Password).HasMaxLength(50);
             entity.Property(e => e.Title).HasMaxLength(100);
 
-            entity.HasOne(d => d.Course).WithMany(p => p.Assignments)
-                .HasForeignKey(d => d.CourseId)
-                .HasConstraintName("FK__Assignmen__Cours__440B1D61");
+            entity.HasOne(d => d.Class).WithMany(p => p.Assignments)
+                .HasForeignKey(d => d.ClassId)
+                .HasConstraintName("FK_Assignment_Class");
         });
 
         modelBuilder.Entity<BlogNews>(entity =>
         {
-            entity.HasKey(e => e.PostId).HasName("PK__BlogNews__AA12603812F3CE88");
+            entity.HasKey(e => e.PostId).HasName("PK__BlogNews__AA126038F0F27861");
 
             entity.Property(e => e.PostId)
                 .ValueGeneratedNever()
@@ -75,12 +77,27 @@ public partial class LmsContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.BlogNews)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__BlogNews__UserID__49C3F6B7");
+                .HasConstraintName("FK__BlogNews__UserID__5DCAEF64");
+        });
+
+        modelBuilder.Entity<Class>(entity =>
+        {
+            entity.ToTable("Class");
+
+            entity.Property(e => e.ClassId).HasColumnName("ClassID");
+            entity.Property(e => e.ClassName)
+                .HasMaxLength(100)
+                .IsFixedLength();
+            entity.Property(e => e.CourseId).HasColumnName("CourseID");
+
+            entity.HasOne(d => d.Course).WithMany(p => p.Classes)
+                .HasForeignKey(d => d.CourseId)
+                .HasConstraintName("FK_Class_Course");
         });
 
         modelBuilder.Entity<Course>(entity =>
         {
-            entity.HasKey(e => e.CourseId).HasName("PK__Course__C92D718730F5196A");
+            entity.HasKey(e => e.CourseId).HasName("PK__Course__C92D718729E36573");
 
             entity.ToTable("Course");
 
@@ -91,19 +108,22 @@ public partial class LmsContext : DbContext
             entity.Property(e => e.CourseTypeId).HasColumnName("CourseTypeID");
             entity.Property(e => e.DepartmentId).HasColumnName("DepartmentID");
             entity.Property(e => e.Description).HasMaxLength(255);
+            entity.Property(e => e.Status)
+                .HasMaxLength(10)
+                .IsFixedLength();
 
             entity.HasOne(d => d.CourseType).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.CourseTypeId)
-                .HasConstraintName("FK__Course__CourseTy__3E52440B");
+                .HasConstraintName("FK__Course__CourseTy__5EBF139D");
 
             entity.HasOne(d => d.Department).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.DepartmentId)
-                .HasConstraintName("FK__Course__Departme__3D5E1FD2");
+                .HasConstraintName("FK__Course__Departme__5FB337D6");
         });
 
         modelBuilder.Entity<CourseType>(entity =>
         {
-            entity.HasKey(e => e.CourseTypeId).HasName("PK__CourseTy__81736952935FD167");
+            entity.HasKey(e => e.CourseTypeId).HasName("PK__CourseTy__81736952FC52C112");
 
             entity.ToTable("CourseType");
 
@@ -115,7 +135,7 @@ public partial class LmsContext : DbContext
 
         modelBuilder.Entity<Department>(entity =>
         {
-            entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__B2079BCDEE1AB689");
+            entity.HasKey(e => e.DepartmentId).HasName("PK__Departme__B2079BCD8326B334");
 
             entity.ToTable("Department");
 
@@ -128,7 +148,7 @@ public partial class LmsContext : DbContext
 
         modelBuilder.Entity<Document>(entity =>
         {
-            entity.HasKey(e => e.DocumentId).HasName("PK__Document__1ABEEF6F72D8E651");
+            entity.HasKey(e => e.DocumentId).HasName("PK__Document__1ABEEF6FF4001172");
 
             entity.ToTable("Document");
 
@@ -141,12 +161,12 @@ public partial class LmsContext : DbContext
 
             entity.HasOne(d => d.Course).WithMany(p => p.Documents)
                 .HasForeignKey(d => d.CourseId)
-                .HasConstraintName("FK__Document__Course__534D60F1");
+                .HasConstraintName("FK__Document__Course__60A75C0F");
         });
 
         modelBuilder.Entity<Enrollment>(entity =>
         {
-            entity.HasKey(e => e.EnrollmentId).HasName("PK__Enrollme__7F6877FBE64735A1");
+            entity.HasKey(e => e.EnrollmentId).HasName("PK__Enrollme__7F6877FBDA1D8001");
 
             entity.ToTable("Enrollment");
 
@@ -158,12 +178,16 @@ public partial class LmsContext : DbContext
 
             entity.HasOne(d => d.Course).WithMany(p => p.Enrollments)
                 .HasForeignKey(d => d.CourseId)
-                .HasConstraintName("FK__Enrollmen__Cours__412EB0B6");
+                .HasConstraintName("FK__Enrollmen__Cours__619B8048");
+
+            entity.HasOne(d => d.Student).WithMany(p => p.Enrollments)
+                .HasForeignKey(d => d.StudentId)
+                .HasConstraintName("FK_Enrollment_User");
         });
 
         modelBuilder.Entity<Forum>(entity =>
         {
-            entity.HasKey(e => e.ForumId).HasName("PK__Forum__E210AC4F14FEACF0");
+            entity.HasKey(e => e.ForumId).HasName("PK__Forum__E210AC4F4477D360");
 
             entity.ToTable("Forum");
 
@@ -175,12 +199,12 @@ public partial class LmsContext : DbContext
 
             entity.HasOne(d => d.Course).WithMany(p => p.Forums)
                 .HasForeignKey(d => d.CourseId)
-                .HasConstraintName("FK__Forum__CourseID__4CA06362");
+                .HasConstraintName("FK__Forum__CourseID__628FA481");
         });
 
         modelBuilder.Entity<Post>(entity =>
         {
-            entity.HasKey(e => e.PostId).HasName("PK__Post__AA1260384422FD6D");
+            entity.HasKey(e => e.PostId).HasName("PK__Post__AA1260381E94A71F");
 
             entity.ToTable("Post");
 
@@ -192,16 +216,16 @@ public partial class LmsContext : DbContext
 
             entity.HasOne(d => d.Forum).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.ForumId)
-                .HasConstraintName("FK__Post__ForumID__4F7CD00D");
+                .HasConstraintName("FK__Post__ForumID__2E1BDC42");
 
             entity.HasOne(d => d.User).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Post__UserID__5070F446");
+                .HasConstraintName("FK__Post__UserID__6477ECF3");
         });
 
         modelBuilder.Entity<Submission>(entity =>
         {
-            entity.HasKey(e => e.SubmissionId).HasName("PK__Submissi__449EE10554A8D8BC");
+            entity.HasKey(e => e.SubmissionId).HasName("PK__Submissi__449EE105C0D67567");
 
             entity.ToTable("Submission");
 
@@ -214,12 +238,12 @@ public partial class LmsContext : DbContext
 
             entity.HasOne(d => d.Assignment).WithMany(p => p.Submissions)
                 .HasForeignKey(d => d.AssignmentId)
-                .HasConstraintName("FK__Submissio__Assig__46E78A0C");
+                .HasConstraintName("FK__Submissio__Assig__300424B4");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId).HasName("PK__User__1788CCAC50333617");
+            entity.HasKey(e => e.UserId).HasName("PK__User__1788CCACF2C2B1B0");
 
             entity.ToTable("User");
 
@@ -230,6 +254,9 @@ public partial class LmsContext : DbContext
             entity.Property(e => e.FullName).HasMaxLength(100);
             entity.Property(e => e.Password).HasMaxLength(50);
             entity.Property(e => e.Role).HasMaxLength(50);
+            entity.Property(e => e.Status)
+                .HasMaxLength(10)
+                .IsFixedLength();
             entity.Property(e => e.UserName).HasMaxLength(50);
         });
 

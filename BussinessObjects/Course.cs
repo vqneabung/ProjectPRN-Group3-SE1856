@@ -15,9 +15,11 @@ public partial class Course
 
     public int? DepartmentId { get; set; }
 
+    public string? Status { get; set; }
+
     public int? CourseTypeId { get; set; }
 
-    public virtual ICollection<Assignment> Assignments { get; set; } = new List<Assignment>();
+    public virtual ICollection<Class> Classes { get; set; } = new List<Class>();
 
     public virtual CourseType? CourseType { get; set; }
 

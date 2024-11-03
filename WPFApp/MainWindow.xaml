@@ -5,8 +5,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Login Window" Height="300" Width="500">
     <Grid>
+        <StackPanel>
+            <Label Target="{Binding ElementName=txtUserName}" Content="Username"/>
+            <TextBox Name="txtUserName" Width="390"/>
 
+            <Label Target="{Binding ElementName=txtPassword}" Content="Password"/>
+            <PasswordBox Name="txtPassword" Width="390"/>
+
+            <Button Click="btnLogin_Click" Content="Login" Margin="200,10"/>
+            <Button Click="btnClose_Click" Content="Close" Margin="200,10"/>
+        </StackPanel>
     </Grid>
 </Window>
