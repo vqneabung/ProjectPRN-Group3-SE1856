@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.User_Manager;
 
 namespace WPFApp.Login_and_home_page_of_each_role
 {
@@ -78,6 +79,23 @@ namespace WPFApp.Login_and_home_page_of_each_role
                     DepartmentCount = DepartmentCount
                 }
             };
+        }
+
+        private void UserManagement_Click(object sender, RoutedEventArgs e)
+        {
+            UserManagementWindowForStaff userManagementWindowForStaff = new UserManagementWindowForStaff();
+            userManagementWindowForStaff.Show();
+            this.Close();
+        }
+
+        private void CourseManagement_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void EnrollmentManagement_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
