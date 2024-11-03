@@ -180,19 +180,6 @@
             Grid.Row="3" VerticalAlignment="Top" Foreground="White" 
             FontSize="14"
             />
-        <xctk:IntegerUpDown 
-            Visibility="Hidden"
-            x:Name="txtMaxCapacity" 
-            Maximum="10000"
-            Minimum="0"
-            Increment="1"
-            Value="0"
-            Grid.Column="1" Grid.ColumnSpan="4" 
-            HorizontalAlignment="Left" 
-            Margin="0,10,0,0" Grid.Row="3" 
-            VerticalAlignment="Top" 
-            Width="250" Height="30" FontSize="14"
-            />
 
         <!--RoomStatus-->
         <Label  
@@ -219,23 +206,6 @@
             Grid.Row="4" VerticalAlignment="Center" Foreground="#FFFBFBFB"/>
 
         <!--RoomPricePerDay-->
-        <Label  
-            Visibility="Hidden"
-            x:Name="labelPricePerDay"
-            Content="Price per day " HorizontalAlignment="Center" Margin="0,10,0,0" 
-            Grid.Row="5" VerticalAlignment="Top" Foreground="White" 
-            FontSize="14"/>
-        <xctk:DecimalUpDown
-            Visibility="Hidden"
-            x:Name="PricePerDay"
-            Width="100"
-            Minimum="0.00"
-            Maximum="10000.00"
-            Increment="0.01"
-            FormatString="F2"
-            Grid.Column="1" Grid.ColumnSpan="2"
-            HorizontalAlignment="Left" Margin="10,0,0,0" 
-            Grid.Row="5" VerticalAlignment="Center" Foreground="Black"/>
 
         <!--Type-->
         <Label  

@@ -50,7 +50,7 @@ namespace WPFApp.Blog___News
 
         private void btnUpdate_Click_1(object sender, RoutedEventArgs e)
         {
-            UpdateBlogNews updateBlogNews = App.ServiceProvider.GetRequiredService<UpdateBlogNews>();
+            //UpdateBlogNews updateBlogNews = App.GetRequiredService<UpdateBlogNews>();
         }
 
         private void btnDelete_Click_2(object sender, RoutedEventArgs e)

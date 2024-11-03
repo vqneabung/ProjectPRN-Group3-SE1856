@@ -53,5 +53,14 @@ namespace WPFApp.Enrollment
 
         }
 
+        private void dgEnrollment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

@@ -53,15 +53,10 @@
                  FontSize="18" 
         />
         
-        
         <!--Assignment Buttons-->
         <Button Click="Add_btn" Content="Add" Width="70" Height="30" Grid.Column="0" Grid.Row="4"
                 Background="#FF52EF78"/>
-        <Button Click="Update_btn" Content="Update" Width="70" Height="30" Grid.Column="0" Grid.Row="5"
-                Background="#FFEFA152"/>
-        <Button Click="Delete_btn" Content="Delete" Width="70" Height="30" Grid.Column="0" Grid.Row="6"
-                Background="#FFEF5252"/>
-        
+
         <DataGrid
             x:Name="AssignmentData"
             Grid.Row="4" Grid.RowSpan="6"

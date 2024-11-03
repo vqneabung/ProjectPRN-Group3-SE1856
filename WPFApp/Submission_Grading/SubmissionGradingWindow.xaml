@@ -34,10 +34,10 @@
         </Grid.RowDefinitions>
 
         <!--Header-->
-        <Button x:Name="btn1" Grid.Column="0" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
-        <Button x:Name="btn2" Grid.Column="1" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
-        <Button x:Name="btn3" Grid.Column="2" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
-        <Button x:Name="btn4" Grid.Column="9" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+        <Button x:Name="btn1" Click="btn1_Click" Grid.Column="0" Content="Main" Width="70" Height="30" Background="AntiqueWhite" Margin="5,7,5,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn2" Click="btn2_Click" Grid.Column="1" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+        <Button x:Name="btn3" Click="btn3_Click" Grid.Column="2" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+        <Button x:Name="btn4" Click="btn4_Click" Grid.Column="9" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
 
         <!--Search bar-->
         <Button Click="Search_btn"  
@@ -55,12 +55,8 @@
 
 
         <!--Submission Buttons-->
-        <Button Click="Add_btn" Content="Add" Width="70" Height="30" Grid.Column="0" Grid.Row="4"
+        <Button Click="Button_Click" Content="Add" Width="70" Height="30" Grid.Column="0" Grid.Row="4"
             Background="#FF52EF78"/>
-        <Button Click="Update_btn" Content="Update" Width="70" Height="30" Grid.Column="0" Grid.Row="5"
-            Background="#FFEFA152"/>
-        <Button Click="Delete_btn" Content="Delete" Width="70" Height="30" Grid.Column="0" Grid.Row="6"
-            Background="#FFEF5252"/>
 
         <DataGrid
         x:Name="SubmissGradingData"

@@ -51,7 +51,7 @@ namespace WPFApp.Blog___News
             {
                 Title = title,
                 Content = content,
-                PostDate = DateOnly.FromDateTime(DateTime.Now)
+                PostDate = DateOnly.FromDateTime(DateTime.Now),
                 Category = category
             };
 
