@@ -7,6 +7,19 @@
         mc:Ignorable="d"
         Title="CourseManagementWindowForHead" Height="450" Width="800">
     <Grid>
-        
+        <DataGrid x:Name="CourseDataGrid" 
+                  AutoGenerateColumns="False" 
+                  IsReadOnly="True" 
+                  Margin="10,61,10,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Course ID" Binding="{Binding CourseId}" Width="*"/>
+                <DataGridTextColumn Header="Course Name" Binding="{Binding CourseName}" Width="*"/>
+                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="2*"/>
+                <DataGridTextColumn Header="Credits" Binding="{Binding Credits}" Width="*"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Content="Home" HorizontalAlignment="Left" Margin="10,18,0,0" VerticalAlignment="Top" Height="28" Width="75" Click="Home_Click"/>
+        <Button Content="Logout" HorizontalAlignment="Left" Margin="115,18,0,0" VerticalAlignment="Top" Height="28" Width="75" Click="Logout_Click"/>
     </Grid>
 </Window>
