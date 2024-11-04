@@ -45,8 +45,33 @@ namespace WPFApp.User_Manager
             dgUser.ItemsSource = users;
         }
 
+        private bool ValidateFields()
+        {
+            // Check if any field is empty
+            if (string.IsNullOrWhiteSpace(txtUserName.Text) ||
+                string.IsNullOrWhiteSpace(txtPassword.Password) ||
+                string.IsNullOrWhiteSpace(txtFullName.Text) ||
+                string.IsNullOrWhiteSpace(txtEmail.Text) ||
+                string.IsNullOrWhiteSpace(txtStatus.Text) ||
+                RoleComboBox.SelectedItem == null)
+            {
+                MessageBox.Show("All fields must be filled.");
+                return false;
+            }
+
+            // Validate email format (must be ...@gmail.com)
+            if (!System.Text.RegularExpressions.Regex.IsMatch(txtEmail.Text, @"^[^@\s]+@gmail\.com$"))
+            {
+                MessageBox.Show("Email must be in the format ...@gmail.com.");
+                return false;
+            }
+
+            return true;
+        }
+
         private void btnAddUser_Click(object sender, RoutedEventArgs e)
         {
+            if (!ValidateFields()) return;
             int newUserId = userDao.GetNextUserId();
             var user = new User
             {
@@ -66,6 +91,7 @@ namespace WPFApp.User_Manager
 
         private void btnUpdateUser_Click(object sender, RoutedEventArgs e)
         {
+            if (!ValidateFields()) return;
             var selectedUser = dgUser.SelectedItem as User;
             if (selectedUser == null)
             {
