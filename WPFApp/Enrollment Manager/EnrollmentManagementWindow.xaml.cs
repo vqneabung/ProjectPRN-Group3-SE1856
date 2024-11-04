@@ -13,7 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WPFApp.Enrollment
+namespace WPFApp.Enrollment_Manager
 {
     /// <summary>
     /// Interaction logic for EnrollmentManagementWindow.xaml
