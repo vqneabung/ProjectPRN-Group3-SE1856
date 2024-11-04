@@ -1,0 +1,84 @@
+﻿<Window x:Class="WPFApp.Course_Management.CourseManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApp.Course_Management"
+        mc:Ignorable="d"
+        Title="Course Management" Height="500" Width="800">
+    <Grid>
+        <TabControl>
+            <!-- Tab 1: CRUD for Courses -->
+            <TabItem Header="Manage Courses">
+                <Grid Margin="10">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Course Name:" Width="100" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txtCourseName" Width="300" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Description:" Width="100" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txtCourseDescription" Width="300" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Credits:" Width="100" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txtCredits" Width="300" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Department:" Width="100" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cbDepartments" Width="300" Margin="5" DisplayMemberPath="DepartmentName" SelectedValuePath="DepartmentId" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Status:" Width="100" VerticalAlignment="Center"/>
+                            <TextBox x:Name="txtStatus" Width="300" Margin="5"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Label Content="Course Type:" Width="100" VerticalAlignment="Center"/>
+                            <ComboBox x:Name="cbCourseTypes" Width="300" Margin="5" DisplayMemberPath="CourseTypeName" SelectedValuePath="CourseTypeId" />
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <Button x:Name="btnAddCourse" Content="Add Course" Width="100" Margin="5" Click="BtnAddCourse_Click" />
+                            <Button x:Name="btnUpdateCourse" Content="Update Course" Width="100" Margin="5" Click="BtnUpdateCourse_Click" />
+                            <Button x:Name="btnDeleteCourse" Content="Delete Course" Width="100" Margin="5" Click="BtnDeleteCourse_Click" />
+                        </StackPanel>
+
+                        <DataGrid x:Name="dgCourses" AutoGenerateColumns="False" Width="750" Margin="5" 
+                                  SelectionChanged="DgCourses_SelectionChanged">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="ID" Binding="{Binding CourseId}" Width="150"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding CourseName}" Width="150"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="150"/>
+                                <DataGridTextColumn Header="Credits" Binding="{Binding Credits}" Width="150"/>
+                                <DataGridTextColumn Header="Department ID" Binding="{Binding DepartmentId}" Width="150"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <!-- Tab 2: List of Students Enrolled in Selected Course -->
+            <TabItem Header="Enrolled Students">
+                <Grid Margin="10">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                        <ComboBox x:Name="cbCourses" Width="300" DisplayMemberPath="CourseName" 
+                                  SelectedValuePath="CourseId" Margin="5"/>
+                        <Button x:Name="btnSearchStudents" Content="Search Enrolled Students" Width="200" Margin="5" Click="BtnSearchStudents_Click" />
+
+                        <DataGrid x:Name="dgEnrolledStudents" AutoGenerateColumns="False" Width="750" Margin="5">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Student ID" Binding="{Binding Student.UserId}" Width="100"/>
+                                <DataGridTextColumn Header="Name" Binding="{Binding Student.FullName}" Width="200"/>
+                                <DataGridTextColumn Header="Email" Binding="{Binding Student.Email}" Width="250"/>
+                                <DataGridTextColumn Header="Status" Binding="{Binding Student.Status}" Width="100"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Button Content="Home" HorizontalAlignment="Left" Margin="708,28,0,0" VerticalAlignment="Top" Height="30" Width="70" Background="Transparent" Click="Home_Click"/>
+        <Button Content="Logout" HorizontalAlignment="Left" Margin="708,78,0,0" VerticalAlignment="Top" Height="30" Width="70" Background="Transparent" Click="Logout_Click"/>
+
+    </Grid>
+</Window>

@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.Course_Management;
 
 namespace WPFApp.Login_and_home_page_of_each_role
 {
@@ -26,15 +27,18 @@ namespace WPFApp.Login_and_home_page_of_each_role
         private readonly CourseDAO _courseDAO;
         private readonly DepartmentDAO _departmentDAO;
         private readonly LmsContext _context;
+        private readonly int _headId;
 
-        public Dashboard_for_Head_of_Department()
+        public Dashboard_for_Head_of_Department(int headId)
         {
+            InitializeComponent();
             _context = new LmsContext();
             _userDAO = new UserDAO();
             _BlogNews = new BlogNewsDAO(_context);
             _courseDAO = new CourseDAO(_context);
             _departmentDAO = new DepartmentDAO(_context);
-            InitializeComponent();
+            _headId = headId;
+
             LoadBlogNewsList();
             LoadStatisticalList();
             DataContext = this;
@@ -87,7 +91,9 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void CourseManagement_Click(object sender, RoutedEventArgs e)
         {
-
+            CourseManagementWindowForHead courseManagementWindow = new CourseManagementWindowForHead(_headId);
+            courseManagementWindow.Show();
+            this.Close();
         }
     }
 }

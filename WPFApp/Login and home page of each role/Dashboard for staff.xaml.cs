@@ -13,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.Course_Management;
 using WPFApp.User_Manager;
 
 namespace WPFApp.Login_and_home_page_of_each_role
@@ -90,7 +91,9 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void CourseManagement_Click(object sender, RoutedEventArgs e)
         {
-
+            CourseManagementWindow courseManagementWindow = new CourseManagementWindow();
+            courseManagementWindow.Show();
+            this.Close();
         }
 
         private void EnrollmentManagement_Click(object sender, RoutedEventArgs e)

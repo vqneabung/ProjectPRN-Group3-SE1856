@@ -50,7 +50,7 @@ namespace WPFApp
                         new Dashboard_for_staff().Show();
                         break;
                     case "Head of Department":
-                        new Dashboard_for_Head_of_Department().Show();
+                        new Dashboard_for_Head_of_Department(user.UserId).Show();
                         break;
                     case "Admin":
                         new Dashboard_for_admin().Show();
