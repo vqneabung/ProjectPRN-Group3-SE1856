@@ -31,15 +31,15 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
 
         <!--Header-->
-        <Button x:Name="btn1" Grid.Column="0" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
-        <Button x:Name="btn2" Grid.Column="1" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
-        <Button x:Name="btn3" Grid.Column="2" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
-        <Button x:Name="btn4" Grid.Column="9" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+        <Button x:Name="btn1" Grid.Column="0" Grid.Row="0" Content="Main" Width="70" Height="30" Background="AntiqueWhite" />
+        <Button x:Name="btn4" Grid.Column="9" Grid.Row="0" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
 
-        <!--Search bar-->
+        <!--Search bar--><!--
         <Button Click="Search_btn"  
                 Grid.Column="0" Grid.Row="1"
                 Content="Search" 
@@ -51,20 +51,24 @@
                  HorizontalAlignment="Left" 
                  Height="35" Width="630"
                  FontSize="18" 
-        />
-        
-        <!--Assignment Buttons-->
-        <Button Click="Add_btn" Content="Add" Width="70" Height="30" Grid.Column="0" Grid.Row="4"
-                Background="#FF52EF78"/>
+        />-->
 
+        <!--Assignment Buttons-->
+        <!--<Button Click="Add_btn" Content="Add" Width="70" Height="30" Grid.Column="0" Grid.Row="6"
+                Background="#FF52EF78"/>-->
+
+        <!--Data of Assignment-->
         <DataGrid
             x:Name="AssignmentData"
-            Grid.Row="4" Grid.RowSpan="6"
+            Grid.Row="7" Grid.RowSpan="5"
             Grid.Column="1" Grid.ColumnSpan="9"
             VerticalAlignment="Top" HorizontalAlignment="Left"
-            Height="250" Width="700"
-            Background="#FF3D5454"
+            MinHeight="150" MaxHeight="200" 
+            Width="700"
         >
+            <DataGrid.Background>
+                <SolidColorBrush Color="#FFA5A5A5" Opacity="1"/>
+            </DataGrid.Background>
             <DataGrid.Columns>
                 <DataGridTextColumn Width="40" Header="Id" Binding="{Binding }"/>
                 <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
@@ -72,7 +76,7 @@
                 <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
                 <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
             </DataGrid.Columns>
-            
+
         </DataGrid>
 
 

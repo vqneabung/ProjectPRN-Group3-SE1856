@@ -1,4 +1,5 @@
 ﻿using BussinessObjects;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,8 @@ namespace DataAccessObjects
 
         public IEnumerable<Assignment> GetAll()
         {
-            var Assignments = _context.Assignments.ToList();
+            var Assignments = _context.Assignments.Include("Class");
+
             return Assignments != null && Assignments.Any() ? Assignments : null;
         }
 

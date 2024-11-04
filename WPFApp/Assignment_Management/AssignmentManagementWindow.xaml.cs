@@ -23,12 +23,13 @@ namespace WPFApp
     /// </summary>
     public partial class AssignmentManagementWindow : Window
     {
-        private readonly AssignmentService _assignmentService;
+        private readonly IService<Assignment> _assignmentService;
 
-        public AssignmentManagementWindow(AssignmentService assignmentService)
+        public AssignmentManagementWindow(IService<Assignment> service)
         {
+            _assignmentService = service;
             InitializeComponent();
-            _assignmentService = assignmentService;
+            loadData();
         }
 
         public void loadData()
