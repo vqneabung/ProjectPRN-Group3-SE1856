@@ -47,5 +47,14 @@ namespace DataAccessObjects
         {
             throw new NotImplementedException();
         }
+
+        public int GetNextUserId()
+        {
+            using (var db = new LmsContext())
+            {
+                // Get the maximum UserId from the Users table and add 1
+                return db.Users.Any() ? db.Users.Max(u => u.UserId) + 1 : 1;
+            }
+        }
     }
 }
