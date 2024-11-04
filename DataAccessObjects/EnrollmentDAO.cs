@@ -17,12 +17,32 @@ namespace DataAccessObjects
         }
         public void Add(Enrollment entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                lmsContext.Enrollments.Add(entity);
+                lmsContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public void Delete(Enrollment entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var enrollment = lmsContext.Enrollments.SingleOrDefault(e => e.EnrollmentId == entity.EnrollmentId);
+                if (enrollment != null)
+                {
+                    lmsContext.Enrollments.Remove(enrollment);
+                    lmsContext.SaveChanges();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public Enrollment GetByID(int id)
@@ -32,7 +52,10 @@ namespace DataAccessObjects
 
         public IEnumerable<Enrollment> GetAll()
         {
-            throw new NotImplementedException();
+            return lmsContext.Enrollments
+                .Include(e => e.Course)
+                .Include(e => e.Student)
+                .ToList();
         }
 
         public void Update(Enrollment entity)

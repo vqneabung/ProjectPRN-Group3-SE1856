@@ -116,7 +116,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void CourseOverview_Click(object sender, RoutedEventArgs e)
         {
-            CourseOverviewWindow courseOverviewWindow = new CourseOverviewWindow();
+            CourseOverviewWindow courseOverviewWindow = new CourseOverviewWindow(_studentId);
             courseOverviewWindow.Show();
             this.Close();
         }

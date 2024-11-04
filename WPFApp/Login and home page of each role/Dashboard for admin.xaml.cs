@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.User_Manager;
 
 namespace WPFApp.Login_and_home_page_of_each_role
 {
@@ -80,6 +81,23 @@ namespace WPFApp.Login_and_home_page_of_each_role
             MainWindow login = new MainWindow();
             login.Show();
             this.Close();
+        }
+
+        private void AdminPanel_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void UserManagement_Click(object sender, RoutedEventArgs e)
+        {
+            UserManagementWindowForAdmin userManagementWindowForAdmin = new UserManagementWindowForAdmin();
+            userManagementWindowForAdmin.Show();
+            this.Close();
+        }
+
+        private void DepartmentManagement_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

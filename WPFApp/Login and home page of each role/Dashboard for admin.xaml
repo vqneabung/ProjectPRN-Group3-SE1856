@@ -29,5 +29,20 @@
             </TabItem>
         </TabControl>
         <Button Content="Logout" Click="LogoutButton_Click" Margin="664,10,10,383"/>
+
+        <Border Margin="0,10,155,345" Padding="10">
+            <Grid HorizontalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Content="Admin Panel" Click="AdminPanel_Click" Width="150" Margin="5,0" Grid.Column="0"/>
+                <Button Content="User Management" Click="UserManagement_Click" Width="150" Margin="5,0" Grid.Column="1"/>
+                <Button Content="Department Management" Click="DepartmentManagement_Click" Width="150" Margin="5,0" Grid.Column="2"/>
+            </Grid>
+        </Border>
     </Grid>
 </Window>

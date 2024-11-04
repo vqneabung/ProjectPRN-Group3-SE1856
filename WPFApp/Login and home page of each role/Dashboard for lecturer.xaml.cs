@@ -79,5 +79,25 @@ namespace WPFApp.Login_and_home_page_of_each_role
                 }
             };
         }
+
+        private void CourseManagement_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AssignmentManagement_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SubmissionGrading_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Forum_Discussion_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
