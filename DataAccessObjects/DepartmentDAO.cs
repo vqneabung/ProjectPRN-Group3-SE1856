@@ -1,4 +1,5 @@
 ﻿using BussinessObjects;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +11,9 @@ namespace DataAccessObjects
     public class DepartmentDAO : IDAO<Department>
     {
         private readonly LmsContext lmsContext;
-        public DepartmentDAO (LmsContext context)
+        public DepartmentDAO(LmsContext context)
         {
-            lmsContext=context;
+            lmsContext = context;
         }
         public void Add(Department entity)
         {
@@ -42,8 +43,8 @@ namespace DataAccessObjects
         {
             try
             {
-                var temp = lmsContext.Departments.SingleOrDefault(c => c.DepartmentId == entity.DepartmentId);
-                lmsContext.Departments.Remove(temp);
+                var temp = lmsContext.Courses.SingleOrDefault(c => c.DepartmentId == entity.DepartmentId);
+                //lmsContext.Departments.Remove(temp);
                 lmsContext.SaveChanges();
             }
             catch (Exception ex)
@@ -69,6 +70,11 @@ namespace DataAccessObjects
                 throw new Exception(ex.Message);
             }
             return list;
+        }
+
+        public Department GetDepartmentByUserId(int userId)
+        {
+            return lmsContext.Departments.FirstOrDefault(d => d.HeadId == userId);
         }
 
     }

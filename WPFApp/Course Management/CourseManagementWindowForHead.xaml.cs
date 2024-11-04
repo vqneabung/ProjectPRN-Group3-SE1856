@@ -30,12 +30,12 @@ namespace WPFApp.Course_Management
         {
             try
             {
-                // Get the department associated with the head ID
-                var department = _departmentDAO.GetAll().FirstOrDefault(d => d.HeadId == _headId);
+                // Get the department associated with the user ID (_headId)
+                var department = _departmentDAO.GetDepartmentByUserId(_headId);
 
                 if (department == null)
                 {
-                    MessageBox.Show("No department found associated with the current head ID.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("No department found for the current head.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
                 }
 
@@ -44,7 +44,7 @@ namespace WPFApp.Course_Management
                                                  .Where(c => c.DepartmentId == department.DepartmentId)
                                                  .ToList();
 
-                if (courses == null || courses.Count == 0)
+                if (courses.Count == 0)
                 {
                     MessageBox.Show("No courses found for the current department.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
