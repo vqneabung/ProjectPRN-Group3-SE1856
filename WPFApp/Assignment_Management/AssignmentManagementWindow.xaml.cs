@@ -24,17 +24,17 @@ namespace WPFApp
     {
         private readonly IService<Assignment> _iAssignmentService;
 
-        public AssignmentManagementWindow()
+        public AssignmentManagementWindow(IService<Assignment> iAssignmentService)
         {
             InitializeComponent();
-
+            _iAssignmentService = iAssignmentService;
         }
 
         public void loadData()
         {
             try
             {
-                var assignmentList = _iAssignmentService.GetAll();
+                var assignmentList = _AssignmentService.GetAll();
                 AssignmentData.ItemsSource = assignmentList;
             } catch (Exception ex) { throw new Exception(ex.Message); }
         }

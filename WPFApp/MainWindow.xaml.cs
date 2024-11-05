@@ -1,4 +1,4 @@
-﻿using DataAccessObjects;
+using DataAccessObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Identity.Client.NativeInterop;
 using Repositories;

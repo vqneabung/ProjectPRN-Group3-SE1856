@@ -21,6 +21,8 @@ public partial class LmsContext : DbContext
 
     public virtual DbSet<Class> Classes { get; set; }
 
+    public virtual DbSet<Class> Classes { get; set; }
+
     public virtual DbSet<Course> Courses { get; set; }
 
     public virtual DbSet<CourseType> CourseTypes { get; set; }
@@ -41,7 +43,7 @@ public partial class LmsContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-J6PLHHB;Database=LMS;User ID=sa;Password=1234567890;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True");
+        => optionsBuilder.UseSqlServer("Server=(local);Database=LMS;User ID=sa;Password=1234567890;Trusted_Connection=True;MultipleActiveResultSets=true;TrustServerCertificate=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -55,10 +57,14 @@ public partial class LmsContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("AssignmentID");
             entity.Property(e => e.ClassId).HasColumnName("ClassID");
+            entity.Property(e => e.ClassId).HasColumnName("ClassID");
             entity.Property(e => e.Description).HasMaxLength(255);
             entity.Property(e => e.Password).HasMaxLength(50);
             entity.Property(e => e.Title).HasMaxLength(100);
 
+            entity.HasOne(d => d.Class).WithMany(p => p.Assignments)
+                .HasForeignKey(d => d.ClassId)
+                .HasConstraintName("FK_Assignment_Class");
             entity.HasOne(d => d.Class).WithMany(p => p.Assignments)
                 .HasForeignKey(d => d.ClassId)
                 .HasConstraintName("FK_Assignment_Class");
@@ -93,10 +99,27 @@ public partial class LmsContext : DbContext
             entity.HasOne(d => d.Course).WithMany(p => p.Classes)
                 .HasForeignKey(d => d.CourseId)
                 .HasConstraintName("FK_Class_Course");
+                .HasConstraintName("FK__BlogNews__UserID__5DCAEF64");
+        });
+
+        modelBuilder.Entity<Class>(entity =>
+        {
+            entity.ToTable("Class");
+
+            entity.Property(e => e.ClassId).HasColumnName("ClassID");
+            entity.Property(e => e.ClassName)
+                .HasMaxLength(100)
+                .IsFixedLength();
+            entity.Property(e => e.CourseId).HasColumnName("CourseID");
+
+            entity.HasOne(d => d.Course).WithMany(p => p.Classes)
+                .HasForeignKey(d => d.CourseId)
+                .HasConstraintName("FK_Class_Course");
         });
 
         modelBuilder.Entity<Course>(entity =>
         {
+            entity.HasKey(e => e.CourseId).HasName("PK__Course__C92D718729E36573");
             entity.HasKey(e => e.CourseId).HasName("PK__Course__C92D718729E36573");
 
             entity.ToTable("Course");
@@ -111,13 +134,18 @@ public partial class LmsContext : DbContext
             entity.Property(e => e.Status)
                 .HasMaxLength(10)
                 .IsFixedLength();
+            entity.Property(e => e.Status)
+                .HasMaxLength(10)
+                .IsFixedLength();
 
             entity.HasOne(d => d.CourseType).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.CourseTypeId)
                 .HasConstraintName("FK__Course__CourseTy__5EBF139D");
+                .HasConstraintName("FK__Course__CourseTy__5EBF139D");
 
             entity.HasOne(d => d.Department).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.DepartmentId)
+                .HasConstraintName("FK__Course__Departme__5FB337D6");
                 .HasConstraintName("FK__Course__Departme__5FB337D6");
         });
 
@@ -162,6 +190,7 @@ public partial class LmsContext : DbContext
             entity.HasOne(d => d.Course).WithMany(p => p.Documents)
                 .HasForeignKey(d => d.CourseId)
                 .HasConstraintName("FK__Document__Course__60A75C0F");
+                .HasConstraintName("FK__Document__Course__60A75C0F");
         });
 
         modelBuilder.Entity<Enrollment>(entity =>
@@ -200,6 +229,7 @@ public partial class LmsContext : DbContext
             entity.HasOne(d => d.Course).WithMany(p => p.Forums)
                 .HasForeignKey(d => d.CourseId)
                 .HasConstraintName("FK__Forum__CourseID__628FA481");
+                .HasConstraintName("FK__Forum__CourseID__628FA481");
         });
 
         modelBuilder.Entity<Post>(entity =>
@@ -220,6 +250,7 @@ public partial class LmsContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.UserId)
+                .HasConstraintName("FK__Post__UserID__6477ECF3");
                 .HasConstraintName("FK__Post__UserID__6477ECF3");
         });
 
@@ -244,6 +275,7 @@ public partial class LmsContext : DbContext
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.UserId).HasName("PK__User__1788CCACF2C2B1B0");
+            entity.HasKey(e => e.UserId).HasName("PK__User__1788CCACF2C2B1B0");
 
             entity.ToTable("User");
 
@@ -254,6 +286,9 @@ public partial class LmsContext : DbContext
             entity.Property(e => e.FullName).HasMaxLength(100);
             entity.Property(e => e.Password).HasMaxLength(50);
             entity.Property(e => e.Role).HasMaxLength(50);
+            entity.Property(e => e.Status)
+                .HasMaxLength(10)
+                .IsFixedLength();
             entity.Property(e => e.Status)
                 .HasMaxLength(10)
                 .IsFixedLength();

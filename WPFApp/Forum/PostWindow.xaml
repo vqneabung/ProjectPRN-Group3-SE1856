@@ -1,11 +1,11 @@
-﻿<Window x:Class="WPFApp.Forum.ForumWindow"
+﻿<Window x:Class="WPFApp.Forum.PostWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp.Forum"
         mc:Ignorable="d"
-        Title="ForumWindow" Height="450" Width="800">
+        Title="PostWindow" Height="450" Width="800">
     <Grid Background="#FF009688" Margin="0,0,-417,-314">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -24,18 +24,23 @@
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
             <Button Content="Create" x:Name="btnCreate" HorizontalAlignment="Left" Margin="5,90,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFD4EDDA" Click="btnCreate_Click"/>
             <Button Content="Delete" x:Name="btnDelete" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFF6D7DA" Click="btnDelete_Click"/>
-            <Button Content="Enter" x:Name="btnCreate_Copy" Height="30" Width="70" Background="#FFD4EDDA" Click="btnEnter_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
-            <Label Content="Course"/>
-            <TextBox TextWrapping="Wrap" Text="TextBox" Width="1136" Height="46" x:Name="tbCourse"/>
-            <Label Content="Title" Height="35"/>
-            <TextBox TextWrapping="Wrap" Text="TextBox" Width="1136" Height="39" x:Name="tbTitle"/>
-            <DataGrid x:Name="dgForum"  Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="536">
+            <Label Content="Title"/>
+            <TextBox TextWrapping="Wrap" Text="TextBox" Width="1136" Height="46"/>
+            <Label Content="Content" Height="35"/>
+            <RichTextBox Height="100">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="RichTextBox"/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+            <DataGrid x:Name="dgForum"  Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="465">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding ForumId}" Width="*"/>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
-                    <DataGridTextColumn Header="Create Date" Binding="{Binding CreateDate}" Width="*"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding PostID}" Width="*"/>
+                    <DataGridTextColumn Header="Content" Binding="{Binding Content}" Width="*"/>
+                    <DataGridTextColumn Header="Post Date" Binding="{Binding PostDate}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

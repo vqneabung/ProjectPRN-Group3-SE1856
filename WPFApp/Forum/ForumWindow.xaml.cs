@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using BussinessObjects;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,38 +21,54 @@ namespace WPFApp.Forum
     /// </summary>
     public partial class ForumWindow : Window
     {
-        private readonly ForumService _forumService;
+        private readonly IService<BussinessObjects.Forum> _forumService;
 
 
-        public ForumWindow(ForumService forumService)
+        public ForumWindow(IService<BussinessObjects.Forum> forumService)
         {
             InitializeComponent();
             _forumService = forumService;
+            LoadForums();
         }
 
         public void LoadForums()
         {
             var forums = _forumService.GetAll();
             dgForum.ItemsSource = forums;
-            LoadForums();
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-
+            var newForum = new BussinessObjects.Forum
+            {
+                Title = tbTitle.Text,
+                CreateDate = DateOnly.FromDateTime(DateTime.Now)
+            };
+            _forumService.Add(newForum);
+            LoadForums();
         }
 
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dgForum.SelectedItem is BussinessObjects.Forum selectedForum)
+            {
+                selectedForum.Title = tbTitle.Text;
+                _forumService.Update(selectedForum);
+                LoadForums();
+            }
         }
 
         private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgForum.SelectedItem is BussinessObjects.Forum selectedForum)
+            {
+                _forumService.Delete(selectedForum);
+                LoadForums();
+            }
+        }
+
+        private void btnEnter_Click(object sender, RoutedEventArgs e)
         {
 
         }

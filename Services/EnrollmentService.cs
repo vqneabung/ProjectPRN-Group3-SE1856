@@ -19,27 +19,27 @@ namespace Services
 
         public void Add(Enrollment entity)
         {
-            throw new NotImplementedException();
+            _repository.Add(entity);
         }
 
         public void Delete(Enrollment entity)
         {
-            throw new NotImplementedException();
+            _repository.Delete(entity);
         }
 
         public Enrollment? Get(int id)
         {
-            throw new NotImplementedException();
+           return _repository.GetByID(id);        
         }
 
         public IEnumerable<Enrollment>? GetAll()
         {
-            throw new NotImplementedException();
+            return _repository.GetAll();
         }
 
         public void Update(Enrollment entity)
         {
-            throw new NotImplementedException();
+            _repository.Update(entity);
         }
     }
 }
