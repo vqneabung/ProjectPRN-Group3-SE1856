@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WPFApp.Blog___News"
         mc:Ignorable="d"
         Title="BlogNewsManagementWindow" Height="450" Width="800">
-    <Grid Background="#FF009688">
+    <Grid Background="#FF009688" Margin="0,0,-338,-278">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
@@ -21,20 +21,26 @@
             <Button Content="Profile" HorizontalAlignment="Left" Margin="530,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button Content="Search" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FF3A4551" Foreground="White" Click="btnSearch_Click"/>
             <Button Content="Create" HorizontalAlignment="Left" Margin="5,90,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFD4EDDA" Click="btnCreate_Click"/>
-            <Button Content="Update" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFFFFDCD" Click="btnUpdate_Click_1"/>
-            <Button Content="Delete" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFF6D7DA" Click="btnDelete_Click_2"/>
+            <Button Content="Update" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFFFFDCD" Click="btnUpdate_Click"/>
+            <Button Content="Delete" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFF6D7DA" Click="btnDelete_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBox TextWrapping="Wrap" Margin="0,10,0,0" Width="720" Height="30" FontSize="20"/>
-            <DataGrid x:Name="dgBlogNews"  Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="320">
+            <Label Content="Content"/>
+            <RichTextBox Height="117">
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="RichTextBox"/>
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
+            <DataGrid x:Name="dgBlogNews" Height="496" CanUserAddRows="True">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
+                    <DataGridTextColumn Header="User" Binding="{Binding User.UserName}" Width="*"/>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
+                    <DataGridTextColumn Header="Content" Binding="{Binding Content}" Width="*"/>
+                    <DataGridTextColumn Header="PostDate" Binding="{Binding PostDate}" Width="*"/>
+                    <DataGridTextColumn Header="Category" Binding="{Binding Category}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

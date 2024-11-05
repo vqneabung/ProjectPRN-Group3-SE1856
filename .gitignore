@@ -396,3 +396,39 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+/WPFApp/Assignment_Management/AssignmentManagementWindow.xaml
+/WPFApp/Assignment_Management/AssignmentManagementWindow.xaml.cs
+/WPFApp/Course Overview/CourseOverviewPopup.xaml
+/WPFApp/Course Overview/CourseOverviewPopup.xaml.cs
+/WPFApp/Course Overview/CourseOverviewWindow.xaml
+/WPFApp/Course Overview/CourseOverviewWindow.xaml.cs
+/WPFApp/Department Management/DepartmentManagementPopup.xaml
+/WPFApp/Department Management/DepartmentManagementPopup.xaml.cs
+/WPFApp/Department Management/DepartmentManagementWindow.xaml
+/WPFApp/Department Management/DepartmentManagementWindow.xaml.cs
+/WPFApp/Document Management/DocumentManagementWindow.xaml
+/WPFApp/Document Management/DocumentManagementWindow.xaml.cs
+/WPFApp/Document Management/DocumentManagePopup.xaml
+/WPFApp/Document Management/DocumentManagePopup.xaml.cs
+/WPFApp/Submission_Grading/FeedbackPopUp.xaml
+/WPFApp/Submission_Grading/FeedbackPopUp.xaml.cs
+/WPFApp/Submission_Grading/SubmissionGradingWindow.xaml
+/WPFApp/Submission_Grading/SubmissionGradingWindow.xaml.cs
+/WPFApp/Assignment_Management/AssignmentManagementWindow.xaml
+/WPFApp/Assignment_Management/AssignmentManagementWindow.xaml.cs
+/WPFApp/Course Overview/CourseOverviewPopup.xaml
+/WPFApp/Course Overview/CourseOverviewPopup.xaml.cs
+/WPFApp/Course Overview/CourseOverviewWindow.xaml
+/WPFApp/Course Overview/CourseOverviewWindow.xaml.cs
+/WPFApp/Submission_Grading/FeedbackPopUp.xaml
+/WPFApp/Submission_Grading/FeedbackPopUp.xaml.cs
+/WPFApp/Submission_Grading/SubmissionGradingWindow.xaml
+/WPFApp/Submission_Grading/SubmissionGradingWindow.xaml.cs
+/WPFApp/Department Management/DepartmentManagementPopup.xaml
+/WPFApp/Department Management/DepartmentManagementPopup.xaml.cs
+/WPFApp/Department Management/DepartmentManagementWindow.xaml
+/WPFApp/Department Management/DepartmentManagementWindow.xaml.cs
+/WPFApp/Document Management/DocumentManagementWindow.xaml
+/WPFApp/Document Management/DocumentManagementWindow.xaml.cs
+/WPFApp/Document Management/DocumentManagePopup.xaml
+/WPFApp/Document Management/DocumentManagePopup.xaml.cs

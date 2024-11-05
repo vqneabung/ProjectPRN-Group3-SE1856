@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace WPFApp.Blog___News.BlogNewsData
 {
-    public class BlogNewsData : IBlogNewsData
+    public interface IBlogNewsData
     {
-        public int blogNewsID { get; set; }
+        int postID { get; set; }
     }
 }

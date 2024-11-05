@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using BussinessObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.Blog___News.BlogNewsData;
 
 namespace WPFApp.Blog___News
 {
@@ -21,14 +23,16 @@ namespace WPFApp.Blog___News
     /// </summary>
     public partial class BlogNewsManagementWindow : Window
     {
-        private readonly BlogNewsService _blogNewsService;
+        private readonly IService<BlogNews> _blogNewsService;
+        private readonly IBlogNewsData _blogNewsData;
 
 
 
-        public BlogNewsManagementWindow(BlogNewsService blogNewsService)
+        public BlogNewsManagementWindow(IService<BlogNews> blogNewsService, IBlogNewsData blogNewsData)
         {
             InitializeComponent();
             _blogNewsService = blogNewsService;
+            _blogNewsData = blogNewsData;
             LoadBlogNews();
         }
 
@@ -40,22 +44,38 @@ namespace WPFApp.Blog___News
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
-
+            CreateBlogNews createBlogNews = App.ServiceProvider.GetRequiredService<CreateBlogNews>();
+            createBlogNews.ShowDialog();
+            LoadBlogNews();
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
+            if (dgBlogNews.SelectedItem is BlogNews selectedBlogNews)
+            {
+                _blogNewsData.postID = selectedBlogNews.PostId;
+                UpdateBlogNews updateBlogNews = App.ServiceProvider.GetRequiredService<UpdateBlogNews>();
+                updateBlogNews.Show();
+                this.Close();
 
+            }
+            else
+            {
+                MessageBox.Show("Please select a blog news item to update.");
+            }
         }
 
-        private void btnUpdate_Click_1(object sender, RoutedEventArgs e)
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            UpdateBlogNews updateBlogNews = App.ServiceProvider.GetRequiredService<UpdateBlogNews>();
-        }
-
-        private void btnDelete_Click_2(object sender, RoutedEventArgs e)
-        {
-
+            if (dgBlogNews.SelectedItem is BlogNews selectedBlogNews)
+            {
+                _blogNewsService.Delete(selectedBlogNews);
+                LoadBlogNews();
+            }
+            else
+            {
+                MessageBox.Show("Please select a blog news item to delete.");
+            }
         }
     }
 }

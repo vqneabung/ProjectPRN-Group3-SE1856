@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WPFApp.Course_Overview
+namespace WPFApp.Blog___News
 {
     /// <summary>
-    /// Interaction logic for CourseOverviewPopup.xaml
+    /// Interaction logic for BlogNewsWindow.xaml
     /// </summary>
-    public partial class CourseOverviewPopup : Window
+    public partial class BlogNewsWindow : Window
     {
-        public CourseOverviewPopup()
+        public BlogNewsWindow()
         {
             InitializeComponent();
         }
