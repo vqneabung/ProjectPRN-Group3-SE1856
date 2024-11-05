@@ -43,8 +43,13 @@ namespace DataAccessObjects
         {
             try
             {
+<<<<<<< Updated upstream
                 var temp = lmsContext.Courses.SingleOrDefault(c => c.DepartmentId == entity.DepartmentId);
                 //lmsContext.Departments.Remove(temp);
+=======
+                var temp = lmsContext.Departments.SingleOrDefault(c => c.DepartmentId == entity.DepartmentId);
+                lmsContext.Departments.Remove(temp);
+>>>>>>> Stashed changes
                 lmsContext.SaveChanges();
             }
             catch (Exception ex)
