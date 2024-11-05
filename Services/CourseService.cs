@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class CourseService:IRepository<Course>
+    public class CourseService:IService<Course>
     {
         private readonly IRepository<Course> courseRepository;
         public CourseService(IRepository<Course> repository)
@@ -29,7 +29,7 @@ namespace Services
             courseRepository.Delete(entity);
         }
 
-        public Course? GetByID(int id)
+        public Course? Get(int id)
         {
             return courseRepository.GetByID(id);
         }

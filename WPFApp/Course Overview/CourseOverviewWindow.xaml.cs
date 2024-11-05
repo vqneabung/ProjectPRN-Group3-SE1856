@@ -1,4 +1,8 @@
-﻿using System;
+﻿using BussinessObjects;
+using DataAccessObjects;
+using Microsoft.Extensions.DependencyInjection;
+using Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +23,53 @@ namespace WPFApp.Course_Overview
     /// </summary>
     public partial class CourseOverviewWindow : Window
     {
-        public CourseOverviewWindow()
+        private readonly IService<Course> _service;
+        public CourseOverviewWindow(IService<Course> service)
         {
             InitializeComponent();
+            _service = service;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var courseList = _service.GetAll();
+            dgCourse.ItemsSource = courseList;
+        }
+
+        private void Search_Button(object sender, RoutedEventArgs e)
+        {
+            string courseName = txtSearch.Text.Trim();
+
+            if (!string.IsNullOrEmpty(courseName))
+            {
+                var searchResults = _service.GetAll().Where(c => c.CourseName.Contains(courseName, StringComparison.OrdinalIgnoreCase)).ToList();
+                dgCourse.ItemsSource = searchResults;
+
+                if (searchResults.Count == 0)
+                {
+                    MessageBox.Show("No courses found with the specified name.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please enter a course name.");
+            }
+        }
+
+        private void Create_Button(object sender, RoutedEventArgs e)
+        {
+            CourseOverviewPopup courseOverviewPopup = App.ServiceProvider.GetRequiredService<CourseOverviewPopup>();
+            courseOverviewPopup.Show();
+        }
+
+        private void Update_Button(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Delete_Button(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

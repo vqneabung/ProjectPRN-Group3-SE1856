@@ -21,21 +21,41 @@ namespace WPFApp
     /// </summary>
     public partial class AssignmentManagementWindow : Window
     {
-        private readonly IAssignmentService _iAssignmentService;
+        //private readonly IAssignmentService _iAssignmentService;
 
         public AssignmentManagementWindow()
         {
             InitializeComponent();
-            _iAssignmentService = new AssignmentService();
+            //_iAssignmentService = new AssignmentService();
         }
 
         public void loadData()
         {
-            try
-            {
-                var assignmentList = _iAssignmentService.GetAll();
-                AssignmentData.ItemsSource = assignmentList;
-            } catch (Exception ex) { throw new Exception(ex.Message); }
+            //try
+            //{
+            //    var assignmentList = _iAssignmentService.GetAll();
+            //    AssignmentData.ItemsSource = assignmentList;
+            //} catch (Exception ex) { throw new Exception(ex.Message); }
+        }
+
+        private void Search_btn(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Add_btn(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Delete_btn(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Update_btn(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
