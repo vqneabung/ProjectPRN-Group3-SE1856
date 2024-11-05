@@ -31,13 +31,15 @@ namespace WPFApp.Blog___News
             InitializeComponent();
             _blogNewsService = blogNewsService;
             _blogNewsData = blogNewsData;
+            LoadBlogNews();
 
         }
 
         private void LoadBlogNews()
         {
-            var blogNews = _blogNewsService.Get(_blogNewsData.blogNewsID);
+            var blogNews = _blogNewsService.Get(_blogNewsData.postID);
             tbTitle.Text = blogNews.Title;
+            rtbContent.Document.Blocks.Clear();
             rtbContent.Document.Blocks.Add(new Paragraph(new Run(blogNews.Content)));
             tbCategory.Text = blogNews.Category;
         }
@@ -57,6 +59,7 @@ namespace WPFApp.Blog___News
             };
 
             _blogNewsService.Update(blogNews);
+            MessageBox.Show("Update thanh cong!");
         }
 
         private string GetRichTextBoxContents(RichTextBox rtb)

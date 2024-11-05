@@ -38,9 +38,9 @@
             </RichTextBox>
             <DataGrid x:Name="dgForum"  Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="465">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding ''}" Width="*"/>
-                    <DataGridTextColumn Header="Content" Binding="{Binding ''}" Width="*"/>
-                    <DataGridTextColumn Header="Post Date" Binding="{Binding ''}" Width="*"/>
+                    <DataGridTextColumn Header="ID" Binding="{Binding PostID}" Width="*"/>
+                    <DataGridTextColumn Header="Content" Binding="{Binding Content}" Width="*"/>
+                    <DataGridTextColumn Header="Post Date" Binding="{Binding PostDate}" Width="*"/>
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using BussinessObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.Blog___News.BlogNewsData;
 
 namespace WPFApp.Blog___News
 {
@@ -21,14 +23,16 @@ namespace WPFApp.Blog___News
     /// </summary>
     public partial class BlogNewsManagementWindow : Window
     {
-        private readonly BlogNewsService _blogNewsService;
+        private readonly IService<BlogNews> _blogNewsService;
+        private readonly IBlogNewsData _blogNewsData;
 
 
 
-        public BlogNewsManagementWindow(BlogNewsService blogNewsService)
+        public BlogNewsManagementWindow(IService<BlogNews> blogNewsService, IBlogNewsData blogNewsData)
         {
             InitializeComponent();
             _blogNewsService = blogNewsService;
+            _blogNewsData = blogNewsData;
             LoadBlogNews();
         }
 
@@ -45,24 +49,15 @@ namespace WPFApp.Blog___News
             LoadBlogNews();
         }
 
-        private void btnSearch_Click(object sender, RoutedEventArgs e)
-        {
-            string searchTerm = txtSearch.Text;
-            var filteredBlogNews = _blogNewsService.GetAll()
-                .Where(bn => bn.Title.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
-                             bn.Content.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
-                .ToList();
-            dgBlogNews.ItemsSource = filteredBlogNews;
-        }
-
         private void btnUpdate_Click(object sender, RoutedEventArgs e)
         {
             if (dgBlogNews.SelectedItem is BlogNews selectedBlogNews)
             {
+                _blogNewsData.postID = selectedBlogNews.PostId;
                 UpdateBlogNews updateBlogNews = App.ServiceProvider.GetRequiredService<UpdateBlogNews>();
-                updateBlogNews.LoadBlogNews(selectedBlogNews);
-                updateBlogNews.ShowDialog();
-                LoadBlogNews();
+                updateBlogNews.Show();
+                this.Close();
+
             }
             else
             {

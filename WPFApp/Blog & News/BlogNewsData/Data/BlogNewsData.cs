@@ -8,6 +8,6 @@ namespace WPFApp.Blog___News.BlogNewsData
 {
     public class BlogNewsData : IBlogNewsData
     {
-        public int blogNewsID { get; set; }
+        public int postID { get; set; }
     }
 }

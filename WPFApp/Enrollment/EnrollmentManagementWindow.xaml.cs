@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using BussinessObjects;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace WPFApp.Enrollment
     public partial class EnrollmentManagementWindow : Window
     {
         
-        private readonly EnrollmentService _enrollmentService;
+        private readonly IService<BussinessObjects.Enrollment> _enrollmentService;
 
-        public EnrollmentManagementWindow(EnrollmentService enrollmentService)
+        public EnrollmentManagementWindow(IService<BussinessObjects.Enrollment> enrollmentService)
         {
             _enrollmentService = enrollmentService;
             InitializeComponent();
@@ -72,5 +73,16 @@ namespace WPFApp.Enrollment
             }
         }
 
+        private void dgEnrollment_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dgEnrollment.SelectedItem is BussinessObjects.Enrollment selectedEnrollment)
+            {
+                tbEnrollmentId.Text = selectedEnrollment.EnrollmentId.ToString();
+                tbStudent.Text = selectedEnrollment.StudentId?.ToString() ?? string.Empty;
+                tbCourse.Text = selectedEnrollment.CourseId?.ToString() ?? string.Empty;
+                tbStatus.Text = selectedEnrollment.Course?.CourseName ?? string.Empty; // Assuming status is course name
+                tbEnrollmentDate.Text = selectedEnrollment.EnrollmentDate?.ToString("yyyy-MM-dd") ?? string.Empty;
+            }
+        }
     }
 }

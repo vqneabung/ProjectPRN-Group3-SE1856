@@ -39,6 +39,7 @@ namespace WPFApp.Blog___News
 
             var blogNews = new BussinessObjects.BlogNews
             {
+                UserId = 1, //User Test
                 Title = title,
                 Content = content,
                 PostDate = DateOnly.FromDateTime(DateTime.Now),
@@ -46,6 +47,8 @@ namespace WPFApp.Blog___News
             };
 
             _blogNewsService.Add(blogNews);
+
+            MessageBox.Show("Da tao thanh cong!");
         }
 
         private string GetRichTextBoxContents(RichTextBox rtb)

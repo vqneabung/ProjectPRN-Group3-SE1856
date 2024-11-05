@@ -43,8 +43,8 @@ namespace WPFApp
 
         private void BlogNewsTest(object sender, RoutedEventArgs e)
         {
-            CreateBlogNews createBlogNews = App.ServiceProvider.GetRequiredService<CreateBlogNews>();
-            createBlogNews.Show();
+            BlogNewsManagementWindow blogNewsManagementWindow = App.ServiceProvider.GetRequiredService<BlogNewsManagementWindow>();
+            blogNewsManagementWindow.Show();
             this.Close();
 
         }

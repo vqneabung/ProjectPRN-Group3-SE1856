@@ -7,7 +7,7 @@ public partial class Assignment
 {
     public int AssignmentId { get; set; }
 
-    public int? CourseId { get; set; }
+    public int? ClassId { get; set; }
 
     public string? Title { get; set; }
 
@@ -19,7 +19,7 @@ public partial class Assignment
 
     public DateOnly? DueDate { get; set; }
 
-    public virtual Course? Course { get; set; }
+    public virtual Class? Class { get; set; }
 
     public virtual ICollection<Submission> Submissions { get; set; } = new List<Submission>();
 }

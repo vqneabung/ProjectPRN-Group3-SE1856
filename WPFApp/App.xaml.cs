@@ -48,16 +48,16 @@ namespace WPFApp
         {
 
             //DAO
-            services.AddSingleton<AssignmentDAO>();
-            services.AddSingleton<BlogNewsDAO>();
-            services.AddSingleton<CourseDAO>();
-            services.AddSingleton<DepartmentDAO>();
-            services.AddSingleton<DocumentDAO>();
-            services.AddSingleton<EnrollmentDAO>();
-            services.AddSingleton<ForumDAO>();
-            services.AddSingleton<PostDAO>();
-            services.AddSingleton<SubmissionDAO>();
-            services.AddSingleton<UserDAO>();   
+            services.AddScoped<AssignmentDAO>();
+            services.AddScoped<BlogNewsDAO>();
+            services.AddScoped<CourseDAO>();
+            services.AddScoped<DepartmentDAO>();
+            services.AddScoped<DocumentDAO>();
+            services.AddScoped<EnrollmentDAO>();
+            services.AddScoped<ForumDAO>();
+            services.AddScoped<PostDAO>();
+            services.AddScoped<SubmissionDAO>();
+            services.AddScoped<UserDAO>();   
 
             services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
             //Repository
@@ -82,6 +82,8 @@ namespace WPFApp
             services.AddScoped<MainWindow>();
             services.AddScoped<EnrollmentManagementWindow>();
             services.AddScoped<ForumWindow>();
+            services.AddScoped<BlogNewsManagementWindow>();
+            services.AddScoped<UpdateBlogNews>();
 
 
         }
