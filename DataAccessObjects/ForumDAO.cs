@@ -49,10 +49,10 @@ namespace DataAccessObjects
             if (forums == null)
             {
                 return null;
-            } else
-            {
-                return forums;
             }
+
+            return forums;
+     
         }
 
         public void Update(Forum entity)

@@ -1,4 +1,5 @@
 ﻿using BussinessObjects;
+using Repositories;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -21,41 +22,21 @@ namespace WPFApp
     /// </summary>
     public partial class AssignmentManagementWindow : Window
     {
-        //private readonly IAssignmentService _iAssignmentService;
+        private readonly IService<Assignment> _iAssignmentService;
 
-        public AssignmentManagementWindow()
+        public AssignmentManagementWindow(IService<Assignment> iAssignmentService)
         {
             InitializeComponent();
-            //_iAssignmentService = new AssignmentService();
+            _iAssignmentService = iAssignmentService;
         }
 
         public void loadData()
         {
-            //try
-            //{
-            //    var assignmentList = _iAssignmentService.GetAll();
-            //    AssignmentData.ItemsSource = assignmentList;
-            //} catch (Exception ex) { throw new Exception(ex.Message); }
-        }
-
-        private void Search_btn(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Add_btn(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Delete_btn(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Update_btn(object sender, RoutedEventArgs e)
-        {
-
+            try
+            {
+                var assignmentList = _AssignmentService.GetAll();
+                AssignmentData.ItemsSource = assignmentList;
+            } catch (Exception ex) { throw new Exception(ex.Message); }
         }
     }
 }

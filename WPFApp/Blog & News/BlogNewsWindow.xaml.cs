@@ -15,17 +15,18 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace WPFApp.Course_Overview
+namespace WPFApp.Blog___News
 {
     /// <summary>
-    /// Interaction logic for CourseOverviewPopup.xaml
+    /// Interaction logic for BlogNewsWindow.xaml
     /// </summary>
-    public partial class CourseOverviewPopup : Window
+    public partial class BlogNewsWindow : Window
     {
         private readonly IService<Course> cservice;
         private readonly IService<Department> dservice;
         private readonly IService<CourseType> ctype;
         public CourseOverviewPopup(IService<Course> Cservice, IService<Department> Dservice, IService<CourseType> Ctype)
+        public BlogNewsWindow()
         {
             InitializeComponent();
             cservice = Cservice;

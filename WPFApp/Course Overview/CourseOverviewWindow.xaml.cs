@@ -4,72 +4,122 @@ using Microsoft.Extensions.DependencyInjection;
 using Services;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using WPFApp.Login_and_home_page_of_each_role;
 
 namespace WPFApp.Course_Overview
 {
-    /// <summary>
-    /// Interaction logic for CourseOverviewWindow.xaml
-    /// </summary>
     public partial class CourseOverviewWindow : Window
     {
-        private readonly IService<Course> _service;
-        public CourseOverviewWindow(IService<Course> service)
+        private readonly CourseDAO courseDAO;
+        private readonly EnrollmentDAO enrollmentDAO;
+        private ObservableCollection<CourseData> courses;
+        private readonly int _studentId;
+
+        public CourseOverviewWindow(int studentId)
         {
             InitializeComponent();
-            _service = service;
+            _studentId = studentId;
+            courseDAO = new CourseDAO(new LmsContext());
+            enrollmentDAO = new EnrollmentDAO(new LmsContext());
+            LoadCourses();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        // A class to hold course information with enrollment status
+        public class CourseData
         {
-            var courseList = _service.GetAll();
-            dgCourse.ItemsSource = courseList;
+            public int CourseId { get; set; }
+            public string CourseName { get; set; }
+            public DateOnly? EnrollmentDate { get; set; }
+            public bool IsEnrolled { get; set; }
         }
 
-        private void Search_Button(object sender, RoutedEventArgs e)
+        private void LoadCourses(string search = "")
         {
-            string courseName = txtSearch.Text.Trim();
+            // Retrieve all courses
+            var allCourses = courseDAO.GetAll();
+            // Get the student's current enrollments
+            var enrolledCourses = enrollmentDAO.GetEnrollmentsByStudentId(_studentId).ToList();
 
-            if (!string.IsNullOrEmpty(courseName))
-            {
-                var searchResults = _service.GetAll().Where(c => c.CourseName.Contains(courseName, StringComparison.OrdinalIgnoreCase)).ToList();
-                dgCourse.ItemsSource = searchResults;
-
-                if (searchResults.Count == 0)
+            // Combine course data with enrollment information
+            var courseDataList = allCourses
+                .Where(c => string.IsNullOrWhiteSpace(search) || c.CourseName.Contains(search, StringComparison.OrdinalIgnoreCase))
+                .Select(c => new CourseData
                 {
-                    MessageBox.Show("No courses found with the specified name.");
+                    CourseId = c.CourseId,
+                    CourseName = c.CourseName,
+                    EnrollmentDate = enrolledCourses.FirstOrDefault(e => e.CourseId == c.CourseId)?.EnrollmentDate,
+                    IsEnrolled = enrolledCourses.Any(e => e.CourseId == c.CourseId)
+                })
+                .ToList();
+
+            // Bind data to the DataGrid
+            courses = new ObservableCollection<CourseData>(courseDataList);
+            DataGridCourses.ItemsSource = courses;
+        }
+
+        private void Search_Click(object sender, RoutedEventArgs e)
+        {
+            LoadCourses(txtSearch.Text);
+        }
+
+        private void Enroll_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedCourseData = DataGridCourses.SelectedItem as CourseData;
+            if (selectedCourseData != null && !selectedCourseData.IsEnrolled)
+            {
+                // Create a new enrollment
+                var enrollment = new Enrollment
+                {
+                    StudentId = _studentId,
+                    CourseId = selectedCourseData.CourseId,
+                    EnrollmentDate = DateOnly.FromDateTime(DateTime.Now),
+                    Status = true
+                };
+                enrollmentDAO.Add(enrollment);
+                LoadCourses();
+            }
+            else
+            {
+                MessageBox.Show("You are already enrolled in this course or no course is selected.", "Enrollment Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+        }
+
+        private void Unenroll_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedCourseData = DataGridCourses.SelectedItem as CourseData;
+            if (selectedCourseData != null && selectedCourseData.IsEnrolled)
+            {
+                // Find the enrollment to delete
+                var enrollment = enrollmentDAO.GetEnrollmentsByStudentId(_studentId)
+                                              .FirstOrDefault(e => e.CourseId == selectedCourseData.CourseId);
+                if (enrollment != null)
+                {
+                    enrollmentDAO.Delete(enrollment);
+                    LoadCourses();
                 }
             }
             else
             {
-                MessageBox.Show("Please enter a course name.");
+                MessageBox.Show("You are not enrolled in this course or no course is selected.", "Unenrollment Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
 
-        private void Create_Button(object sender, RoutedEventArgs e)
+        private void Home_Click(object sender, RoutedEventArgs e)
         {
-            CourseOverviewPopup courseOverviewPopup = App.ServiceProvider.GetRequiredService<CourseOverviewPopup>();
-            courseOverviewPopup.Show();
+            Dashboard_for_student home = new Dashboard_for_student(_studentId);
+            home.Show();
+            this.Close();
         }
 
-        private void Update_Button(object sender, RoutedEventArgs e)
+        private void Logout_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void Delete_Button(object sender, RoutedEventArgs e)
-        {
-
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            this.Close();
         }
     }
 }

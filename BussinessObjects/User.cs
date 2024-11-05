@@ -15,9 +15,13 @@ public partial class User
 
     public string? Email { get; set; }
 
+    public string? Status { get; set; }
+
     public string? Role { get; set; }
 
     public virtual ICollection<BlogNews> BlogNews { get; set; } = new List<BlogNews>();
+
+    public virtual ICollection<Enrollment> Enrollments { get; set; } = new List<Enrollment>();
 
     public virtual ICollection<Post> Posts { get; set; } = new List<Post>();
 }

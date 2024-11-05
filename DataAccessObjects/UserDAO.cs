@@ -9,6 +9,8 @@ namespace DataAccessObjects
 {
     public class UserDAO : IDAO<User>
     {
+        private readonly LmsContext lmsContext;
+
         public void Add(User entity)
         {
             throw new NotImplementedException();
@@ -18,19 +20,41 @@ namespace DataAccessObjects
         {
             throw new NotImplementedException();
         }
-
-        public User GetByID(int id)
+        public void Update(User entity)
         {
-            throw new NotImplementedException();
         }
+
 
         public IEnumerable<User> GetAll()
         {
+            using (var db = new LmsContext())
+            {
+                return db.Users.ToList();
+            }
+        }
+
+
+
+        public User GetByUserName(string userName)
+        {
+            using (var db = new LmsContext())
+            {
+                return db.Users.SingleOrDefault(user => user.UserName == userName);
+            }
+        }
+
+        public User? GetByID(int id)
+        {
             throw new NotImplementedException();
         }
 
-        public void Update(User entity)
+        public int GetNextUserId()
         {
+            using (var db = new LmsContext())
+            {
+                // Get the maximum UserId from the Users table and add 1
+                return db.Users.Any() ? db.Users.Max(u => u.UserId) + 1 : 1;
+            }
         }
     }
 }

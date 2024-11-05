@@ -18,28 +18,17 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
-            <Button Content="Home" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
-            <Button Content="Manage" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
-            <Button Content="Profile" HorizontalAlignment="Left" Margin="530,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
+            <Button Content="Home" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent" Click="Home_Click"/>
+            <Button Content="Logout" HorizontalAlignment="Left" Margin="530,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent" Click="Logout_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button Content="Search" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FF3A4551" Foreground="White" Click="Search_Button"/>
-            <Button Content="Create" HorizontalAlignment="Left" Margin="5,90,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFD4EDDA" Click="Create_Button"/>
-            <Button Content="Update" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFFFFDCD" Click="Update_Button"/>
-            <Button Content="Delete" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFF6D7DA" Click="Delete_Button"/>
+            <Button Content="Search" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FF3A4551" Foreground="White" Click="Search_Click"/>
+            <Button Content="Enroll" HorizontalAlignment="Left" Margin="5,90,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFD4EDDA" Click="Enroll_Click"/>
+            <Button Content="Uneroll" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFF6D7DA" Click="Unenroll_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBox x:Name="txtSearch" TextWrapping="Wrap" Margin="0,10,0,0" Width="720" Height="30" FontSize="20"/>
-            <DataGrid x:Name="dgCourse" AutoGenerateColumns="False" Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="320">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Course ID" Binding="{Binding CourseId}" Width="80"/>
-                    <DataGridTextColumn Header="Course Name" Binding="{Binding CourseName }" Width="*"/>
-                    <DataGridTextColumn Header="Description" Binding="{Binding Description }" Width="*"/>
-                    <DataGridTextColumn Header="Credits" Binding="{Binding Credits}" Width="70"/>
-                    <DataGridTextColumn Header="Department ID" Binding="{Binding DepartmentId}" Width="110"/>
-                    <DataGridTextColumn Header="Course Type ID" Binding="{Binding CourseTypeId}" Width="110"/>
-                </DataGrid.Columns>
-            </DataGrid>
+            <DataGrid x:Name="DataGridCourses" Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="320" IsReadOnly="True"/>
         </StackPanel>
     </Grid>
 </Window>

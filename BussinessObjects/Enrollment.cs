@@ -13,5 +13,9 @@ public partial class Enrollment
 
     public DateOnly? EnrollmentDate { get; set; }
 
+    public bool? Status { get; set; }
+
     public virtual Course? Course { get; set; }
+
+    public virtual User? Student { get; set; }
 }

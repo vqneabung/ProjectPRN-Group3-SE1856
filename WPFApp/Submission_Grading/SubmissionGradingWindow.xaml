@@ -1,0 +1,89 @@
+﻿<Window x:Class="WPFApp.Submission_Grading.SubmissionGradingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApp.Submission_Grading"
+        mc:Ignorable="d"
+        Title="SubmissionGradingWindow" Height="450" Width="800">
+    <Grid Background="#FF009688">
+        <!--10x10-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="80"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!--Header-->
+        <Button x:Name="btn1" Grid.Column="0" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+        <Button x:Name="btn2" Grid.Column="1" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+        <Button x:Name="btn3" Grid.Column="2" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+        <Button x:Name="btn4" Grid.Column="9" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+
+        <!--Search bar-->
+        <Button Click="Search_btn"  
+            Grid.Column="0" Grid.Row="1"
+            Content="Search" 
+            Width="70" Height="30" 
+            Background="#FFBAB1DC"/>
+        <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="9"
+             Text="Search box" x:Name="txtSearch"
+             VerticalAlignment="Center"
+             HorizontalAlignment="Left" 
+             Height="35" Width="630"
+             FontSize="18" 
+    />
+
+
+        <!--Submission Buttons-->
+        <Button Click="Add_btn" Content="Add" Width="70" Height="30" Grid.Column="0" Grid.Row="4"
+            Background="#FF52EF78"/>
+        <Button Click="Update_btn" Content="Update" Width="70" Height="30" Grid.Column="0" Grid.Row="5"
+            Background="#FFEFA152"/>
+        <Button Click="Delete_btn" Content="Delete" Width="70" Height="30" Grid.Column="0" Grid.Row="6"
+            Background="#FFEF5252"/>
+
+        <DataGrid
+        x:Name="SubmissGradingData"
+        Grid.Row="4" Grid.RowSpan="6"
+        Grid.Column="1" Grid.ColumnSpan="9"
+        VerticalAlignment="Top" HorizontalAlignment="Left"
+        Height="250" Width="700"
+        Background="#FF3D5454"
+    >
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="40" Header="Id" Binding="{Binding }"/>
+                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
+                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
+                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
+                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
+            </DataGrid.Columns>
+
+        </DataGrid>
+
+
+
+
+
+
+    </Grid>
+</Window>

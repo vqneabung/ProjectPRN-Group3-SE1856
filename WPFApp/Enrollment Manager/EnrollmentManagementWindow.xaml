@@ -1,0 +1,60 @@
+﻿<Window x:Class="WPFApp.Enrollment_Manager.EnrollmentManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WPFApp.Enrollment_Manager"
+        mc:Ignorable="d"
+        Title="EnrollmentManagementWindow" Height="788" Width="1507">
+    <Grid Background="#FF009688" Margin="0,0,0,-6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
+            <Button Content="Home" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
+            <Button Content="Manage" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
+            <Button Content="Profile" HorizontalAlignment="Left" Margin="530,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <Button Content="Search" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FF3A4551" Foreground="White"/>
+            <Button Content="Delete" Click="DeleteEnrollment_Click" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFF6D7DA"/>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <TextBox TextWrapping="Wrap" Margin="0,10,0,0" Width="720" Height="30" FontSize="20"/>
+            <StackPanel Orientation="Vertical">
+                <StackPanel>
+                    <Label Content="Enrollment Id"/>
+                    <TextBox x:Name="tbEnrollmentId"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Student"/>
+                    <TextBox x:Name="tbStudent"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Course"/>
+                    <TextBox x:Name="tbCourse"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Status"/>
+                    <TextBox x:Name="tbStatus"/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="EnrollmentDate"/>
+                    <TextBox x:Name="tbEnrollmentDate"/>
+                </StackPanel>
+            </StackPanel>
+            <DataGrid x:Name="dgEnrollment" Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="320" AutoGenerateColumns="False" SelectionChanged="dgEnrollment_SelectionChanged">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Student Name" Binding="{Binding Student.FullName}" Width="*"/>
+                    <DataGridTextColumn Header="Course Name" Binding="{Binding Course.CourseName}" Width="*"/>
+                    <DataGridTextColumn Header="Enrollment Date" Binding="{Binding EnrollmentDate}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </StackPanel>
+    </Grid>
+</Window>

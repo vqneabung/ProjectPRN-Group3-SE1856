@@ -1,23 +1,16 @@
-﻿using BussinessObjects;
-using DataAccessObjects;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Repositories;
-using Services;
-using System.Configuration;
+﻿using System.Configuration;
 using System.Data;
-using System.IO;
-using System.Text;
 using System.Windows;
+using WPFApp.Blog___News;
+using WPFApp.Blog___News.BlogNewsData;
+using WPFApp.Enrollment;
+using WPFApp.Forum;
 
 namespace WPFApp
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    /// 
-
-
     public partial class App : Application
     {
         public static ServiceProvider? ServiceProvider { get; private set; }
@@ -33,37 +26,53 @@ namespace WPFApp
             //var login = ServiceProvider.GetRequiredService<LoginPage>();
             //login.Show();
 
+            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            mainWindow.Show();
+
 
         }
 
 
         private void ConfigureService(IServiceCollection services)
         {
-            configuration = new ConfigurationBuilder().SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json").Build();
 
-            //services.AddTransient<LoginPage>();
+            //DAO
+            services.AddScoped<AssignmentDAO>();
+            services.AddScoped<BlogNewsDAO>();
+            services.AddScoped<CourseDAO>();
+            services.AddScoped<DepartmentDAO>();
+            services.AddScoped<DocumentDAO>();
+            services.AddScoped<EnrollmentDAO>();
+            services.AddScoped<ForumDAO>();
+            services.AddScoped<PostDAO>();
+            services.AddScoped<SubmissionDAO>();
+            services.AddScoped<UserDAO>();   
 
-            //services.AddSingleton<IConfiguration>(configuration);
-
-            services.AddSingleton<AssignmentDAO>();
-            services.AddSingleton<BlogNewsDAO>();
-            services.AddSingleton<CourseDAO>();
-            services.AddSingleton<DepartmentDAO>();
-            services.AddSingleton<DocumentDAO>();
-            services.AddSingleton<EnrollmentDAO>();
-            services.AddSingleton<ForumDAO>();
-            services.AddSingleton<PostDAO>();
-            services.AddSingleton<SubmissionDAO>();
-            services.AddSingleton<UserDAO>();   
-
-            services.AddScoped<IRepository<Forum>, ForumRespository>();
+            services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
+            //Repository
+            services.AddScoped<IRepository<BussinessObjects.Enrollment>, EnrollmentRepository>();
+            services.AddScoped<IRepository<BlogNews>, BlogNewsRepository>();
+            services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
 
 
+            //Service
+            services.AddScoped<IService<BussinessObjects.Forum>, ForumService>();
+            services.AddScoped<IService<BussinessObjects.Enrollment>, EnrollmentService>();
+            services.AddScoped<IService<BlogNews>, BlogNewsService>();
 
-            //services.AddSingleton<IRoomInformationRepository, RoomInformationRepository>();
-
+            //Context
             services.AddDbContext<LmsContext>();
 
+            //Data
+            services.AddScoped<IBlogNewsData,BlogNewsData>();
+
+            //Windows
+            services.AddScoped<CreateBlogNews>();
+            services.AddScoped<MainWindow>();
+            services.AddScoped<EnrollmentManagementWindow>();
+            services.AddScoped<ForumWindow>();
+            services.AddScoped<BlogNewsManagementWindow>();
+            services.AddScoped<UpdateBlogNews>();
 
 
         }
