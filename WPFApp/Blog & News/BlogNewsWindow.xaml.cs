@@ -1,4 +1,7 @@
-﻿using System;
+﻿using BussinessObjects;
+using DataAccessObjects;
+using Services;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +22,45 @@ namespace WPFApp.Blog___News
     /// </summary>
     public partial class BlogNewsWindow : Window
     {
+        private readonly IService<Course> cservice;
+        private readonly IService<Department> dservice;
+        private readonly IService<CourseType> ctype;
+        public CourseOverviewPopup(IService<Course> Cservice, IService<Department> Dservice, IService<CourseType> Ctype)
         public BlogNewsWindow()
         {
             InitializeComponent();
+            cservice = Cservice;
+            dservice = Dservice;
+            ctype = Ctype;
         }
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            cmbDepartment.ItemsSource = dservice.GetAll();
+            cmbType.ItemsSource = ctype.GetAll();
+        }
+
+        private void Create_Button(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var newCourse = new Course
+                {
+                    CourseName = txtName.Text,
+                    Description = txtDescription.Text,
+                    Credits = int.TryParse(txtCredit.Text, out var credits) ? credits : (int?)null,
+                    DepartmentId = (int?)cmbDepartment.SelectedValue,
+                    CourseTypeId = (int?)cmbType.SelectedValue
+                };
+
+                cservice.Add(newCourse);
+                MessageBox.Show("Course created successfully!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                this.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
     }
 }

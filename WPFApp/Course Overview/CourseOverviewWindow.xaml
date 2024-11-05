@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WPFApp.Course_Overview"
         mc:Ignorable="d"
         FontSize="15"
+        Loaded="Window_Loaded"
         Title="CourseOverviewWindow" Height="450" Width="800">
     <Grid Background="#FF009688">
         <Grid.RowDefinitions>
