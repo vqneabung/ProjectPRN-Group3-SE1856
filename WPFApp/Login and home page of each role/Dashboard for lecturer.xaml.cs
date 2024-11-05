@@ -1,5 +1,7 @@
 ﻿using BussinessObjects;
 using DataAccessObjects;
+using Microsoft.Extensions.DependencyInjection;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,6 +92,10 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void AssignmentManagement_Click(object sender, RoutedEventArgs e)
         {
+            AssignmentManagementWindow assignmentWindow = App.ServiceProvider.GetRequiredService<AssignmentManagementWindow>();
+            assignmentWindow.Show();
+            MessageBox.Show("success");
+            this.Close();
 
         }
 

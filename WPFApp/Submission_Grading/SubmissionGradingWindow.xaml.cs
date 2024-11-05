@@ -23,5 +23,35 @@ namespace WPFApp.Submission_Grading
         {
             InitializeComponent();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn1_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn2_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn3_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btn4_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Search_btn(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

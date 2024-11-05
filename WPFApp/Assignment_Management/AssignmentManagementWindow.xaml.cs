@@ -1,4 +1,5 @@
 ﻿using BussinessObjects;
+using DataAccessObjects;
 using Repositories;
 using Services;
 using System;
@@ -22,21 +23,32 @@ namespace WPFApp
     /// </summary>
     public partial class AssignmentManagementWindow : Window
     {
-        private readonly IService<Assignment> _iAssignmentService;
+        private readonly IService<Assignment> _assignmentService;
 
-        public AssignmentManagementWindow(IService<Assignment> iAssignmentService)
+        public AssignmentManagementWindow(IService<Assignment> service)
         {
+            _assignmentService = service;
             InitializeComponent();
-            _iAssignmentService = iAssignmentService;
+            loadData();
         }
 
         public void loadData()
         {
             try
             {
-                var assignmentList = _AssignmentService.GetAll();
+                var assignmentList = _assignmentService.GetAll();
                 AssignmentData.ItemsSource = assignmentList;
             } catch (Exception ex) { throw new Exception(ex.Message); }
+        }
+
+        private void Add_btn(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Search_btn(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -32,9 +32,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Blog &amp; News\UpdateBlogNews.xaml.cs">
-      <SubType>Code</SubType>
-    </Compile>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
