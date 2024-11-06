@@ -1,7 +1,10 @@
+using BussinessObjects;
 using DataAccessObjects;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Client.NativeInterop;
 using Repositories;
+using Services;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,53 +25,56 @@ namespace WPFApp
     public partial class MainWindow : Window
     {
         public readonly UserDAO _userDAO;
+       
+        private readonly IEnrollmentService _enrollmentService;
 
-        public MainWindow()
+        public MainWindow(UserDAO userDAO, IEnrollmentService enrollmentService)
         {
             InitializeComponent();
-            _userDAO = new UserDAO();
+            _userDAO = userDAO;
+            _enrollmentService = enrollmentService;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            //for test
-            new Dashboard_for_lecturer().Show();
-            this.Close();
+            ////for test
+            //new Dashboard_for_lecturer().Show();
+            //this.Close();
 
-            //string username = txtUserName.Text;
-            //string password = txtPassword.Password;
+            string username = txtUserName.Text;
+            string password = txtPassword.Password;
 
-            //var user = _userDAO.GetByUserName(username);
+            var user = _userDAO.GetByUserName(username);
 
-            //if(user != null && user.Password == password)
-            //{
-            //    switch (user.Role)
-            //    {
-            //        case "Student":
-            //            new Dashboard_for_student(user.UserId).Show();
-            //            break;
-            //        case "Lecturer":
-            //            new Dashboard_for_lecturer().Show();
-            //            break;
-            //        case "Staff":
-            //            new Dashboard_for_staff().Show();
-            //            break;
-            //        case "Head of Department":
-            //            new Dashboard_for_Head_of_Department(user.UserId).Show();
-            //            break;
-            //        case "Admin":
-            //            new Dashboard_for_admin().Show();
-            //            break;
-            //        default:
-            //            MessageBox.Show("Role is undefined.");
-            //            return;
-            //    }
-            //    this.Close();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Invalid UserName or password.");
-            //}
+            if (user != null && user.Password == password)
+            {
+                switch (user.Role)
+                {
+                    case "Student":
+                        new Dashboard_for_student(user.UserId, _enrollmentService).ShowDialog();
+                        break;
+                    case "Lecturer":
+                        new Dashboard_for_lecturer().ShowDialog();
+                        break;
+                    case "Staff":
+                        new Dashboard_for_staff().ShowDialog();
+                        break;
+                    case "Head of Department":
+                        new Dashboard_for_Head_of_Department(user.UserId).ShowDialog();
+                        break;
+                    case "Admin":
+                        new Dashboard_for_admin().ShowDialog();
+                        break;
+                    default:
+                        MessageBox.Show("Role is undefined.");
+                        return;
+                }
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("Invalid UserName or password.");
+            }
         }
 
         private void btnClose_Click(object sender, RoutedEventArgs e)

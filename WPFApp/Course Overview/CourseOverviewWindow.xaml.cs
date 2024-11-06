@@ -119,7 +119,7 @@ namespace WPFApp.Course_Overview
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
+            MainWindow mainWindow = App.ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
             this.Close();
         }

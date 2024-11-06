@@ -1,5 +1,6 @@
 ﻿using BussinessObjects;
 using DataAccessObjects;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +44,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
         }
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow login = new MainWindow();
+            MainWindow login = App.ServiceProvider.GetRequiredService<MainWindow>();
             login.Show();
             this.Close();
         }

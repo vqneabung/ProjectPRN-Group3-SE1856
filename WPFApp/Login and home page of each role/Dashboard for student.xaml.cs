@@ -1,5 +1,6 @@
 ﻿using BussinessObjects;
 using DataAccessObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualBasic.ApplicationServices;
 using Services;
 using System;
@@ -43,16 +44,17 @@ namespace WPFApp.Login_and_home_page_of_each_role
             _courseDAO = new CourseDAO(_context);
             _departmentDAO = new DepartmentDAO(_context);
             _enrollmentDAO = new EnrollmentDAO(_context);
+            DataContext = this;
+            _enrollmentService = enrollmentService;
             InitializeComponent();
             LoadBlogNewsList();
             LoadStatisticalList();
             LoadEnrolledCourses();
-            DataContext = this;
-            _enrollmentService = enrollmentService;
+
         }
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow login = new MainWindow();
+            MainWindow login = App.ServiceProvider.GetRequiredService<MainWindow>();
             login.Show();
             this.Close();
         }
@@ -103,7 +105,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
         {
             // Fetching enrollments for the current student
             var enrollments = _enrollmentService.GetEnrollmentByStudentId(_studentId);
-
+         
             // Converting to a list of EnrolledCourses to bind to DataGrid
             return enrollments.Select(enrollment => new EnrolledCourses
             {

@@ -43,7 +43,7 @@ namespace DataAccessObjects
             return enrollment;
         }
 
-        public IEnumerable<Enrollment> GetAll()
+        public IEnumerable<Enrollment>? GetAll()
         {
             if ( _context.Enrollments.ToList() != null)
             {
