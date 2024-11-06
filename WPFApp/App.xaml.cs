@@ -91,7 +91,6 @@ namespace WPFApp
             services.AddScoped<BlogNewsManagementWindow>();
             services.AddScoped<UpdateBlogNews>();
             services.AddScoped<MainWindow>();
-            services.AddScoped<AssignmentManagementWindow>();
         }
     }
 
