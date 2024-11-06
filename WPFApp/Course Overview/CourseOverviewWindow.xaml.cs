@@ -54,7 +54,7 @@ namespace WPFApp.Course_Overview
                     CourseId = c.CourseId,
                     CourseName = c.CourseName,
                     EnrollmentDate = enrolledCourses.FirstOrDefault(e => e.CourseId == c.CourseId)?.EnrollmentDate,
-                    IsEnrolled = enrolledCourses.Any(e => e.CourseId == c.CourseId)
+                    IsEnrolled = enrolledCourses.Any(e => e.CourseId == c.CourseId && e.Status == true)
                 })
                 .ToList();
 
@@ -88,6 +88,8 @@ namespace WPFApp.Course_Overview
             {
                 MessageBox.Show("You are already enrolled in this course or no course is selected.", "Enrollment Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+
+
         }
 
         private void Unenroll_Click(object sender, RoutedEventArgs e)
@@ -97,10 +99,10 @@ namespace WPFApp.Course_Overview
             {
                 // Find the enrollment to delete
                 var enrollment = _enrollmentService.GetEnrollmentByStudentId(_studentId)
-                                              .FirstOrDefault(e => e.CourseId == selectedCourseData.CourseId);
+                                              .FirstOrDefault(e => e.CourseId == selectedCourseData.CourseId && e.Status == true);
                 if (enrollment != null)
                 {
-                    enrollmentDAO.Delete(enrollment);
+                    _enrollmentService.Delete(enrollment);
                     LoadCourses();
                 }
             }
