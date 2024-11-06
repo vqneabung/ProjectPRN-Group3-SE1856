@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class EnrollmentService : IService<Enrollment>
+    public class EnrollmentService : IEnrollmentService
     {
         private readonly IRepository<Enrollment> _repository;
 
@@ -40,6 +40,11 @@ namespace Services
         public void Update(Enrollment entity)
         {
             _repository.Update(entity);
+        }
+
+        public IEnumerable<Enrollment>? GetEnrollmentByStudentId(int studentId)
+        {
+            return _repository.GetAll().Where(e => e.StudentId == studentId);
         }
     }
 }

@@ -8,7 +8,11 @@ using System.Configuration;
 using System.Data;
 using System.Text;
 using System.Windows;
+using WPFApp.Blog___News.BlogNewsData;
+using WPFApp.Blog___News;
 using WPFApp.Course_Overview;
+using WPFApp.Enrollment_Manager;
+using WPFApp.Forum;
 
 namespace WPFApp
 {
@@ -36,7 +40,6 @@ namespace WPFApp
 
         private void ConfigureService(IServiceCollection services)
         {
-
             //services.AddTransient<LoginPage>();
             //services.AddSingleton<IConfiguration>(configuration);
 
@@ -51,27 +54,42 @@ namespace WPFApp
             services.AddSingleton<SubmissionDAO>();
             services.AddSingleton<UserDAO>();
 
-            //services.AddScoped<IRepository<Forum>, ForumRespository>();
-            //services.AddSingleton<IRoomInformationRepository, RoomInformationRepository>();
+            services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
             services.AddScoped<IRepository<Department>, DepartmentRepository>();
             services.AddScoped<IRepository<Document>, DocumentRepository>();
             services.AddScoped<IRepository<Course>, CourseRepository>();
             services.AddScoped<IRepository<Assignment>, AssignmentRepository>();
 
             services.AddScoped<IService<Department>, DepartmentService>();
-            //services.AddScoped<IService<Document>, DocumentService>();
-            //services.AddScoped<IService<Course>, CourseService>();
+            services.AddScoped<IService<Document>, DocumentService>();
+            services.AddScoped<IService<Course>, CourseService>();
             services.AddScoped<IService<Assignment>, AssignmentService>();
-
-
 
             services.AddDbContext<LmsContext>();
 
             services.AddScoped<CourseOverviewWindow>();
             services.AddScoped<AssignmentManagementWindow>();
 
+            //Repository
+            services.AddScoped<IRepository<BussinessObjects.Enrollment>, EnrollmentRepository>();
+            services.AddScoped<IRepository<BlogNews>, BlogNewsRepository>();
 
+            //Service
+            services.AddScoped<IService<BussinessObjects.Forum>, ForumService>();
+            services.AddScoped<IService<BussinessObjects.Enrollment>, EnrollmentService>();
+            services.AddScoped<IEnrollmentService, EnrollmentService>();
+            services.AddScoped<IService<BlogNews>, BlogNewsService>();
 
+            //Data
+            services.AddScoped<IBlogNewsData, BlogNewsData>();
+
+            //Windows
+            services.AddScoped<CreateBlogNews>();
+            services.AddScoped<MainWindow>();
+            services.AddScoped<EnrollmentManagementWindow>();
+            services.AddScoped<ForumWindow>();
+            services.AddScoped<BlogNewsManagementWindow>();
+            services.AddScoped<UpdateBlogNews>();
         }
     }
 

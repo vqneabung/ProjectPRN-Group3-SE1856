@@ -21,8 +21,6 @@ public partial class LmsContext : DbContext
 
     public virtual DbSet<Class> Classes { get; set; }
 
-    public virtual DbSet<Class> Classes { get; set; }
-
     public virtual DbSet<Course> Courses { get; set; }
 
     public virtual DbSet<CourseType> CourseTypes { get; set; }
@@ -99,7 +97,7 @@ public partial class LmsContext : DbContext
             entity.HasOne(d => d.Course).WithMany(p => p.Classes)
                 .HasForeignKey(d => d.CourseId)
                 .HasConstraintName("FK_Class_Course");
-                .HasConstraintName("FK__BlogNews__UserID__5DCAEF64");
+
         });
 
         modelBuilder.Entity<Class>(entity =>
@@ -141,12 +139,12 @@ public partial class LmsContext : DbContext
             entity.HasOne(d => d.CourseType).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.CourseTypeId)
                 .HasConstraintName("FK__Course__CourseTy__5EBF139D");
-                .HasConstraintName("FK__Course__CourseTy__5EBF139D");
+
 
             entity.HasOne(d => d.Department).WithMany(p => p.Courses)
                 .HasForeignKey(d => d.DepartmentId)
                 .HasConstraintName("FK__Course__Departme__5FB337D6");
-                .HasConstraintName("FK__Course__Departme__5FB337D6");
+
         });
 
         modelBuilder.Entity<CourseType>(entity =>
@@ -190,7 +188,6 @@ public partial class LmsContext : DbContext
             entity.HasOne(d => d.Course).WithMany(p => p.Documents)
                 .HasForeignKey(d => d.CourseId)
                 .HasConstraintName("FK__Document__Course__60A75C0F");
-                .HasConstraintName("FK__Document__Course__60A75C0F");
         });
 
         modelBuilder.Entity<Enrollment>(entity =>
@@ -229,7 +226,6 @@ public partial class LmsContext : DbContext
             entity.HasOne(d => d.Course).WithMany(p => p.Forums)
                 .HasForeignKey(d => d.CourseId)
                 .HasConstraintName("FK__Forum__CourseID__628FA481");
-                .HasConstraintName("FK__Forum__CourseID__628FA481");
         });
 
         modelBuilder.Entity<Post>(entity =>
@@ -250,7 +246,6 @@ public partial class LmsContext : DbContext
 
             entity.HasOne(d => d.User).WithMany(p => p.Posts)
                 .HasForeignKey(d => d.UserId)
-                .HasConstraintName("FK__Post__UserID__6477ECF3");
                 .HasConstraintName("FK__Post__UserID__6477ECF3");
         });
 

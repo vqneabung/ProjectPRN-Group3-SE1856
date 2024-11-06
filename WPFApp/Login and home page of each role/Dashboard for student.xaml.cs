@@ -1,6 +1,7 @@
 ﻿using BussinessObjects;
 using DataAccessObjects;
 using Microsoft.VisualBasic.ApplicationServices;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +31,10 @@ namespace WPFApp.Login_and_home_page_of_each_role
         private readonly EnrollmentDAO _enrollmentDAO;
         private readonly LmsContext _context;
         private readonly int _studentId;
+        private readonly IEnrollmentService _enrollmentService;
 
 
-        public Dashboard_for_student(int studentId)
+        public Dashboard_for_student(int studentId, IEnrollmentService enrollmentService)
         {
             _studentId = studentId;
             _context = new LmsContext();
@@ -46,6 +48,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
             LoadStatisticalList();
             LoadEnrolledCourses();
             DataContext = this;
+            _enrollmentService = enrollmentService;
         }
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
@@ -99,7 +102,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
         private List<EnrolledCourses> LoadCourses()
         {
             // Fetching enrollments for the current student
-            var enrollments = _enrollmentDAO.GetEnrollmentsByStudentId(_studentId);
+            var enrollments = _enrollmentService.GetEnrollmentByStudentId(_studentId);
 
             // Converting to a list of EnrolledCourses to bind to DataGrid
             return enrollments.Select(enrollment => new EnrolledCourses
@@ -116,7 +119,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void CourseOverview_Click(object sender, RoutedEventArgs e)
         {
-            CourseOverviewWindow courseOverviewWindow = new CourseOverviewWindow(_studentId);
+            CourseOverviewWindow courseOverviewWindow = new CourseOverviewWindow(_studentId, _enrollmentService);
             courseOverviewWindow.Show();
             this.Close();
         }

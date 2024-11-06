@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:WPFApp.Course_Overview"
         mc:Ignorable="d"
         FontSize="15"
-        Loaded="Window_Loaded"
         Title="CourseOverviewWindow" Height="450" Width="800">
     <Grid Background="#FF009688">
         <Grid.RowDefinitions>
@@ -28,7 +27,7 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBox x:Name="txtSearch" TextWrapping="Wrap" Margin="0,10,0,0" Width="720" Height="30" FontSize="20"/>
-            <DataGrid x:Name="DataGridCourses" Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="320" IsReadOnly="True"/>
+            <DataGrid x:Name="DataGridCourses" Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="320" IsReadOnly="True" SelectionChanged="DataGridCourses_SelectionChanged"/>
         </StackPanel>
     </Grid>
 </Window>
