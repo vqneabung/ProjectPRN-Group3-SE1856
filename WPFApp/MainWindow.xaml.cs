@@ -69,7 +69,7 @@ namespace WPFApp
                         MessageBox.Show("Role is undefined.");
                         return;
                 }
-                this.Close();
+                this.Hide();
             }
             else
             {
@@ -79,7 +79,7 @@ namespace WPFApp
 
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Hide();
         }
     }
 }
