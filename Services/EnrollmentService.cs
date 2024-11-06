@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class EnrollmentService : IService<Enrollment>
+    public class EnrollmentService : IEnrollmentService
     {
         private readonly IRepository<Enrollment> _repository;
 
@@ -19,27 +19,32 @@ namespace Services
 
         public void Add(Enrollment entity)
         {
-            throw new NotImplementedException();
+            _repository.Add(entity);
         }
 
         public void Delete(Enrollment entity)
         {
-            throw new NotImplementedException();
+            _repository.Delete(entity);
         }
 
         public Enrollment? Get(int id)
         {
-            throw new NotImplementedException();
+           return _repository.GetByID(id);        
         }
 
         public IEnumerable<Enrollment>? GetAll()
         {
-            throw new NotImplementedException();
+            return _repository.GetAll();
         }
 
         public void Update(Enrollment entity)
         {
-            throw new NotImplementedException();
+            _repository.Update(entity);
+        }
+
+        public IEnumerable<Enrollment>? GetEnrollmentByStudentId(int studentId)
+        {
+            return _repository.GetAll().Where(e => e.StudentId == studentId);
         }
     }
 }

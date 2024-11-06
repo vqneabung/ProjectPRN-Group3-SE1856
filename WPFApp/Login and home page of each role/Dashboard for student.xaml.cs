@@ -1,6 +1,8 @@
 ﻿using BussinessObjects;
 using DataAccessObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualBasic.ApplicationServices;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +32,10 @@ namespace WPFApp.Login_and_home_page_of_each_role
         private readonly EnrollmentDAO _enrollmentDAO;
         private readonly LmsContext _context;
         private readonly int _studentId;
+        private readonly IEnrollmentService _enrollmentService;
 
 
-        public Dashboard_for_student(int studentId)
+        public Dashboard_for_student(int studentId, IEnrollmentService enrollmentService)
         {
             _studentId = studentId;
             _context = new LmsContext();
@@ -41,15 +44,17 @@ namespace WPFApp.Login_and_home_page_of_each_role
             _courseDAO = new CourseDAO(_context);
             _departmentDAO = new DepartmentDAO(_context);
             _enrollmentDAO = new EnrollmentDAO(_context);
+            DataContext = this;
+            _enrollmentService = enrollmentService;
             InitializeComponent();
             LoadBlogNewsList();
             LoadStatisticalList();
             LoadEnrolledCourses();
-            DataContext = this;
+
         }
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow login = new MainWindow();
+            MainWindow login = App.ServiceProvider.GetRequiredService<MainWindow>();
             login.Show();
             this.Close();
         }
@@ -99,8 +104,8 @@ namespace WPFApp.Login_and_home_page_of_each_role
         private List<EnrolledCourses> LoadCourses()
         {
             // Fetching enrollments for the current student
-            var enrollments = _enrollmentDAO.GetEnrollmentsByStudentId(_studentId);
-
+            var enrollments = _enrollmentService.GetEnrollmentByStudentId(_studentId);
+         
             // Converting to a list of EnrolledCourses to bind to DataGrid
             return enrollments.Select(enrollment => new EnrolledCourses
             {
@@ -116,7 +121,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void CourseOverview_Click(object sender, RoutedEventArgs e)
         {
-            CourseOverviewWindow courseOverviewWindow = new CourseOverviewWindow(_studentId);
+            CourseOverviewWindow courseOverviewWindow = new CourseOverviewWindow(_studentId, _enrollmentService);
             courseOverviewWindow.Show();
             this.Close();
         }

@@ -1,5 +1,6 @@
 ﻿using BussinessObjects;
 using DataAccessObjects;
+using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -68,7 +69,7 @@ namespace WPFApp.Course_Management
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
+            MainWindow mainWindow = App.ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
             this.Close();
         }

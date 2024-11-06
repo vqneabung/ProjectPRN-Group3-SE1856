@@ -1,7 +1,10 @@
-﻿using DataAccessObjects;
+using BussinessObjects;
+using DataAccessObjects;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Client.NativeInterop;
 using Repositories;
+using Services;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,16 +25,19 @@ namespace WPFApp
     public partial class MainWindow : Window
     {
         public readonly UserDAO _userDAO;
+       
+        private readonly IEnrollmentService _enrollmentService;
 
-        public MainWindow()
+        public MainWindow(UserDAO userDAO, IEnrollmentService enrollmentService)
         {
             InitializeComponent();
-            _userDAO = new UserDAO();
+            _userDAO = userDAO;
+            _enrollmentService = enrollmentService;
         }
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            //for test
+            //forTest
             //new Dashboard_for_lecturer().Show();
             //this.Close();
 
@@ -45,19 +51,19 @@ namespace WPFApp
                 switch (user.Role)
                 {
                     case "Student":
-                        new Dashboard_for_student(user.UserId).Show();
+                        new Dashboard_for_student(user.UserId, _enrollmentService).ShowDialog();
                         break;
                     case "Lecturer":
-                        new Dashboard_for_lecturer().Show();
+                        new Dashboard_for_lecturer().ShowDialog();
                         break;
                     case "Staff":
-                        new Dashboard_for_staff().Show();
+                        new Dashboard_for_staff().ShowDialog();
                         break;
                     case "Head of Department":
-                        new Dashboard_for_Head_of_Department(user.UserId).Show();
+                        new Dashboard_for_Head_of_Department(user.UserId).ShowDialog();
                         break;
                     case "Admin":
-                        new Dashboard_for_admin().Show();
+                        new Dashboard_for_admin().ShowDialog();
                         break;
                     default:
                         MessageBox.Show("Role is undefined.");

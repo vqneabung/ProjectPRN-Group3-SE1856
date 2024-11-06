@@ -1,5 +1,7 @@
 ﻿using BussinessObjects;
 using DataAccessObjects;
+using Microsoft.Extensions.DependencyInjection;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,13 +18,15 @@ namespace WPFApp.Course_Overview
         private readonly EnrollmentDAO enrollmentDAO;
         private ObservableCollection<CourseData> courses;
         private readonly int _studentId;
+        private readonly IEnrollmentService _enrollmentService;
 
-        public CourseOverviewWindow(int studentId)
+        public CourseOverviewWindow(int studentId, IEnrollmentService enrollmentService)
         {
             InitializeComponent();
             _studentId = studentId;
             courseDAO = new CourseDAO(new LmsContext());
             enrollmentDAO = new EnrollmentDAO(new LmsContext());
+            _enrollmentService = enrollmentService;
             LoadCourses();
         }
 
@@ -40,7 +44,7 @@ namespace WPFApp.Course_Overview
             // Retrieve all courses
             var allCourses = courseDAO.GetAll();
             // Get the student's current enrollments
-            var enrolledCourses = enrollmentDAO.GetEnrollmentsByStudentId(_studentId).ToList();
+            var enrolledCourses = _enrollmentService.GetEnrollmentByStudentId(_studentId).ToList();
 
             // Combine course data with enrollment information
             var courseDataList = allCourses
@@ -92,7 +96,7 @@ namespace WPFApp.Course_Overview
             if (selectedCourseData != null && selectedCourseData.IsEnrolled)
             {
                 // Find the enrollment to delete
-                var enrollment = enrollmentDAO.GetEnrollmentsByStudentId(_studentId)
+                var enrollment = _enrollmentService.GetEnrollmentByStudentId(_studentId)
                                               .FirstOrDefault(e => e.CourseId == selectedCourseData.CourseId);
                 if (enrollment != null)
                 {
@@ -108,16 +112,21 @@ namespace WPFApp.Course_Overview
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-            Dashboard_for_student home = new Dashboard_for_student(_studentId);
+            Dashboard_for_student home = new Dashboard_for_student(_studentId, _enrollmentService);
             home.Show();
             this.Close();
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
+            MainWindow mainWindow = App.ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
             this.Close();
+        }
+
+        private void DataGridCourses_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

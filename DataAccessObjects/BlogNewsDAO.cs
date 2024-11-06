@@ -17,7 +17,9 @@ namespace DataAccessObjects
         }
 
         public void Add(BlogNews entity)
-        {
+        {            
+            entity.PostId = _context.BlogNews.Max(bl => bl.PostId) + 1;
+
             _context.BlogNews.Add(entity);
             _context.SaveChanges();
         }
@@ -56,7 +58,18 @@ namespace DataAccessObjects
 
         public void Update(BlogNews entity)
         {
-           _context.BlogNews.Update(entity);
+            var blogNews = _context.BlogNews.Find(entity.PostId);
+
+            if (blogNews == null)
+            {
+                return;
+            }
+
+            blogNews.Title = entity.Title;
+            blogNews.Content = entity.Content;
+            blogNews.Category = entity.Category;
+
+            _context.BlogNews.Update(blogNews);
             _context.SaveChanges();
         }
     }

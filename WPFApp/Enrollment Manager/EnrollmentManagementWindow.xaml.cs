@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using BussinessObjects;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,9 @@ namespace WPFApp.Enrollment_Manager
     public partial class EnrollmentManagementWindow : Window
     {
         
-        private readonly EnrollmentService _enrollmentService;
+        private readonly IService<BussinessObjects.Enrollment> _enrollmentService;
 
-        public EnrollmentManagementWindow(EnrollmentService enrollmentService)
+        public EnrollmentManagementWindow(IService<BussinessObjects.Enrollment> enrollmentService)
         {
             _enrollmentService = enrollmentService;
             InitializeComponent();
@@ -38,29 +39,38 @@ namespace WPFApp.Enrollment_Manager
 
         }   
 
-        private void CreateEnrollment_Click(object sender, RoutedEventArgs e)
+  private void CreateEnrollment_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void UpdateEnrollment_Click(object sender, RoutedEventArgs e)
-        {
-
+            var newEnrollment = new BussinessObjects.Enrollment
+            {
+                // Set properties for the new enrollment
+                StudentId = 1, // Example value
+                CourseId = 1, // Example value
+                EnrollmentDate = DateOnly.FromDateTime(DateTime.Now)
+            };
+            _enrollmentService.Add(newEnrollment);
+            LoadEnrollments();
         }
 
         private void DeleteEnrollment_Click(object sender, RoutedEventArgs e)
         {
-
+            if (dgEnrollment.SelectedItem is BussinessObjects.Enrollment selectedEnrollment)
+            {
+                _enrollmentService.Delete(selectedEnrollment);
+                LoadEnrollments();
+            }
         }
 
         private void dgEnrollment_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
+            if (dgEnrollment.SelectedItem is BussinessObjects.Enrollment selectedEnrollment)
+            {
+                tbEnrollmentId.Text = selectedEnrollment.EnrollmentId.ToString();
+                tbStudent.Text = selectedEnrollment.StudentId?.ToString() ?? string.Empty;
+                tbCourse.Text = selectedEnrollment.CourseId?.ToString() ?? string.Empty;
+                tbStatus.Text = selectedEnrollment.Course?.CourseName ?? string.Empty; // Assuming status is course name
+                tbEnrollmentDate.Text = selectedEnrollment.EnrollmentDate?.ToString("yyyy-MM-dd") ?? string.Empty;
+            }
         }
     }
 }
