@@ -52,18 +52,6 @@ namespace WPFApp.Enrollment_Manager
             LoadEnrollments();
         }
 
-        private void UpdateEnrollment_Click(object sender, RoutedEventArgs e)
-        {
-            if (dgEnrollment.SelectedItem is BussinessObjects.Enrollment selectedEnrollment)
-            {
-                selectedEnrollment.StudentId = 2; // Example value
-                selectedEnrollment.CourseId = 2; // Example value
-                selectedEnrollment.EnrollmentDate = DateOnly.FromDateTime(DateTime.Now);
-                _enrollmentService.Update(selectedEnrollment);
-                LoadEnrollments();
-            }
-        }
-
         private void DeleteEnrollment_Click(object sender, RoutedEventArgs e)
         {
             if (dgEnrollment.SelectedItem is BussinessObjects.Enrollment selectedEnrollment)
