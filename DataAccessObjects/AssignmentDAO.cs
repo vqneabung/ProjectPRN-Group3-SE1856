@@ -43,7 +43,10 @@ namespace DataAccessObjects
 
         public IEnumerable<Assignment> GetAll()
         {
-            var Assignments = _context.Assignments.Include("Class");
+            var Assignments = _context.Assignments
+                .Include(a => a.Class)
+                .Include(a => a.Submissions)
+                .ToList();
 
             return Assignments != null && Assignments.Any() ? Assignments : null;
         }

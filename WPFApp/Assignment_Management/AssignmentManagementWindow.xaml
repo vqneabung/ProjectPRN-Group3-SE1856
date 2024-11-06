@@ -11,14 +11,14 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="70"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="70"/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
@@ -40,8 +40,49 @@
         </Grid.RowDefinitions>
 
         <!--Header-->
-        <Button x:Name="btn1" Grid.Column="1" Grid.Row="0" Content="Main" Width="70" Height="30" Background="AntiqueWhite" />
-        <Button x:Name="btn4" Grid.Column="10" Grid.Row="0" Content="Main" Width="70" Height="30" Background="AntiqueWhite" />
+        <Button Click="Main_btn" 
+                Content="Main" Width="60" Height="30"
+                Grid.Column="1" Grid.Row="0"
+                Background="#FFFFF6CC">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="booking" Height="24" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="booking" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#FFFFE986" Opacity="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Click="Course_Overview_btn" 
+                Content="Couse Overview" Width="90" Height="30"
+                Grid.Column="9" Grid.Row="0" Grid.ColumnSpan="2"
+                Background="#FFFFF6CC"
+                HorizontalAlignment="Right" >
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="booking" Height="24" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="booking" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#FFFFE986" Opacity="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
         <!-- AssignmentId -->
         <Label Content="Assignment ID:" Grid.Column="1" Grid.Row="1" 
@@ -51,11 +92,18 @@
              IsReadOnly="True" />
         <!-- Read-only nếu không cho phép chỉnh sửa -->
 
-        <!-- ClassId -->
-        <Label Content="Class ID:" Grid.Column="1" Grid.Row="2" 
+        <!-- Class -->
+        <Label Content="Class:" Grid.Column="1" Grid.Row="2"
            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
-        <TextBox x:Name="txtClassId" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="2" 
-             HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="14" />
+        <ComboBox x:Name="ClassSelector" 
+                  Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="3"
+                  HorizontalAlignment="Left" VerticalAlignment="Top" Width="238" FontSize="16" 
+                  
+                  DisplayMemberPath="ClassName"
+                  SelectedValuePath="ClassId"
+                  SelectedValue="{Binding ClassId}"
+                  IsReadOnly="True" />
+
 
         <!-- Title -->
         <Label Content="Title:" Grid.Column="1" Grid.Row="3" 
@@ -66,7 +114,7 @@
         <!-- Password -->
         <Label Content="Password:" Grid.Column="1" Grid.Row="4" 
            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
-        <PasswordBox x:Name="txtPassword" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="4" 
+        <TextBox x:Name="txtPassword" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="4" 
                  HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="14" />
 
         <!-- UnlockState -->
@@ -78,9 +126,9 @@
         <!-- Description -->
         <Label Content="Description:" Grid.Column="5" Grid.Row="2" 
            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
-        <TextBox x:Name="txtDescription" Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="3"
-             HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="14"
-             AcceptsReturn="True" TextWrapping="Wrap" Height="65" />
+        <TextBox x:Name="txtDescription" Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="2"
+             HorizontalAlignment="Left" VerticalAlignment="Top" Width="238" FontSize="14"
+             AcceptsReturn="True" TextWrapping="Wrap" Height="60" />
 
         <!-- DueDate -->
         <Label Content="Due Date:" Grid.Column="1" Grid.Row="6" 
@@ -90,20 +138,13 @@
                     Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="6"
                     HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="9" />
 
-        <!-- Class -->
-        <Label Content="Class:" Grid.Column="5" Grid.Row="1" 
-           HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
-        <TextBox x:Name="txtClass" Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="1" 
-             HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="16" 
-             IsReadOnly="True" />
-        <!-- Hiển thị thông tin Class, không cho phép chỉnh sửa -->
 
         <!-- Submissions (chỉ để hiển thị nếu có) -->
         <Label Content="Submissions:" Grid.Column="5" Grid.Row="4" 
            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
-        <ListBox x:Name="lstSubmissions" 
+        <ListBox x:Name="lstSubmissions"
                  Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="4" Grid.RowSpan="4"
-                 HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" 
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Width="238" 
                  Height="100" FontSize="14" />
         <!-- Hiển thị danh sách các Submissions -->
 
@@ -180,19 +221,92 @@
             x:Name="AssignmentData"
             Grid.Row="8" Grid.RowSpan="5"
             Grid.Column="1" Grid.ColumnSpan="10"
-            VerticalAlignment="Top" HorizontalAlignment="Left"
+            VerticalAlignment="Top" HorizontalAlignment="Stretch"
             MinHeight="160" MaxHeight="160"
-        >
+            AutoGenerateColumns="False"
+            
+            SelectionChanged="LoadRowInformation"
+>
+            <!-- Background of DataGrid -->
             <DataGrid.Background>
-                <SolidColorBrush Color="#FFA5A5A5" Opacity="1"/>
+                <SolidColorBrush Color="Gainsboro" Opacity="1"/>
             </DataGrid.Background>
+
+            <!-- Style for DataGrid Column Headers -->
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <!-- Set header background -->
+                    <Setter Property="Background" Value="#FF7D79FF" />
+                    <Setter Property="Padding" Value="0" />
+                    <!-- Set header font -->
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="FontSize" Value="10" />
+                    <!-- Set header align -->
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <!-- Set header height -->
+                    <Setter Property="Height" Value="Auto" />
+                    <!-- Set header border -->
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="0.5" />
+                    <!-- Set header wrap text -->
+                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+
+            <!-- Style for DataGrid Cells -->
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                    <!-- Ensure text wrapping in cells -->
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <!-- Center text vertically in data cells -->
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <!-- Center text horizontally in data cells -->
+                </Style>
+            </DataGrid.CellStyle>
+
             <DataGrid.Columns>
-                <DataGridTextColumn Width="40" Header="Id" Binding="{Binding }"/>
-                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
-                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
-                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
-                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
+                <DataGridTextColumn Width="5" Header="Id" Binding="{Binding AssignmentId}"/>
+                <DataGridTextColumn Width="50" Header="Class ID" Binding="{Binding ClassId}"/>
+                <DataGridTemplateColumn Width="100" Header="Class Name">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Class.ClassName}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTemplateColumn Width="120" Header="Title">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Title}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Width="*" Header="Password" Binding="{Binding Password}"/>
+                <DataGridTextColumn Width="90" Header="UnlockState" Binding="{Binding UnlockState}"/>
+
+                <DataGridTemplateColumn Width="150" Header="Description">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Description}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Width="90" Header="DueDate" Binding="{Binding DueDate}"/>
             </DataGrid.Columns>
+            
+            <!--<DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <DataGrid   AutoGenerateColumns="True"
+                                d:ItemsSource="{d:SampleData ItemCount=5}" IsReadOnly="True"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                ItemsSource="{Binding Submissions}" />
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>-->
 
         </DataGrid>
 

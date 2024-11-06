@@ -51,7 +51,7 @@ namespace WPFApp
                 switch (user.Role)
                 {
                     case "Student":
-                        new Dashboard_for_student(user.UserId, _enrollmentService).ShowDialog();
+                        //new Dashboard_for_student(user.UserId, _enrollmentService).ShowDialog();
                         break;
                     case "Lecturer":
                         new Dashboard_for_lecturer().ShowDialog();

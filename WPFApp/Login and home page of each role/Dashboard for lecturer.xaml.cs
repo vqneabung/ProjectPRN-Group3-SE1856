@@ -92,10 +92,9 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void AssignmentManagement_Click(object sender, RoutedEventArgs e)
         {
+            this.Close();
             AssignmentManagementWindow assignmentWindow = App.ServiceProvider.GetRequiredService<AssignmentManagementWindow>();
             assignmentWindow.Show();
-            MessageBox.Show("success");
-            this.Close();
 
         }
 
