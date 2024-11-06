@@ -31,8 +31,8 @@ namespace WPFApp
             ConfigureService(serviceCollection);
             ServiceProvider = serviceCollection.BuildServiceProvider();
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-            //var login = ServiceProvider.GetRequiredService<LoginPage>();
-            //login.Show();
+            var login = ServiceProvider.GetRequiredService<MainWindow>();
+            login.Show();
 
 
         }
@@ -90,6 +90,7 @@ namespace WPFApp
             services.AddScoped<ForumWindow>();
             services.AddScoped<BlogNewsManagementWindow>();
             services.AddScoped<UpdateBlogNews>();
+            services.AddScoped<MainWindow>();
         }
     }
 

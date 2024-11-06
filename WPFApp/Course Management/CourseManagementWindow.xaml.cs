@@ -6,6 +6,7 @@ using DataAccessObjects;
 using BussinessObjects;
 using System.Windows.Controls;
 using WPFApp.Login_and_home_page_of_each_role;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace WPFApp.Course_Management
 {
@@ -173,7 +174,7 @@ namespace WPFApp.Course_Management
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow mainWindow = new MainWindow();
+            MainWindow mainWindow = App.ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
             this.Close();
         }
