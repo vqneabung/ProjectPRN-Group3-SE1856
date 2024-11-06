@@ -5,6 +5,8 @@ using WPFApp.Blog___News;
 using WPFApp.Blog___News.BlogNewsData;
 using WPFApp.Enrollment;
 using WPFApp.Forum;
+using WPFApp.Course_Overview;
+
 
 namespace WPFApp
 {
@@ -48,12 +50,36 @@ namespace WPFApp
             services.AddScoped<SubmissionDAO>();
             services.AddScoped<UserDAO>();   
 
+
             services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
             //Repository
             services.AddScoped<IRepository<BussinessObjects.Enrollment>, EnrollmentRepository>();
             services.AddScoped<IRepository<BlogNews>, BlogNewsRepository>();
             services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
+            //services.AddSingleton<IConfiguration>(configuration);
 
+            services.AddSingleton<AssignmentDAO>();
+            services.AddSingleton<BlogNewsDAO>();
+            services.AddSingleton<CourseDAO>();
+            services.AddSingleton<DepartmentDAO>();
+            services.AddSingleton<DocumentDAO>();
+            services.AddSingleton<EnrollmentDAO>();
+            services.AddSingleton<ForumDAO>();
+            services.AddSingleton<PostDAO>();
+            services.AddSingleton<SubmissionDAO>();
+            services.AddSingleton<UserDAO>();
+            services.AddSingleton<CourseTypeDAO>();
+
+            services.AddScoped<IRepository<Forum>, ForumRespository>();
+            services.AddScoped<IRepository<Department>, DepartmentRepository>();
+            services.AddScoped<IRepository<Document>, DocumentRepository>();
+            services.AddScoped<IRepository<Course>, CourseRepository>();
+            services.AddScoped<IRepository<CourseType>, CourseTypeRepository>();
+
+            services.AddScoped<IService<Department>, DepartmentService>();
+            services.AddScoped<IService<Document>, DocumentService>();
+            services.AddScoped<IService<Course>, CourseService>();
+            services.AddScoped<IService<CourseType>, CourseTypeService>();
 
             //Service
             services.AddScoped<IService<BussinessObjects.Forum>, ForumService>();
@@ -73,6 +99,12 @@ namespace WPFApp
             services.AddScoped<ForumWindow>();
             services.AddScoped<BlogNewsManagementWindow>();
             services.AddScoped<UpdateBlogNews>();
+            //services.AddSingleton<IRoomInformationRepository, RoomInformationRepository>();
+            services.AddDbContext<LmsContext>();
+
+            services.AddScoped<CourseOverviewWindow>();
+            services.AddScoped<CourseOverviewPopup>();
+
 
 
         }

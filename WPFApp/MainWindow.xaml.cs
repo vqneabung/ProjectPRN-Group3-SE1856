@@ -71,5 +71,12 @@ namespace WPFApp
         {
             this.Close();
         }
+
+        private void Course_Button(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            CourseOverviewWindow courseOverviewWindow = App.ServiceProvider.GetRequiredService<CourseOverviewWindow>();
+            courseOverviewWindow.Show();
+        }
     }
 }
