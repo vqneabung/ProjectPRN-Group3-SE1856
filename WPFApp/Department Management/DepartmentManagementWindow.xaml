@@ -6,38 +6,66 @@
         xmlns:local="clr-namespace:WPFApp.Department_Management"
         mc:Ignorable="d"
         FontSize="15"
+        Loaded="Window_Loaded"
         Title="DepartmentManagementWindow" Height="450" Width="800">
     <Grid Background="#FF009688">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
-            <Button Content="Home" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
-            <Button Content="Manage" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
-            <Button Content="Profile" HorizontalAlignment="Left" Margin="530,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0">
+            <Button Content="Home" Margin="20,0,0,0" Width="70" Background="Transparent" Click="Home_Button"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="0">
-            <Button Content="Search" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FF3A4551" Foreground="White"/>
-            <Button Content="Create" HorizontalAlignment="Left" Margin="5,90,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFD4EDDA"/>
-            <Button Content="Update" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFFFFDCD"/>
-            <Button Content="Delete" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFF6D7DA"/>
-        </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1">
-            <TextBox TextWrapping="Wrap" Margin="0,10,0,0" Width="720" Height="30" FontSize="20"/>
-            <DataGrid Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="320">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                    <DataGridTextColumn Header="ID" Binding="{Binding }" Width="*"/>
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+
+        <TabControl x:Name="UserTabControl" Grid.Row="1" Margin="10">
+            <TabItem Header="System Administrator" x:Name="AdminTab">
+                <Grid Background="#FFE5E5E5">
+                    <StackPanel>
+                        <TextBlock Text="Manage Departments" FontSize="16" FontWeight="Bold" Margin="0,10,0,10"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Label Content="Name:" Width="50"/>
+                            <TextBox Width="200" Name="txtASearch"/>
+                            <Button Content="Search" Height="30" Width="70" Background="#FF3A4551" Foreground="White" Click="Search_Button"/>
+                            <Button Content="Create" Width="70" Margin="10,0,0,0" Background="#FFD4EDDA" Click="Create_Button"/>
+                            <Button Content="Update" Width="70" Margin="10,0,0,0" Background="#FFFFFDCD" Click="Update_Button"/>
+                            <Button Content="Delete" Width="70" Margin="10,0,0,0" Background="#FFF6D7DA" Click="Delete_Button"/>
+                        </StackPanel>
+                        <DataGrid x:Name="dgDepartment" AutoGenerateColumns="False" Height="250">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Department ID" Binding="{Binding DepartmentId}" Width="*"/>
+                                <DataGridTextColumn Header="Department Name" Binding="{Binding DepartmentName}" Width="*"/>
+                                <DataGridTextColumn Header="Head ID" Binding="{Binding HeadId}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Head of Department" x:Name="HoDTab">
+                <Grid Background="#FFE5E5E5">
+                    <StackPanel>
+                        <TextBlock Text="Courses List" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                            <Label Content="Name:" Width="50"/>
+                            <TextBox Width="200" Name="txtHSearch"/>
+                            <Button Content="Search" Height="30" Width="70" Background="#FF3A4551" Foreground="White" Click="Search_Button"/>
+                            <Button Content="Link to Department" Width="150" Margin="10,0,0,0" Background="#FFD4EDDA" Click="Link_Button"/>
+                        </StackPanel>
+                        <DataGrid x:Name="dgCourse" AutoGenerateColumns="False" Height="250">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Course ID" Binding="{Binding CourseId}" Width="*"/>
+                                <DataGridTextColumn Header="Course Name" Binding="{Binding CourseName}" Width="*"/>
+                                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="*"/>
+                                <DataGridTextColumn Header="Credits" Binding="{Binding Credits}" Width="*"/>
+                                <DataGridTextColumn Header="Department ID" Binding="{Binding DepartmentId}" Width="*"/>
+                                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
+                                <DataGridTextColumn Header="Course Type" Binding="{Binding CourseType.CourseTypeName}" Width="*"/>
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

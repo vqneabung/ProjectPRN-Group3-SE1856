@@ -1,6 +1,8 @@
 ﻿using BussinessObjects;
 using DataAccessObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualBasic.ApplicationServices;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +16,9 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.Course_Management;
 using WPFApp.Course_Overview;
+using WPFApp.Document_Management;
 
 namespace WPFApp.Login_and_home_page_of_each_role
 {
@@ -99,7 +103,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
         private List<EnrolledCourses> LoadCourses()
         {
             // Fetching enrollments for the current student
-            var enrollments = _enrollmentDAO.GetEnrollmentsByStudentId(_studentId);
+            var enrollments = _enrollmentDAO.GetAll();
 
             // Converting to a list of EnrolledCourses to bind to DataGrid
             return enrollments.Select(enrollment => new EnrolledCourses
@@ -133,7 +137,11 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void DocumentManagement_Click(object sender, RoutedEventArgs e)
         {
-
+            string role = "Student";
+            IService<Document> documentService = App.ServiceProvider.GetRequiredService<IService<Document>>();
+            DocumentManagementWindow documentManagementWindow = new DocumentManagementWindow(documentService, role);
+            documentManagementWindow.Show();
+            this.Hide();
         }
     }
 }

@@ -30,7 +30,7 @@
         </TabControl>
         <Button Content="Logout" Click="LogoutButton_Click" Margin="664,10,10,383"/>
 
-        <Border Margin="0,10,155,345" Padding="10">
+        <Border Margin="0,10,155,300" Padding="10">
             <Grid HorizontalAlignment="Center">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -38,11 +38,16 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
                 <Button Content="Course Management" Click="CourseManagement_Click" Width="150" Margin="5,0" Grid.Column="0"/>
                 <Button Content="Assignment Management" Click="AssignmentManagement_Click" Width="150" Margin="5,0" Grid.Column="1"/>
                 <Button Content="Submission Grading" Click="SubmissionGrading_Click" Width="150" Margin="5,0" Grid.Column="2"/>
                 <Button Content="Forum/Discussion" Click="Forum_Discussion_Click" Width="150" Margin="5,0" Grid.Column="3"/>
+                <Button Content="Document Management" Click="DocumentManagement_Click" Width="150" Margin="5,10,0,0" Grid.Column="0" Grid.Row="1"/>
             </Grid>
         </Border>
     </Grid>

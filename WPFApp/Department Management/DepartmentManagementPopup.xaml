@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WPFApp.Department_Management"
         mc:Ignorable="d"
         FontSize="15"
+        Loaded="Window_Loaded"
         Title="DepartmentManagementPopup" Height="300" Width="350">
     <Grid Background="#FF009688">
         <Grid.ColumnDefinitions>
@@ -14,19 +15,16 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label  Content="Department Manage" HorizontalAlignment="Left" Margin="65,0,0,0" VerticalAlignment="Center" FontSize="24" Grid.ColumnSpan="2"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Height="25"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Height="25"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Height="25"/>
-        <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
-        <Button Content="Close" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Background="#FFF6D7DA"/>
-        <Button Grid.Column="1" Content="Submit" HorizontalAlignment="Left" Margin="70,80,0,0" Grid.Row="4" VerticalAlignment="Top" Background="#FFD4EDDA"/>
+        <TextBox x:Name="txtName" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" Height="25" Margin="10,10,0,0"/>
+        <ComboBox x:Name="cmbHead" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" VerticalAlignment="Top" Width="240" Height="25" Margin="10,10,0,0" DisplayMemberPath="FullName" SelectedValuePath="UserId"/>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="Department Name" VerticalAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="Head of Department" VerticalAlignment="Center"/>
+        <Button Content="Close" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Background="#FFF6D7DA" Click="Close_Button"/>
+        <Button Grid.Column="1" Content="Submit" HorizontalAlignment="Left" Margin="70,80,0,0" Grid.Row="3" VerticalAlignment="Top" Background="#FFD4EDDA" Click="Submit_Button"/>
     </Grid>
 </Window>

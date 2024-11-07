@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:WPFApp.Document_Management"
         mc:Ignorable="d"
         FontSize="15"
+        Loaded="Window_Loaded"
         Title="DocumentManagePopup" Height="300" Width="350">
     <Grid Background="#FF009688">
         <Grid.ColumnDefinitions>
@@ -17,16 +18,19 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
             <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Label  Content="Document Manage" HorizontalAlignment="Left" Margin="69,0,0,0" VerticalAlignment="Center" FontSize="24" Grid.ColumnSpan="2"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Height="25"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Height="25"/>
-        <TextBox Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="270" Height="25"/>
-        <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
-        <TextBlock HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Center"/>
-        <Button Content="Close" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Background="#FFF6D7DA"/>
-        <Button Grid.Column="1" Content="Submit" HorizontalAlignment="Left" Margin="70,80,0,0" Grid.Row="4" VerticalAlignment="Top" Background="#FFD4EDDA"/>
+        <ComboBox x:Name="cmbCourse" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="1" VerticalAlignment="Top" Width="240" Height="25" DisplayMemberPath="CourseName" SelectedValuePath="CourseId" Margin="10,0"/>
+        <TextBox x:Name="txtTitle" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" Height="25" Margin="10,0"/>
+        <TextBox x:Name="txtDescription" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Width="240" Height="25" Margin="10,0"/>
+        <Button Content="Upload" Grid.Column="1" HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Top" Width="100" Height="25" Click="Upload_Button"/>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="1" TextWrapping="Wrap" Text="Course" VerticalAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="2" TextWrapping="Wrap" Text="Title" VerticalAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="3" TextWrapping="Wrap" Text="Description" VerticalAlignment="Center"/>
+        <TextBlock HorizontalAlignment="Center" Grid.Row="4" TextWrapping="Wrap" Text="File" VerticalAlignment="Center"/>
+        <Button Content="Close" HorizontalAlignment="Left" Margin="5,5,0,0" VerticalAlignment="Top" Background="#FFF6D7DA" Click="Close_Button"/>
+        <Button Grid.Column="1" Content="Submit" HorizontalAlignment="Left" Margin="70,50,0,0" Grid.Row="5" VerticalAlignment="Top" Background="#FFD4EDDA" Click="Submit_Button"/>
     </Grid>
 </Window>

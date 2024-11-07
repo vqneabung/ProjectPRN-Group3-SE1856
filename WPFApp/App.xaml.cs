@@ -3,9 +3,18 @@ using System.Data;
 using System.Windows;
 using WPFApp.Blog___News;
 using WPFApp.Blog___News.BlogNewsData;
-using WPFApp.Enrollment;
 using WPFApp.Forum;
 using WPFApp.Course_Overview;
+using Repositories;
+using DataAccessObjects;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using BussinessObjects;
+using Services;
+using WPFApp.Enrollment_Manager;
+using WPFApp.Document_Management;
+using WPFApp.Department_Management;
 
 
 namespace WPFApp
@@ -70,16 +79,18 @@ namespace WPFApp
             services.AddSingleton<UserDAO>();
             services.AddSingleton<CourseTypeDAO>();
 
-            services.AddScoped<IRepository<Forum>, ForumRespository>();
+            //services.AddScoped<IRepository<Forum>, ForumRespository>();
             services.AddScoped<IRepository<Department>, DepartmentRepository>();
             services.AddScoped<IRepository<Document>, DocumentRepository>();
             services.AddScoped<IRepository<Course>, CourseRepository>();
             services.AddScoped<IRepository<CourseType>, CourseTypeRepository>();
+            services.AddScoped<IRepository<User>, UserRepository>();
 
             services.AddScoped<IService<Department>, DepartmentService>();
             services.AddScoped<IService<Document>, DocumentService>();
             services.AddScoped<IService<Course>, CourseService>();
             services.AddScoped<IService<CourseType>, CourseTypeService>();
+            services.AddScoped<IService<User>, UserService>();
 
             //Service
             services.AddScoped<IService<BussinessObjects.Forum>, ForumService>();
@@ -104,6 +115,10 @@ namespace WPFApp
 
             services.AddScoped<CourseOverviewWindow>();
             services.AddScoped<CourseOverviewPopup>();
+            services.AddScoped<DocumentManagementWindow>();
+            services.AddScoped<DocumentManagePopup>();
+            services.AddScoped<DepartmentManagementWindow>();
+            services.AddScoped<DepartmentManagementPopup>();
 
 
 

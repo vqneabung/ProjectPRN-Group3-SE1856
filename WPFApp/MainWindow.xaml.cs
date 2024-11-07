@@ -1,5 +1,6 @@
 using DataAccessObjects;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Identity.Client.NativeInterop;
 using Repositories;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFApp.Course_Overview;
 using WPFApp.Login_and_home_page_of_each_role;
 
 namespace WPFApp
