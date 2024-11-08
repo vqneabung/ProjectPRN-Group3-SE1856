@@ -46,18 +46,18 @@ namespace WPFApp.Submission_Grading
 
         private void AssignmentWindow_btn(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Hide();
             IService<Assignment> service = App.ServiceProvider.GetRequiredService<IService<Assignment>>();
             IService<Class> service1 = App.ServiceProvider.GetRequiredService<IService<Class>>();
             AssignmentManagementWindow assignmentWindow = new(service, service1);
 
             assignmentWindow.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void Course_Overview_btn(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            this.Hide();
             CourseOverviewWindow overviewWindow = App.ServiceProvider.GetRequiredService<CourseOverviewWindow>();
             overviewWindow.Show();
         }
@@ -66,7 +66,7 @@ namespace WPFApp.Submission_Grading
         {
             var DashBoard_for_lecture = new Dashboard_for_lecturer();
             DashBoard_for_lecture.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void Submission_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -42,7 +42,11 @@ namespace WPFApp.Forum
         {
             var courseId = WPFApp.Data.Data.courseId;
             var forums = _forumService.GetAll()?.Where(f => f.CourseId == courseId);
-            tbCourse.Text = _context.Courses.First(c => c.CourseId == courseId).CourseName;
+            tbCourse.Text = "";
+            if (_context.Courses.FirstOrDefault(c => c.CourseId == courseId) != null)
+            {
+                tbCourse.Text = _context.Courses.First(c => c.CourseId == courseId).CourseName;
+            }
             dgForum.ItemsSource = forums;
         }
 
