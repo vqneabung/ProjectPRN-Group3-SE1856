@@ -201,7 +201,7 @@ namespace WPFApp
                     IService<Submission> service = App.ServiceProvider.GetService<IService<Submission>>();
 
                     SubmissionGradingWindow submissionGradingWindow = new(service);
-                    submissionGradingWindow.SubmissionGrading = list;
+                    //submissionGradingWindow.SubmissionGrading = list;
                     submissionGradingWindow.Show();
                     this.Close();
 
