@@ -36,6 +36,7 @@ namespace WPFApp.Blog___News
             LoadBlogNews();
         }
 
+
         public void LoadBlogNews()
         {
             var blogNews = _blogNewsService.GetAll();

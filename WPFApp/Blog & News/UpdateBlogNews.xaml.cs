@@ -1,4 +1,5 @@
 ﻿using BussinessObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -73,6 +74,14 @@ namespace WPFApp.Blog___News
             tbTitle.Text = "";
             rtbContent.Document.Blocks.Clear();
             tbCategory.Text = "";
+        }
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            BlogNewsManagementWindow blogNewsManagementWindow = App.ServiceProvider.GetRequiredService<BlogNewsManagementWindow>();
+            blogNewsManagementWindow.LoadBlogNews();
+            blogNewsManagementWindow.Show();
+            this.Hide();
         }
     }
 }

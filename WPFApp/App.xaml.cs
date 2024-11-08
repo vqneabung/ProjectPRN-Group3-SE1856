@@ -13,6 +13,18 @@ using WPFApp.Blog___News;
 using WPFApp.Course_Overview;
 using WPFApp.Enrollment_Manager;
 using WPFApp.Forum;
+using WPFApp.Data;
+using WPFApp.Course_Overview;
+using Repositories;
+using DataAccessObjects;
+using Microsoft.Extensions.DependencyInjection;
+using System.Text;
+using Microsoft.Extensions.Configuration;
+using BussinessObjects;
+using Services;
+using WPFApp.Enrollment_Manager;
+using WPFApp.Document_Management;
+using WPFApp.Department_Management;
 
 namespace WPFApp
 {
@@ -55,6 +67,7 @@ namespace WPFApp
             services.AddSingleton<UserDAO>();
             services.AddSingleton<ClassDAO>();
 
+
             services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
             services.AddScoped<IRepository<Department>, DepartmentRepository>();
             services.AddScoped<IRepository<Document>, DocumentRepository>();
@@ -76,12 +89,42 @@ namespace WPFApp
             //Repository
             services.AddScoped<IRepository<BussinessObjects.Enrollment>, EnrollmentRepository>();
             services.AddScoped<IRepository<BlogNews>, BlogNewsRepository>();
+            services.AddScoped<IRepository<Post>, PostRepository>();
+            services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
+            //services.AddSingleton<IConfiguration>(configuration);
+
+            services.AddSingleton<AssignmentDAO>();
+            services.AddSingleton<BlogNewsDAO>();
+            services.AddSingleton<CourseDAO>();
+            services.AddSingleton<DepartmentDAO>();
+            services.AddSingleton<DocumentDAO>();
+            services.AddSingleton<EnrollmentDAO>();
+            services.AddSingleton<ForumDAO>();
+            services.AddSingleton<PostDAO>();
+            services.AddSingleton<SubmissionDAO>();
+            services.AddSingleton<UserDAO>();
+            services.AddSingleton<CourseTypeDAO>();
+
+            //services.AddScoped<IRepository<Forum>, ForumRespository>();
+            services.AddScoped<IRepository<Department>, DepartmentRepository>();
+            services.AddScoped<IRepository<Document>, DocumentRepository>();
+            services.AddScoped<IRepository<Course>, CourseRepository>();
+            services.AddScoped<IRepository<CourseType>, CourseTypeRepository>();
+            services.AddScoped<IRepository<User>, UserRepository>();
+
+            services.AddScoped<IService<Department>, DepartmentService>();
+            services.AddScoped<IService<Document>, DocumentService>();
+            services.AddScoped<IService<Course>, CourseService>();
+            services.AddScoped<IService<CourseType>, CourseTypeService>();
+            services.AddScoped<IService<User>, UserService>();
 
             //Service
             services.AddScoped<IService<BussinessObjects.Forum>, ForumService>();
             services.AddScoped<IService<BussinessObjects.Enrollment>, EnrollmentService>();
             services.AddScoped<IEnrollmentService, EnrollmentService>();
             services.AddScoped<IService<BlogNews>, BlogNewsService>();
+            services.AddScoped<IService<Post>, PostService>();
+            
 
             //Data
             services.AddScoped<IBlogNewsData, BlogNewsData>();
@@ -94,6 +137,20 @@ namespace WPFApp
             services.AddScoped<BlogNewsManagementWindow>();
             services.AddScoped<UpdateBlogNews>();
             services.AddScoped<MainWindow>();
+            services.AddScoped<PostWindow>();
+            //Other
+            services.AddScoped<ReturnToDashboard>();
+            //services.AddSingleton<IRoomInformationRepository, RoomInformationRepository>();
+            services.AddDbContext<LmsContext>();
+
+            services.AddScoped<CourseOverviewWindow>();
+            services.AddScoped<CourseOverviewPopup>();
+            services.AddScoped<DocumentManagementWindow>();
+            services.AddScoped<DocumentManagePopup>();
+            services.AddScoped<DepartmentManagementWindow>();
+            services.AddScoped<DepartmentManagementPopup>();
+
+
         }
     }
 

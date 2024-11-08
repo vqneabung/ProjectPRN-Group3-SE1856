@@ -1,4 +1,5 @@
 ﻿using BussinessObjects;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,14 @@ namespace DataAccessObjects
         {
             try
             {
-                lmsContext.Entry<Document>(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                var trackedEntity = lmsContext.Documents.Local.FirstOrDefault(d => d.DocumentId == entity.DocumentId);
+
+                if (trackedEntity != null)
+                {
+                    lmsContext.Entry(trackedEntity).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+                }
+
+                lmsContext.Entry(entity).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 lmsContext.SaveChanges();
             }
             catch (Exception ex)
@@ -61,7 +69,7 @@ namespace DataAccessObjects
             IEnumerable<Document> list = new List<Document>();
             try
             {
-                list = lmsContext.Documents.ToList();
+                list = lmsContext.Documents.Include(d => d.Course).ToList();
             }
             catch (Exception ex)
             {

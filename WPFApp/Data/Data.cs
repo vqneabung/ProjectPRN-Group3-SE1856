@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WPFApp.Forum.Data
+namespace WPFApp.Data
 {
-    class ForumData
+    public class Data
     {
-        public static Course? courseId;
-        public static BussinessObjects.Forum? forum;
+        public static User user;
+        public static int courseId;
     }
 }

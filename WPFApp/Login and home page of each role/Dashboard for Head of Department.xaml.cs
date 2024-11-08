@@ -1,8 +1,10 @@
 ﻿using BussinessObjects;
 using DataAccessObjects;
 using Microsoft.Extensions.DependencyInjection;
+using Services;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,6 +17,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFApp.Course_Management;
+using WPFApp.Department_Management;
+using WPFApp.Document_Management;
 
 namespace WPFApp.Login_and_home_page_of_each_role
 {
@@ -87,7 +91,12 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void DepartmentManagement_Click(object sender, RoutedEventArgs e)
         {
-
+            string role = "HoD";
+            IService<Department> deparmentService = App.ServiceProvider.GetRequiredService<IService<Department>>();
+            IService<Course> courseService = App.ServiceProvider.GetRequiredService<IService<Course>>();
+            DepartmentManagementWindow departmentManagementWindow = new DepartmentManagementWindow(deparmentService, courseService, role, _headId);
+            departmentManagementWindow.Show();
+            this.Hide();
         }
 
         private void CourseManagement_Click(object sender, RoutedEventArgs e)

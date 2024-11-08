@@ -15,6 +15,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFApp.Data;
+using WPFApp.Course_Overview;
 using WPFApp.Login_and_home_page_of_each_role;
 
 namespace WPFApp
@@ -46,12 +48,14 @@ namespace WPFApp
 
             var user = _userDAO.GetByUserName(username);
 
+            Data.Data.user = user;
+
             if (user != null && user.Password == password)
             {
                 switch (user.Role)
                 {
                     case "Student":
-                        //new Dashboard_for_student(user.UserId, _enrollmentService).ShowDialog();
+                        new Dashboard_for_student(user.UserId, _enrollmentService).ShowDialog();
                         break;
                     case "Lecturer":
                         new Dashboard_for_lecturer().ShowDialog();
@@ -80,6 +84,13 @@ namespace WPFApp
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+        }
+
+        private void Course_Button(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            CourseOverviewWindow courseOverviewWindow = App.ServiceProvider.GetRequiredService<CourseOverviewWindow>();
+            courseOverviewWindow.Show();
         }
     }
 }
