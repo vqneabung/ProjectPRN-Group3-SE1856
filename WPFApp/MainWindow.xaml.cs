@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WPFApp.Course_Overview;
 using WPFApp.Login_and_home_page_of_each_role;
 
 namespace WPFApp
@@ -80,6 +81,13 @@ namespace WPFApp
         private void btnClose_Click(object sender, RoutedEventArgs e)
         {
             this.Hide();
+        }
+
+        private void Course_Button(object sender, RoutedEventArgs e)
+        {
+            this.Hide();
+            CourseOverviewWindow courseOverviewWindow = App.ServiceProvider.GetRequiredService<CourseOverviewWindow>();
+            courseOverviewWindow.Show();
         }
     }
 }

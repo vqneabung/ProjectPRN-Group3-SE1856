@@ -16,6 +16,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFApp.Course_Management;
+using WPFApp.Document_Management;
 
 namespace WPFApp.Login_and_home_page_of_each_role
 {
@@ -106,6 +107,15 @@ namespace WPFApp.Login_and_home_page_of_each_role
         private void Forum_Discussion_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void DocumentManagement_Click(object sender, RoutedEventArgs e)
+        {
+            string role = "Lecturer";
+            IService<Document> documentService = App.ServiceProvider.GetRequiredService<IService<Document>>();
+            DocumentManagementWindow documentManagementWindow = new DocumentManagementWindow(documentService, role);
+            documentManagementWindow.Show();
+            this.Hide();
         }
     }
 }

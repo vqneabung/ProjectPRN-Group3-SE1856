@@ -2,6 +2,7 @@
 using DataAccessObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.Department_Management;
 using WPFApp.User_Manager;
 
 namespace WPFApp.Login_and_home_page_of_each_role
@@ -98,7 +100,12 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void DepartmentManagement_Click(object sender, RoutedEventArgs e)
         {
-
+            string role = "Admin";
+            IService<Department> deparmentService = App.ServiceProvider.GetRequiredService<IService<Department>>();
+            IService<Course> courseService = App.ServiceProvider.GetRequiredService<IService<Course>>();
+            DepartmentManagementWindow departmentManagementWindow = new DepartmentManagementWindow(deparmentService, courseService, role);
+            departmentManagementWindow.Show();
+            this.Hide();
         }
     }
 }
