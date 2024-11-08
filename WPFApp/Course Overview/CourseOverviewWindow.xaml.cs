@@ -89,6 +89,8 @@ namespace WPFApp.Course_Overview
             {
                 MessageBox.Show("You are already enrolled in this course or no course is selected.", "Enrollment Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
+
+
         }
 
         private void Unenroll_Click(object sender, RoutedEventArgs e)

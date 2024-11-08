@@ -1,4 +1,5 @@
 ﻿using BussinessObjects;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,7 +65,7 @@ namespace DataAccessObjects
             IEnumerable<Course> list = new List<Course>();
             try
             {
-                list = lmsContext.Courses.ToList();
+                list = lmsContext.Courses.Include(c => c.CourseType).ToList();
             }
             catch (Exception ex)
             {

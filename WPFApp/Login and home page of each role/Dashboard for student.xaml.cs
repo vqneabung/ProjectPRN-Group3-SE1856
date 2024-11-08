@@ -16,8 +16,10 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.Course_Management;
 using WPFApp.Course_Overview;
 using WPFApp.Forum;
+using WPFApp.Document_Management;
 
 namespace WPFApp.Login_and_home_page_of_each_role
 {
@@ -105,8 +107,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
         private List<EnrolledCourses> LoadCourses()
         {
             // Fetching enrollments for the current student
-            var enrollments = _enrollmentService.GetEnrollmentByStudentId(_studentId);
-         
+            var enrollments = _enrollmentDAO.GetAll();
             // Converting to a list of EnrolledCourses to bind to DataGrid
             return enrollments.Select(enrollment => new EnrolledCourses
             {
@@ -129,13 +130,23 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void AssignmentSubmission_Click(object sender, RoutedEventArgs e)
         {
+            
+        }
 
+        private void ForumDiscussion_Click(object sender, RoutedEventArgs e)
+        {
+            ForumWindow forumWindow = App.ServiceProvider.GetRequiredService<ForumWindow>();
+            forumWindow.ShowDialog();
+            this.Hide();
         }
 
         private void DocumentManagement_Click(object sender, RoutedEventArgs e)
         {
-       
-
+            string role = "Student";
+            IService<Document> documentService = App.ServiceProvider.GetRequiredService<IService<Document>>();
+            DocumentManagementWindow documentManagementWindow = new DocumentManagementWindow(documentService, role);
+            documentManagementWindow.Show();
+            this.Hide();
         }
     }
 }
