@@ -1,6 +1,7 @@
 ﻿using BussinessObjects;
 using DataAccessObjects;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -33,14 +34,14 @@ namespace WPFApp.Submission_Grading
         }
 
         public List<Submission> ListSubmissionGrading { get; set; }
+        private Class SearchClass=new();
+        private Assignment SearchAssignment =new();
+        private User SearchStudent = new();
+        private Submission SearchSubmission = new();
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-
-            if (ListSubmissionGrading.Any()) { }
-
-
+            listSubmission.ItemsSource =  _submissionService.GetAll();
         }
 
         private void AssignmentWindow_btn(object sender, RoutedEventArgs e)
@@ -66,6 +67,59 @@ namespace WPFApp.Submission_Grading
             var DashBoard_for_lecture = new Dashboard_for_lecturer();
             DashBoard_for_lecture.Show();
             this.Close();
+        }
+
+        private void Submission_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var submission = listSubmission.SelectedItem as Submission;
+            if(submission != null)
+            {
+
+                txtSubmissionId.Text = submission.SubmissionId.ToString();
+                txtAssignmentId.Text = submission.AssignmentId.ToString();
+                txtTitle.Text = submission.Assignment.Title.ToString();
+                SubmissionDateDatePicker.SelectedDate = submission.SubmissionDate.GetValueOrDefault().ToDateTime(TimeOnly.MinValue);
+                txtGrade.Text = submission.Grade.ToString();
+            }
+            else { MessageBox.Show("Please chose which submission to display!"); }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (listSubmission.SelectedItem != null)
+            {
+                var submission = (Submission)listSubmission.SelectedItem;
+
+                try
+                {
+                    if (!string.IsNullOrWhiteSpace(txtGrade.Text))
+                    {
+                        submission.Grade = decimal.Parse(txtGrade.Text.Trim());
+                        if(submission.Grade < 0 || submission.Grade > 100)
+                        {
+                            MessageBox.Show("Grade is not negative and below 100", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                            return;
+                        }
+                        
+                    }
+                    else
+                    {
+                        MessageBox.Show("Grade is required", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                        return;
+                    }
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Please enter a valid grade ", "Wrong Format", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+
+                _submissionService.Update(submission);
+
+
+
+                Window_Loaded(sender, e);
+            }
+            else { MessageBox.Show("Please choose an assignment to do!!"); }
         }
     }
 }

@@ -10,6 +10,7 @@ namespace DataAccessObjects
 {
     public class AssignmentDAO : IDAO<Assignment>
     {
+        
         private readonly LmsContext _context;
 
         public AssignmentDAO(LmsContext context)

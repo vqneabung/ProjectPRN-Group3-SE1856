@@ -6,6 +6,7 @@ using Services;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Formats.Asn1;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -191,23 +192,15 @@ namespace WPFApp
             }
         }
 
-        private void Grade_btn(object sender, RoutedEventArgs e)
+        private void SubissionManage_btn(object sender, RoutedEventArgs e)
         {
-            if(AssignmentData.SelectedItem != null)
-            {
-                if(lstSubmissions.SelectedItem != null)
-                {
-                    var list = lstSubmissions.SelectedItem as List<Submission>;
-                    IService<Submission> service = App.ServiceProvider.GetService<IService<Submission>>();
+            var list = lstSubmissions.SelectedItem as List<Submission>;
+            IService<Submission> service = App.ServiceProvider.GetService<IService<Submission>>();
 
-                    SubmissionGradingWindow submissionGradingWindow = new(service);
-                    submissionGradingWindow.SubmissionGrading = list;
-                    submissionGradingWindow.Show();
-                    this.Close();
-
-                } else { MessageBox.Show("Please chose which Submission to display!"); }
-            }
-            else { MessageBox.Show("Please chose which Assignment to Grade!"); }
+            SubmissionGradingWindow submissionGradingWindow = new(service);
+            submissionGradingWindow.ListSubmissionGrading = list;
+            submissionGradingWindow.Show();
+            this.Close();
         }
     }
 }

@@ -40,7 +40,6 @@
         </Grid.RowDefinitions>
 
         <!--Header-->
-        <!--Header-->
         <Button Click="Main_btn" 
         Content="Main" Width="60"
         Grid.Column="1" Grid.Row="0"
@@ -84,21 +83,54 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button Click="Course_Overview_btn" 
-        Content="Couse Overview" Width="90" Height="30"
-        Grid.Column="9" Grid.Row="0" Grid.ColumnSpan="2"
-        Background="#FFFFF6CC"
-        HorizontalAlignment="Right" >
+
+
+
+        <!--Submission ID-->
+        <Label Content="Submission ID:" Grid.Row="1" 
+            HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="10" Grid.ColumnSpan="2" Width="80"/>
+        <TextBox x:Name="txtSubmissionId" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" IsReadOnly="True"
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="13" />
+        <!-- AssignmentId -->
+        <Label Content="Assignment ID:" Grid.Row="2" 
+            HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="10" Grid.ColumnSpan="2" Width="80"/>
+        <TextBox x:Name="txtAssignmentId" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="2" IsReadOnly="True"
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="13" />
+        <!-- Title -->
+        <Label Content="Title:" Grid.Column="1" Grid.Row="3" 
+                HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" />
+        <TextBox x:Name="txtTitle" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3" IsReadOnly="True"
+                HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="12" />
+        <!-- DueDate -->
+        <Label Content="Submission &#xD;&#xA;Date:" Grid.Row="4" Grid.RowSpan="1"
+                HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="10" Grid.ColumnSpan="2" Height="40" Margin="5,0,0,0" Width="75" />
+        <DatePicker x:Name="SubmissionDateDatePicker"
+            Width="150"
+            Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4"
+            HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="13" />
+
+        <!-- Description -->
+        <Label Content="Grade:" Grid.Column="5" Grid.Row="1" 
+            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="10" Width="80" />
+        <TextBox x:Name="txtGrade" Grid.Column="6" Grid.ColumnSpan="2" Grid.Row="1"
+             HorizontalAlignment="Center" VerticalAlignment="Center" Width="160" FontSize="12"
+             AcceptsReturn="True" TextWrapping="Wrap" Height="33" />
+
+
+        <!--Update button-->
+        <Button Click="Button_Click" Content="Grade" Width="80" Height="30"
+            Grid.Column="9" Grid.ColumnSpan="2" Grid.Row="3"
+            Background="#FFFFD598">
             <Button.Template>
                 <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="booking" Height="24" CornerRadius="5" Background="{TemplateBinding Background}">
+                    <Border x:Name="booking" Height="24" CornerRadius="15" Background="{TemplateBinding Background}">
                         <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter TargetName="booking" Property="Background">
                                 <Setter.Value>
-                                    <SolidColorBrush Color="#FFFFE986" Opacity="1"/>
+                                    <SolidColorBrush Color="#FFFF8825" Opacity="1"/>
                                 </Setter.Value>
                             </Setter>
                         </Trigger>
@@ -108,11 +140,75 @@
         </Button>
 
 
+        <!--Data of submission-->
+        <DataGrid
+            x:Name="listSubmission"
+            Grid.Row="7" Grid.RowSpan="6"
+            Grid.Column="1" Grid.ColumnSpan="10"
+            VerticalAlignment="Top" HorizontalAlignment="Stretch"
+            Height="194"
+            FontSize="9"
+            AutoGenerateColumns="False"
+            SelectionChanged="Submission_SelectionChanged"
+>
+            <!-- Background of DataGrid -->
+            <DataGrid.Background>
+                <SolidColorBrush Color="Gainsboro" Opacity="1"/>
+            </DataGrid.Background>
 
+            <!-- Style for DataGrid Column Headers -->
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader">
+                    <!-- Set header background -->
+                    <Setter Property="Background" Value="#FF7D79FF" />
+                    <Setter Property="Padding" Value="0" />
+                    <!-- Set header font -->
+                    <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property="FontSize" Value="10" />
+                    <!-- Set header align -->
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <!-- Set header height -->
+                    <Setter Property="Height" Value="Auto" />
+                    <!-- Set header border -->
+                    <Setter Property="BorderBrush" Value="Black" />
+                    <Setter Property="BorderThickness" Value="0.5" />
+                    <!-- Set header wrap text -->
+                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
 
+            <!-- Style for DataGrid Cells -->
+            <DataGrid.CellStyle>
+                <Style TargetType="DataGridCell">
+                    <Setter Property="TextBlock.TextWrapping" Value="Wrap" />
+                    <!-- Ensure text wrapping in cells -->
+                    <Setter Property="VerticalContentAlignment" Value="Center" />
+                    <!-- Center text vertically in data cells -->
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                    <!-- Center text horizontally in data cells -->
+                </Style>
+            </DataGrid.CellStyle>
 
+            <DataGrid.Columns>
+                <DataGridTextColumn Width="20" Header="Id" Binding="{Binding SubmissionId}"/>
+                <DataGridTextColumn Width="90" Header="Assigment ID" Binding="{Binding AssignmentId}"/>
+                <DataGridTemplateColumn Width="*" Header="Assignment Title">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Assignment.Title}" TextWrapping="Wrap"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
 
+                <DataGridTextColumn Width="50" Header="Student ID" Binding="{Binding StudentId}"/>
 
+                <DataGridTextColumn Width="90" Header="SubmissionDate" Binding="{Binding SubmissionDate}"/>
+                <DataGridTextColumn Width="*" Header="Grade" IsReadOnly="True" Binding="{Binding Grade}"/>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
 
 
 

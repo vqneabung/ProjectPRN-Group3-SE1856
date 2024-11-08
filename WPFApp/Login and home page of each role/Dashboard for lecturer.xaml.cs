@@ -101,7 +101,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
             //AssignmentManagementWindow assignmentWindow = App.ServiceProvider.GetRequiredService<AssignmentManagementWindow>();
             this.Close();
-            assignmentWindow.ShowDialog();
+            assignmentWindow.Show();
 
         }
 

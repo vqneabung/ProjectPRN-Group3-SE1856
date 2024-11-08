@@ -19,7 +19,28 @@ namespace DataAccessObjects
 
         public void Add(Submission entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // Kiểm tra và đính kèm nếu chưa có trong DbContext
+                var trackedAssignment = _context.Assignments.Local
+                    .FirstOrDefault(a => a.AssignmentId == entity.AssignmentId);
+
+                if (trackedAssignment != null)
+                {
+                    entity.Assignment = trackedAssignment; // Sử dụng thực thể đã được theo dõi
+                }
+                else
+                {
+                    _context.Attach(entity.Assignment); // Đính kèm nếu chưa có
+                }
+
+                _context.Add(entity);
+                _context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public void Delete(Submission entity)
@@ -34,7 +55,12 @@ namespace DataAccessObjects
 
         public IEnumerable<Submission> GetAll()
         {
-            throw new NotImplementedException();
+            var Submission = _context.Submissions
+                .Include(s => s.Assignment)
+                .OrderByDescending(a => a.SubmissionId)
+                .ToList();
+
+            return Submission != null && Submission.Any() ? Submission : null;
         }
 
         public void Update(Submission entity)

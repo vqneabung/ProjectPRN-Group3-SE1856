@@ -25,6 +25,8 @@ using Services;
 using WPFApp.Enrollment_Manager;
 using WPFApp.Document_Management;
 using WPFApp.Department_Management;
+using WPFApp.Submission_Grading;
+using WPFApp.Assignment_Management;
 
 namespace WPFApp
 {
@@ -74,17 +76,22 @@ namespace WPFApp
             services.AddScoped<IRepository<Course>, CourseRepository>();
             services.AddScoped<IRepository<Assignment>, AssignmentRepository>();
             services.AddScoped<IRepository<Class>, ClassRepository>();
+            services.AddScoped<IRepository<Submission>, SubmissionRepository>();
 
             services.AddScoped<IService<Department>, DepartmentService>();
             services.AddScoped<IService<Document>, DocumentService>();
             services.AddScoped<IService<Course>, CourseService>();
             services.AddScoped<IService<Assignment>, AssignmentService>();
             services.AddScoped<IService<Class>, ClassService>();
+            services.AddScoped<IService<Submission>, SubmissionService>();
 
             services.AddDbContext<LmsContext>();
 
             services.AddScoped<CourseOverviewWindow>();
             services.AddScoped<AssignmentManagementWindow>();
+            services.AddScoped<SubmissionGradingWindow>();
+            services.AddScoped<StudentAssignManageWindow>();
+            services.AddScoped<SubmitAssignmentWindow>();
 
             //Repository
             services.AddScoped<IRepository<BussinessObjects.Enrollment>, EnrollmentRepository>();
@@ -111,12 +118,14 @@ namespace WPFApp
             services.AddScoped<IRepository<Course>, CourseRepository>();
             services.AddScoped<IRepository<CourseType>, CourseTypeRepository>();
             services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddScoped<IRepository<Submission>, SubmissionRepository>();
 
             services.AddScoped<IService<Department>, DepartmentService>();
             services.AddScoped<IService<Document>, DocumentService>();
             services.AddScoped<IService<Course>, CourseService>();
             services.AddScoped<IService<CourseType>, CourseTypeService>();
             services.AddScoped<IService<User>, UserService>();
+            services.AddScoped<IService<Submission>, SubmissionService>();
 
             //Service
             services.AddScoped<IService<BussinessObjects.Forum>, ForumService>();

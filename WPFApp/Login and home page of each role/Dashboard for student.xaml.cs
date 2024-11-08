@@ -20,6 +20,7 @@ using WPFApp.Course_Management;
 using WPFApp.Course_Overview;
 using WPFApp.Forum;
 using WPFApp.Document_Management;
+using WPFApp.Assignment_Management;
 
 namespace WPFApp.Login_and_home_page_of_each_role
 {
@@ -130,7 +131,12 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void AssignmentSubmission_Click(object sender, RoutedEventArgs e)
         {
-            
+            IService<Assignment> service = App.ServiceProvider.GetRequiredService<IService<Assignment>>();
+            StudentAssignManageWindow assignmentWindow = new(_studentId, service);
+
+            //AssignmentManagementWindow assignmentWindow = App.ServiceProvider.GetRequiredService<AssignmentManagementWindow>();
+            this.Close();
+            assignmentWindow.Show();
         }
 
         private void ForumDiscussion_Click(object sender, RoutedEventArgs e)
