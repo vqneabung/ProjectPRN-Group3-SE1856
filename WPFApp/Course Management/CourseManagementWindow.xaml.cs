@@ -7,6 +7,7 @@ using BussinessObjects;
 using System.Windows.Controls;
 using WPFApp.Login_and_home_page_of_each_role;
 using Microsoft.Extensions.DependencyInjection;
+using WPFApp.Data;
 
 namespace WPFApp.Course_Management
 {
@@ -167,9 +168,9 @@ namespace WPFApp.Course_Management
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-            Dashboard_for_staff home = new Dashboard_for_staff();
-            home.Show();
-            this.Close();
+            ReturnToDashboard returnToDashboard = App.ServiceProvider.GetRequiredService<ReturnToDashboard>();
+            returnToDashboard.Return();
+            this.Hide();
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)

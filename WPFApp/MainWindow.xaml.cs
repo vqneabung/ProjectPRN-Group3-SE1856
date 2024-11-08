@@ -55,19 +55,19 @@ namespace WPFApp
                 switch (user.Role)
                 {
                     case "Student":
-                        new Dashboard_for_student(user.UserId, _enrollmentService).ShowDialog();
+                        new Dashboard_for_student(user.UserId, _enrollmentService).Show();
                         break;
                     case "Lecturer":
-                        new Dashboard_for_lecturer().ShowDialog();
+                        new Dashboard_for_lecturer().Show();
                         break;
                     case "Staff":
-                        new Dashboard_for_staff().ShowDialog();
+                        new Dashboard_for_staff().Show();
                         break;
                     case "Head of Department":
-                        new Dashboard_for_Head_of_Department(user.UserId).ShowDialog();
+                        new Dashboard_for_Head_of_Department(user.UserId).Show();
                         break;
                     case "Admin":
-                        new Dashboard_for_admin().ShowDialog();
+                        new Dashboard_for_admin().Show();
                         break;
                     default:
                         MessageBox.Show("Role is undefined.");

@@ -155,8 +155,8 @@ namespace WPFApp.User_Manager
 
         private void Home_Click(object sender, RoutedEventArgs e)
         {
-            Dashboard_for_admin dashboard_For_Admin = new Dashboard_for_admin();
-            dashboard_For_Admin.Show();
+            Dashboard_for_staff dashboard_For_Staff = new Dashboard_for_staff();
+            dashboard_For_Staff.Show();
             this.Close();
         }
 
