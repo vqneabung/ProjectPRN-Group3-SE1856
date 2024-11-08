@@ -71,7 +71,8 @@ namespace WPFApp.Forum
 
         private void btnReturn_Click(object sender, RoutedEventArgs e)
         {
-            ForumWindow forumWindow = ForumWindow.Create(App.ServiceProvider);
+            ForumWindow forumWindow = App.ServiceProvider.GetRequiredService<ForumWindow>();
+            forumWindow.LoadForums();
             forumWindow.Show();
             this.Hide();
         }

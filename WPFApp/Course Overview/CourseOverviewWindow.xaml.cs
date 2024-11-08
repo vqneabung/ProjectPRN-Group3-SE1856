@@ -40,7 +40,7 @@ namespace WPFApp.Course_Overview
             public bool IsEnrolled { get; set; }
         }
 
-        private void LoadCourses(string search = "")
+        public void LoadCourses(string search = "")
         {
             // Retrieve all courses
             var allCourses = courseDAO.GetAll();
@@ -143,7 +143,8 @@ namespace WPFApp.Course_Overview
                 if (enrollment != null)
                 {
                     Data.Data.courseId = selectedCourseData.CourseId;
-                    ForumWindow forum = ForumWindow.Create(App.ServiceProvider);
+                    ForumWindow forum = App.ServiceProvider.GetRequiredService<ForumWindow>();
+                    forum.LoadForums();
                     forum.Show();
                     this.Hide();
                 }

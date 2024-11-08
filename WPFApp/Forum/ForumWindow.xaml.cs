@@ -27,22 +27,14 @@ namespace WPFApp.Forum
     {
         private readonly IService<BussinessObjects.Forum> _forumService;
         private readonly ReturnToDashboard _returnToDashboard;
+        private readonly LmsContext _context;
 
-        public static ForumWindow Create(IServiceProvider serviceProvider)
-        {
-            var forumService = serviceProvider.GetRequiredService<IService<BussinessObjects.Forum>>();
-            var returnToDashboard = serviceProvider.GetRequiredService<ReturnToDashboard>();
-
-            // Khởi tạo ForumWindow với các dependency và sử dụng giá trị `a` nếu cần
-            return new ForumWindow(forumService, returnToDashboard);
-        }
-
-
-        public ForumWindow(IService<BussinessObjects.Forum> forumService, ReturnToDashboard returnToDashboard)
+        public ForumWindow(IService<BussinessObjects.Forum> forumService, ReturnToDashboard returnToDashboard, LmsContext context)
         {
             InitializeComponent();
             _forumService = forumService;
             _returnToDashboard = returnToDashboard;
+            _context = context;
             LoadForums();
         }
 
@@ -50,6 +42,7 @@ namespace WPFApp.Forum
         {
             var courseId = WPFApp.Data.Data.courseId;
             var forums = _forumService.GetAll()?.Where(f => f.CourseId == courseId);
+            tbCourse.Text = _context.Courses.First(c => c.CourseId == courseId).CourseName;
             dgForum.ItemsSource = forums;
         }
 
