@@ -42,7 +42,6 @@
                 <Button Content="Course Management" Click="CourseManagement_Click" Width="150" Margin="5,0" Grid.Column="0"/>
                 <Button Content="Assignment Management" Click="AssignmentManagement_Click" Width="150" Margin="5,0" Grid.Column="1"/>
                 <Button Content="Submission Grading" Click="SubmissionGrading_Click" Width="150" Margin="5,0" Grid.Column="2"/>
-                <Button Content="Forum/Discussion" Click="Forum_Discussion_Click" Width="150" Margin="5,0" Grid.Column="3"/>
             </Grid>
         </Border>
     </Grid>

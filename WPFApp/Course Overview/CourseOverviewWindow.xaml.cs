@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using WPFApp.Forum;
 using WPFApp.Login_and_home_page_of_each_role;
 
 namespace WPFApp.Course_Overview
@@ -17,13 +18,13 @@ namespace WPFApp.Course_Overview
         private readonly CourseDAO courseDAO;
         private readonly EnrollmentDAO enrollmentDAO;
         private ObservableCollection<CourseData> courses;
-        private readonly int _studentId;
         private readonly IEnrollmentService _enrollmentService;
 
-        public CourseOverviewWindow(int studentId, IEnrollmentService enrollmentService)
+        public int _studentId = Data.Data.user.UserId;
+
+        public CourseOverviewWindow(IEnrollmentService enrollmentService)
         {
             InitializeComponent();
-            _studentId = studentId;
             courseDAO = new CourseDAO(new LmsContext());
             enrollmentDAO = new EnrollmentDAO(new LmsContext());
             _enrollmentService = enrollmentService;
@@ -54,7 +55,7 @@ namespace WPFApp.Course_Overview
                     CourseId = c.CourseId,
                     CourseName = c.CourseName,
                     EnrollmentDate = enrolledCourses.FirstOrDefault(e => e.CourseId == c.CourseId)?.EnrollmentDate,
-                    IsEnrolled = enrolledCourses.Any(e => e.CourseId == c.CourseId)
+                    IsEnrolled = enrolledCourses.Any(e => e.CourseId == c.CourseId && e.Status == true)
                 })
                 .ToList();
 
@@ -81,7 +82,7 @@ namespace WPFApp.Course_Overview
                     EnrollmentDate = DateOnly.FromDateTime(DateTime.Now),
                     Status = true
                 };
-                enrollmentDAO.Add(enrollment);
+                _enrollmentService.Add(enrollment);
                 LoadCourses();
             }
             else
@@ -97,10 +98,10 @@ namespace WPFApp.Course_Overview
             {
                 // Find the enrollment to delete
                 var enrollment = _enrollmentService.GetEnrollmentByStudentId(_studentId)
-                                              .FirstOrDefault(e => e.CourseId == selectedCourseData.CourseId);
+                                              .FirstOrDefault(e => e.CourseId == selectedCourseData.CourseId && e.Status == true);
                 if (enrollment != null)
                 {
-                    enrollmentDAO.Delete(enrollment);
+                    _enrollmentService.Delete(enrollment);
                     LoadCourses();
                 }
             }
@@ -114,19 +115,41 @@ namespace WPFApp.Course_Overview
         {
             Dashboard_for_student home = new Dashboard_for_student(_studentId, _enrollmentService);
             home.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
             MainWindow mainWindow = App.ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
-            this.Close();
+            this.Hide();
         }
 
         private void DataGridCourses_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
+        }
+
+        private void Forum_Click(object sender, RoutedEventArgs e)
+        {
+            var selectedCourseData = DataGridCourses.SelectedItem as CourseData;
+            if (selectedCourseData != null && selectedCourseData.IsEnrolled)
+            {
+                // Find the enrollment to delete
+                var enrollment = _enrollmentService.GetEnrollmentByStudentId(_studentId)
+                                              .FirstOrDefault(e => e.CourseId == selectedCourseData.CourseId && e.Status == true);
+                if (enrollment != null)
+                {
+                    Data.Data.courseId = selectedCourseData.CourseId;
+                    ForumWindow forum = ForumWindow.Create(App.ServiceProvider);
+                    forum.Show();
+                    this.Hide();
+                }
+            }
+            else
+            {
+                MessageBox.Show("You are not enrolled in this course or no course is selected.", "Unenrollment Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

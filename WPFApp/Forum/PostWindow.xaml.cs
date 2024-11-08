@@ -1,4 +1,5 @@
 ﻿using BussinessObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,14 @@ namespace WPFApp.Forum
         private readonly IService<Post> _postService;
         private readonly LmsContext _context;
 
+        public static PostWindow Create(IServiceProvider serviceProvider)
+        {
+            var postService = serviceProvider.GetRequiredService<IService<Post>>();
+            var context = serviceProvider.GetRequiredService<LmsContext>();
+
+            return new PostWindow(postService, context);
+        }   
+
         public PostWindow(IService<Post> postService, LmsContext context)
         {
             InitializeComponent();
@@ -34,14 +43,17 @@ namespace WPFApp.Forum
 
         private void LoadPosts()
         {
-            dgForum.ItemsSource = _postService.GetAll();
+            tbTitle.Text = Data.ForumData.forum.Title;
+            dgForum.ItemsSource = _postService.GetAll().Where(p => p.ForumId == Data.ForumData.forum.ForumId);
         }
 
         private void btnCreate_Click(object sender, RoutedEventArgs e)
         {
+            TextRange textRange = new TextRange(rtbContent.Document.ContentStart, rtbContent.Document.ContentEnd);
             var newPost = new Post
             {
-                Content = "New Post Content",
+                Content = textRange.Text,
+                ForumId = Data.ForumData.forum.ForumId,
                 PostDate = DateOnly.FromDateTime(DateTime.Now)
             };
             _postService.Add(newPost);
@@ -55,6 +67,13 @@ namespace WPFApp.Forum
                 _postService.Delete(selectedPost);
                 LoadPosts();
             }
+        }
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            ForumWindow forumWindow = ForumWindow.Create(App.ServiceProvider);
+            forumWindow.Show();
+            this.Hide();
         }
     }
 }

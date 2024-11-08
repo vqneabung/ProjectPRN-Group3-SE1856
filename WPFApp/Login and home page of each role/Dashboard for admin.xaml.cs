@@ -15,6 +15,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.Blog___News;
 using WPFApp.User_Manager;
 
 namespace WPFApp.Login_and_home_page_of_each_role
@@ -99,6 +100,14 @@ namespace WPFApp.Login_and_home_page_of_each_role
         private void DepartmentManagement_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void BlogNews_Click(object sender, RoutedEventArgs e)
+        {
+            BlogNewsManagementWindow blogNewsManagementWindow = App.ServiceProvider.GetRequiredService<BlogNewsManagementWindow>();
+            blogNewsManagementWindow.LoadBlogNews();
+            blogNewsManagementWindow.Show();
+            this.Hide();
         }
     }
 }

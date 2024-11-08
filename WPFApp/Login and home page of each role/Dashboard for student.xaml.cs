@@ -17,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFApp.Course_Overview;
+using WPFApp.Forum;
 
 namespace WPFApp.Login_and_home_page_of_each_role
 {
@@ -121,7 +122,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void CourseOverview_Click(object sender, RoutedEventArgs e)
         {
-            CourseOverviewWindow courseOverviewWindow = new CourseOverviewWindow(_studentId, _enrollmentService);
+            CourseOverviewWindow courseOverviewWindow = new CourseOverviewWindow(_enrollmentService);
             courseOverviewWindow.Show();
             this.Close();
         }
@@ -131,13 +132,9 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         }
 
-        private void ForumDiscussion_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
         private void DocumentManagement_Click(object sender, RoutedEventArgs e)
         {
+       
 
         }
     }
