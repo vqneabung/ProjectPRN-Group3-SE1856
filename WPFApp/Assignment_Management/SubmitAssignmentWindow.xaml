@@ -5,8 +5,90 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp.Assignment_Management"
         mc:Ignorable="d"
-        Title="SubmitAssignmentWindow" Height="350" Width="400">
-    <Grid>
-        
+        Title="SubmitAssignmentWindow" Height="350" Width="400" Loaded="Window_Loaded">
+    <Grid Background="#FF009688">
+        <!--10x10-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="10"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
+        </Grid.RowDefinitions>
+
+        <!-- Title -->
+        <Label Content="Submit Assignment" Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="6"
+               FontSize="16" HorizontalAlignment="Left" VerticalContentAlignment="Top" Foreground="White" Margin="18,-5,0,0"/>
+
+        <!-- Assignment ID -->
+        <Label Content="Assignment ID:" FontSize="9" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White"/>
+        <TextBox x:Name="txtAssignmentId" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="9" IsReadOnly="True" Margin="69,27,1,0" Grid.RowSpan="2" />
+
+        <!-- Course ID -->
+        <Label Content="Course ID:" Grid.Row="3" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top" Foreground="White" Margin="0,5,0,0" Grid.RowSpan="2"/>
+        <TextBox x:Name="txtCourseId" Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="8" IsReadOnly="True" Margin="0,4,0,23" Grid.RowSpan="2" />
+
+        <!-- Title -->
+        <Label Content="Title:" Grid.Row="5" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" Margin="34,0,0,0" RenderTransformOrigin="0.524,1.876"/>
+        <TextBox x:Name="txtTitle" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="9" Margin="69,1,1,26" Grid.RowSpan="2" />
+
+        <!-- Description -->
+        <Label Content="Description:" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" Grid.Column="1"/>
+        <TextBox x:Name="txtDescription" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="8" TextWrapping="Wrap" AcceptsReturn="True" Height="50" Margin="0,27,0,4" Grid.RowSpan="3"/>
+
+        <!-- Upload File Button -->
+        <Label Content="Document:" Grid.Row="10" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White"/>
+        <Button Content="Upload File" Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="3" Width="80" Click="UploadFile_Click" Margin="4,27,6,0" Grid.RowSpan="2"/>
+
+        <!-- Display file path -->
+        <TextBox x:Name="txtFilePath" Grid.Row="9" Grid.Column="5" Grid.ColumnSpan="6" IsReadOnly="True" Margin="0,27,40,0" Grid.RowSpan="2" />
+
+        <!-- Submit Button -->
+        <!--Update button-->
+        <Button Click="SubmitAssignment_Click" Content="Submit assignments" Width="130" Height="30"
+            Grid.Column="3" Grid.ColumnSpan="5" Grid.Row="11"
+            Background="#FFFFD598" Margin="15,21,5,3" Grid.RowSpan="2">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="booking" Height="24" CornerRadius="15" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="booking" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#FFFF8825" Opacity="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Grid.Column="10" Content="Close" HorizontalAlignment="Center" Height="21" Margin="0,1,0,0" Grid.RowSpan="2" VerticalAlignment="Top" FontSize="10" Width="50" Click="Button_Click"/>
+
     </Grid>
 </Window>

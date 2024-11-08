@@ -14,6 +14,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -61,20 +62,61 @@ namespace WPFApp.Assignment_Management
             {
 
                 var assign = AssignmentData.SelectedItem as Assignment;
-                int lstSubmis = _submissionService.GetAll().First().SubmissionId;
-                int newId = lstSubmis + 1;
-                Submission submission = new();
-                submission.SubmissionId = newId;
-                submission.StudentId = _studentId;
-                submission.AssignmentId = assign.AssignmentId;
-                submission.Assignment = assign;
-                submission.SubmissionDate = DateOnly.FromDateTime(DateTime.Now);
-                submission.Grade = null;
 
-                _submissionService.Add(submission);
+                SubmitAssignmentWindow submitWindow = new();
+                submitWindow.assignement = assign;
+                submitWindow.studentId = _studentId;
+
+                var assignments = _context.Assignments
+                .Join(
+                    _context.Classes,                      // Join với bảng Classes
+                    assignment => assignment.ClassId,      // Điều kiện join: ClassId từ bảng Assignments
+                    cls => cls.ClassId,                    // Điều kiện join: ClassId từ bảng Classes
+                    (assignment, cls) => new { assignment, cls } // Lấy kết quả join (Assignment và Class)
+                )
+                .Join(
+                    _context.Enrollments,                  // Join với bảng Enrollments
+                    ac => ac.cls.CourseId,                 // Điều kiện join: CourseId từ bảng Classes (ac.cls.CourseId)
+                    enrollment => enrollment.CourseId,     // Điều kiện join: CourseId từ bảng Enrollments
+                    (ac, enrollment) => new { ac.assignment, ac.cls, enrollment } // Lấy kết quả join (Assignment, Class, Enrollment)
+                )
+                .Where(x => x.enrollment.StudentId == _studentId) // Lọc theo StudentId
+                .Select(x => new
+                {
+                    x.assignment.AssignmentId,
+                    x.assignment.Title,
+                    x.assignment.Password,
+                    x.assignment.UnlockState,
+                    x.assignment.Description,
+                    x.assignment.DueDate,
+                    x.assignment.Class,
+                    x.assignment.ClassId,
+                    x.assignment.Submissions,
+                    x.cls.CourseId
+                })
+                .ToList();
+
+                submitWindow.courseId = (int)assignments.Where(x => x.AssignmentId == assign.AssignmentId)
+                                                   .Select(x => x.CourseId)
+                                                   .FirstOrDefault();
+
+                submitWindow.ShowDialog();
+
+                //int lstSubmis = _submissionService.GetAll().First().SubmissionId;
+                //int newId = lstSubmis + 1;
+                //Submission submission = new();
+                //submission.SubmissionId = newId;
+                //submission.StudentId = _studentId;
+                //submission.AssignmentId = assign.AssignmentId;
+                //submission.Assignment = assign;
+                //submission.SubmissionDate = DateOnly.FromDateTime(DateTime.Now);
+                //submission.Grade = null;
+
+                //_submissionService.Add(submission);
 
                 Window_Loaded(sender, e);
             }
+            else { System.Windows.MessageBox.Show("Please chose which Assignment to display!"); }
         }
 
         private void CourseOverview_Click(object sender, RoutedEventArgs e)
@@ -161,7 +203,7 @@ namespace WPFApp.Assignment_Management
                     lstSubmissions.ItemsSource = new ObservableCollection<Submission>(assign.Submissions);
 
                 }
-                else { MessageBox.Show("Please chose which Assignment to display!"); }
+                else { System.Windows.MessageBox.Show("Please chose which Assignment to display!"); }
             }
         }
     }

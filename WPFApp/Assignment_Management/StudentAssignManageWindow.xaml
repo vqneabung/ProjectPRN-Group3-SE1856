@@ -61,28 +61,6 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button Click="CourseOverview_Click" 
-                Content="Couse Overview" Width="90" Height="30"
-                Grid.Column="9" Grid.Row="0" Grid.ColumnSpan="2"
-                Background="#FFFFF6CC"
-                HorizontalAlignment="Right" >
-            <Button.Template>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border x:Name="booking" Height="24" CornerRadius="5" Background="{TemplateBinding Background}">
-                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="booking" Property="Background">
-                                <Setter.Value>
-                                    <SolidColorBrush Color="#FFFFE986" Opacity="1"/>
-                                </Setter.Value>
-                            </Setter>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
 
         <!-- AssignmentId -->
         <Label Content="Assignment ID:" Grid.Column="1" Grid.Row="1" 
