@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFApp.Blog___News.BlogNewsData;
+using WPFApp.Data;
 
 namespace WPFApp.Blog___News
 {
@@ -57,7 +58,7 @@ namespace WPFApp.Blog___News
                 _blogNewsData.postID = selectedBlogNews.PostId;
                 UpdateBlogNews updateBlogNews = App.ServiceProvider.GetRequiredService<UpdateBlogNews>();
                 updateBlogNews.Show();
-                this.Close();
+                this.Hide();
 
             }
             else
@@ -77,6 +78,13 @@ namespace WPFApp.Blog___News
             {
                 MessageBox.Show("Please select a blog news item to delete.");
             }
+        }
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            ReturnToDashboard returnToDashboard = App.ServiceProvider.GetRequiredService<ReturnToDashboard>();
+            returnToDashboard.Return();
+            this.Hide();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BussinessObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WPFApp.Data;
 
 namespace WPFApp.Enrollment_Manager
 {
@@ -71,6 +73,13 @@ namespace WPFApp.Enrollment_Manager
                 tbStatus.Text = selectedEnrollment.Course?.CourseName ?? string.Empty; // Assuming status is course name
                 tbEnrollmentDate.Text = selectedEnrollment.EnrollmentDate?.ToString("yyyy-MM-dd") ?? string.Empty;
             }
+        }
+
+        private void btnReturn_Click(object sender, RoutedEventArgs e)
+        {
+            ReturnToDashboard returnToDashboard = App.ServiceProvider.GetRequiredService<ReturnToDashboard>();
+            returnToDashboard.Return();
+            this.Hide();
         }
     }
 }

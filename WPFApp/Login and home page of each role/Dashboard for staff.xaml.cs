@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFApp.Course_Management;
+using WPFApp.Enrollment_Manager;
 using WPFApp.User_Manager;
 
 namespace WPFApp.Login_and_home_page_of_each_role
@@ -99,6 +100,9 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void EnrollmentManagement_Click(object sender, RoutedEventArgs e)
         {
+            EnrollmentManagementWindow enrollmentManagementWindow = App.ServiceProvider.GetRequiredService<EnrollmentManagementWindow>();
+            enrollmentManagementWindow.Show();
+            this.Hide();
 
         }
     }

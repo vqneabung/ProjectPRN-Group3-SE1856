@@ -97,7 +97,8 @@ namespace WPFApp
                 obj.DueDate = dateDueDate.SelectedDate.HasValue
                 ? DateOnly.FromDateTime(dateDueDate.SelectedDate.Value)
                 : DateOnly.FromDateTime(DateTime.Now);
-            }catch (Exception) { MessageBox.Show("Choose date correctly"); }
+            }
+            catch (Exception) { MessageBox.Show("Choose date correctly"); }
             obj.Submissions = new List<Submission>();
 
             _assignmentService.Add(obj);
@@ -107,7 +108,7 @@ namespace WPFApp
 
         private void Delete_btn(object sender, RoutedEventArgs e)
         {
-            if(AssignmentData.SelectedItem != null)
+            if (AssignmentData.SelectedItem != null)
             {
                 var assign = AssignmentData.SelectedItem as Assignment;
                 _assignmentService.Delete(assign);
@@ -125,19 +126,19 @@ namespace WPFApp
                 var assign = AssignmentData.SelectedItem as Assignment;
 
                 Assignment obj = new();
-                
+
                 obj.AssignmentId = assign.AssignmentId;
-                if (ClassSelector.SelectedValue != null) 
-                { 
-                    obj.ClassId = int.Parse(ClassSelector.SelectedValue.ToString()); 
-                    obj.Class = _classService.GetAll().FirstOrDefault( c => c.ClassId == obj.ClassId);
+                if (ClassSelector.SelectedValue != null)
+                {
+                    obj.ClassId = int.Parse(ClassSelector.SelectedValue.ToString());
+                    obj.Class = _classService.GetAll().FirstOrDefault(c => c.ClassId == obj.ClassId);
                 }
                 else { MessageBox.Show("Please choose class"); }
                 obj.Title = txtTitle.Text;
                 obj.Description = txtDescription.Text;
                 obj.Password = txtPassword.Text;
                 obj.UnlockState = chkUnlockState.IsChecked;
-                obj.DueDate = dateDueDate.SelectedDate.HasValue 
+                obj.DueDate = dateDueDate.SelectedDate.HasValue
                     ? DateOnly.FromDateTime(dateDueDate.SelectedDate.Value)
                     : null;
                 obj.Submissions = assign.Submissions;
@@ -154,10 +155,24 @@ namespace WPFApp
             try
             {
                 var assignmentList = _assignmentService.GetAll();
-                var observableAssignmentList = new ObservableCollection<Assignment>(assignmentList);
+                var observableAssignmentList = new ObservableCollection<Assignment>();
+                if (assignmentList != null)
+                {
+                    foreach (var assignment in assignmentList)
+                    {
+                        observableAssignmentList.Add(assignment);
+                    }
+                }
 
                 var classList = _classService.GetAll();
-                var observableClassList = new ObservableCollection<Class>(classList);
+                var observableClassList = new ObservableCollection<Class>();
+                if (classList != null)
+                {
+                    foreach (var c in classList)
+                    {
+                        observableClassList.Add(c);
+                    }
+                }
 
                 ClassSelector.ItemsSource = observableClassList;
                 AssignmentData.ItemsSource = observableAssignmentList;
@@ -185,8 +200,8 @@ namespace WPFApp
                     txtPassword.Text = assign.Password;
                     chkUnlockState.IsChecked = assign.UnlockState;
                     dateDueDate.SelectedDate = assign.DueDate.GetValueOrDefault().ToDateTime(TimeOnly.MinValue);
-                    lstSubmissions.ItemsSource = new ObservableCollection<Submission>(assign.Submissions); 
-                    
+                    lstSubmissions.ItemsSource = new ObservableCollection<Submission>(assign.Submissions);
+
                 }
                 else { MessageBox.Show("Please chose which Assignment to display!"); }
             }

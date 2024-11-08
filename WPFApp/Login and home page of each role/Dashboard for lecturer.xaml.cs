@@ -17,6 +17,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFApp.Course_Management;
 using WPFApp.Document_Management;
+using WPFApp.Forum;
+using WPFApp.Submission_Grading;
 
 namespace WPFApp.Login_and_home_page_of_each_role
 {
@@ -107,11 +109,17 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void SubmissionGrading_Click(object sender, RoutedEventArgs e)
         {
-
+            SubmissionGradingWindow submissionGradingWindow = App.ServiceProvider.GetRequiredService<SubmissionGradingWindow>();
+            submissionGradingWindow.Show();
+            this.Hide();
         }
 
         private void Forum_Discussion_Click(object sender, RoutedEventArgs e)
         {
+            ForumWindow forumWindow = App.ServiceProvider.GetRequiredService<ForumWindow>();
+            forumWindow.LoadForums();
+            forumWindow.Show();
+            this.Hide();
 
         }
 
