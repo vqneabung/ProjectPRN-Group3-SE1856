@@ -28,6 +28,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
         private readonly BlogNewsDAO _BlogNews;
         private readonly CourseDAO _courseDAO;
         private readonly DepartmentDAO _departmentDAO;
+        private readonly ClassDAO _classDAO;
         private readonly LmsContext _context;
 
         public Dashboard_for_lecturer()
@@ -37,6 +38,7 @@ namespace WPFApp.Login_and_home_page_of_each_role
             _BlogNews = new BlogNewsDAO(_context);
             _courseDAO = new CourseDAO(_context);
             _departmentDAO = new DepartmentDAO(_context);
+            _classDAO = new ClassDAO(_context);
             InitializeComponent();
             LoadBlogNewsList();
             LoadStatisticalList();
@@ -92,9 +94,13 @@ namespace WPFApp.Login_and_home_page_of_each_role
 
         private void AssignmentManagement_Click(object sender, RoutedEventArgs e)
         {
+            IService<Assignment> service = App.ServiceProvider.GetRequiredService<IService<Assignment>>();
+            IService<Class> service1 = App.ServiceProvider.GetRequiredService<IService<Class>>();
+            AssignmentManagementWindow assignmentWindow = new(service, service1);
+
+            //AssignmentManagementWindow assignmentWindow = App.ServiceProvider.GetRequiredService<AssignmentManagementWindow>();
             this.Close();
-            AssignmentManagementWindow assignmentWindow = App.ServiceProvider.GetRequiredService<AssignmentManagementWindow>();
-            assignmentWindow.Show();
+            assignmentWindow.ShowDialog();
 
         }
 

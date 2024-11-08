@@ -29,6 +29,14 @@ namespace DataAccessObjects
         {
             try
             {
+                var existingAssignment = _context.Assignments
+                                  .Local
+                                  .FirstOrDefault(a => a.AssignmentId == assigment.AssignmentId);
+                if (existingAssignment != null)
+                {
+                    _context.Entry(existingAssignment).State = EntityState.Detached;
+                }
+
                 _context.Remove(assigment);
                 _context.SaveChanges();
             }
@@ -46,6 +54,7 @@ namespace DataAccessObjects
             var Assignments = _context.Assignments
                 .Include(a => a.Class)
                 .Include(a => a.Submissions)
+                .OrderByDescending(a => a.AssignmentId)
                 .ToList();
 
             return Assignments != null && Assignments.Any() ? Assignments : null;
@@ -55,7 +64,16 @@ namespace DataAccessObjects
         {
             try
             {
-                _context.Update(assigment);
+                var existingAssignment = _context.Assignments
+                                  .Local
+                                  .FirstOrDefault(a => a.AssignmentId == assigment.AssignmentId);
+                if (existingAssignment != null)
+                {
+                    _context.Entry(existingAssignment).State = EntityState.Detached;
+                }
+
+
+                _context.Assignments.Update(assigment);
                 _context.SaveChanges();
             }
             catch (Exception ex) { throw new Exception(ex.Message); }

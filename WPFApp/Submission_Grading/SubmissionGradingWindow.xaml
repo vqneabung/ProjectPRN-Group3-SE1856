@@ -5,22 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp.Submission_Grading"
         mc:Ignorable="d"
-        Title="SubmissionGradingWindow" Height="450" Width="800">
+        Title="SubmissionGradingWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid Background="#FF009688">
         <!--10x10-->
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
-            <ColumnDefinition Width="80"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="70"/>
+            <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -31,50 +34,83 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
 
         <!--Header-->
-        <Button x:Name="btn1" Click="btn1_Click" Grid.Column="0" Content="Main" Width="70" Height="30" Background="AntiqueWhite" Margin="5,7,5,0" VerticalAlignment="Top"/>
-        <Button x:Name="btn2" Click="btn2_Click" Grid.Column="1" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
-        <Button x:Name="btn3" Click="btn3_Click" Grid.Column="2" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
-        <Button x:Name="btn4" Click="btn4_Click" Grid.Column="9" Content="Main" Width="70" Height="30" Background="AntiqueWhite"/>
+        <!--Header-->
+        <Button Click="Main_btn" 
+        Content="Main" Width="60"
+        Grid.Column="1" Grid.Row="0"
+        Background="#FFFFF6CC" Margin="5,0,5,0">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="booking" Height="24" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="booking" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#FFFFE986" Opacity="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Click="AssignmentWindow_btn" 
+                Content="Assignment Management" Width="150" Height="30"
+                Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="2"
+                Background="#FFFFF6CC"
+                HorizontalAlignment="Left" >
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="booking" Height="24" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="booking" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#FFFFE986" Opacity="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Click="Course_Overview_btn" 
+        Content="Couse Overview" Width="90" Height="30"
+        Grid.Column="9" Grid.Row="0" Grid.ColumnSpan="2"
+        Background="#FFFFF6CC"
+        HorizontalAlignment="Right" >
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="booking" Height="24" CornerRadius="5" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="booking" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#FFFFE986" Opacity="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
-        <!--Search bar-->
-        <Button Click="Search_btn"  
-            Grid.Column="0" Grid.Row="1"
-            Content="Search" 
-            Width="70" Height="30" 
-            Background="#FFBAB1DC"/>
-        <TextBox Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="9"
-             Text="Search box" x:Name="txtSearch"
-             VerticalAlignment="Center"
-             HorizontalAlignment="Left" 
-             Height="35" Width="630"
-             FontSize="18" 
-    />
 
 
-        <!--Submission Buttons-->
-        <Button Click="Button_Click" Content="Add" Width="70" Height="30" Grid.Column="0" Grid.Row="4"
-            Background="#FF52EF78"/>
 
-        <DataGrid
-        x:Name="SubmissGradingData"
-        Grid.Row="4" Grid.RowSpan="6"
-        Grid.Column="1" Grid.ColumnSpan="9"
-        VerticalAlignment="Top" HorizontalAlignment="Left"
-        Height="250" Width="700"
-        Background="#FF3D5454"
-    >
-            <DataGrid.Columns>
-                <DataGridTextColumn Width="40" Header="Id" Binding="{Binding }"/>
-                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
-                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
-                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
-                <DataGridTextColumn Width="*" Header="Id" Binding="{Binding }"/>
-            </DataGrid.Columns>
 
-        </DataGrid>
 
 
 

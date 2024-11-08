@@ -53,17 +53,20 @@ namespace WPFApp
             services.AddSingleton<PostDAO>();
             services.AddSingleton<SubmissionDAO>();
             services.AddSingleton<UserDAO>();
+            services.AddSingleton<ClassDAO>();
 
             services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
             services.AddScoped<IRepository<Department>, DepartmentRepository>();
             services.AddScoped<IRepository<Document>, DocumentRepository>();
             services.AddScoped<IRepository<Course>, CourseRepository>();
             services.AddScoped<IRepository<Assignment>, AssignmentRepository>();
+            services.AddScoped<IRepository<Class>, ClassRepository>();
 
             services.AddScoped<IService<Department>, DepartmentService>();
             services.AddScoped<IService<Document>, DocumentService>();
             services.AddScoped<IService<Course>, CourseService>();
             services.AddScoped<IService<Assignment>, AssignmentService>();
+            services.AddScoped<IService<Class>, ClassService>();
 
             services.AddDbContext<LmsContext>();
 

@@ -1,5 +1,6 @@
 ﻿using BussinessObjects;
 using DataAccessObjects;
+using Microsoft.Extensions.DependencyInjection;
 using Repositories;
 using Services;
 using System;
@@ -19,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WPFApp.Course_Overview;
 using WPFApp.Login_and_home_page_of_each_role;
+using WPFApp.Submission_Grading;
 
 namespace WPFApp
 {
@@ -30,20 +32,19 @@ namespace WPFApp
         private readonly IService<Assignment> _assignmentService;
         private readonly IService<Class> _classService;
 
-        public AssignmentManagementWindow(IService<Assignment> service, IService<Class> service1)
+        public AssignmentManagementWindow(IService<Assignment> service, IService<Class> classService)
         {
-            _assignmentService = service;
-            _classService = service1;
+            var context = new LmsContext();
             InitializeComponent();
-            LoadData();
+            _assignmentService = service;
+            _classService = classService;
         }
 
         private void Course_Overview_btn(object sender, RoutedEventArgs e)
         {
-            //this.Close();
-            //CourseOverviewWindow overviewWindow = new CourseOverviewWindow();
-            //overviewWindow.Show();
-            MessageBox.Show("Open course over view window");
+            this.Close();
+            CourseOverviewWindow overviewWindow = App.ServiceProvider.GetRequiredService<CourseOverviewWindow>();
+            overviewWindow.ShowDialog();
         }
 
         private void Main_btn(object sender, RoutedEventArgs e)
@@ -53,17 +54,113 @@ namespace WPFApp
             this.Close();
         }
 
-        public void LoadData()
+        private void Add_btn(object sender, RoutedEventArgs e)
+        {
+            var assignmentList = _assignmentService.GetAll();
+
+            Assignment obj = new();
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(txtAssignmentId.Text))
+                {
+                    obj.AssignmentId = int.Parse(txtAssignmentId.Text.Trim());
+                }
+                else
+                {
+                    MessageBox.Show("Assignment ID is required", "Input Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Please enter a valid number for Assignment ID", "Wrong Format", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            if (assignmentList.FirstOrDefault(a => a.AssignmentId == obj.AssignmentId) != null)
+            {
+                MessageBox.Show("Already have this assignment ID", "Doublicated", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            if (ClassSelector.SelectedValue != null)
+            {
+                obj.ClassId = int.Parse(ClassSelector.SelectedValue.ToString());
+                obj.Class = _classService.GetAll().FirstOrDefault(c => c.ClassId == obj.ClassId);
+            }
+            else { MessageBox.Show("Please choose class"); }
+            obj.Title = txtTitle.Text;
+            obj.Description = txtDescription.Text;
+            obj.Password = txtPassword.Text;
+            obj.UnlockState = chkUnlockState.IsChecked;
+            try
+            {
+                obj.DueDate = dateDueDate.SelectedDate.HasValue
+                ? DateOnly.FromDateTime(dateDueDate.SelectedDate.Value)
+                : DateOnly.FromDateTime(DateTime.Now);
+            }catch (Exception) { MessageBox.Show("Choose date correctly"); }
+            obj.Submissions = new List<Submission>();
+
+            _assignmentService.Add(obj);
+
+            Window_Loaded(sender, e);
+        }
+
+        private void Delete_btn(object sender, RoutedEventArgs e)
+        {
+            if(AssignmentData.SelectedItem != null)
+            {
+                var assign = AssignmentData.SelectedItem as Assignment;
+                _assignmentService.Delete(assign);
+
+                Window_Loaded(sender, e);
+                MessageBox.Show("Delete finish");
+            }
+            else { MessageBox.Show("Please choose an assignment to do!!"); }
+        }
+
+        private void Update_btn(object sender, RoutedEventArgs e)
+        {
+            if (AssignmentData.SelectedItem != null)
+            {
+                var assign = AssignmentData.SelectedItem as Assignment;
+
+                Assignment obj = new();
+                
+                obj.AssignmentId = assign.AssignmentId;
+                if (ClassSelector.SelectedValue != null) 
+                { 
+                    obj.ClassId = int.Parse(ClassSelector.SelectedValue.ToString()); 
+                    obj.Class = _classService.GetAll().FirstOrDefault( c => c.ClassId == obj.ClassId);
+                }
+                else { MessageBox.Show("Please choose class"); }
+                obj.Title = txtTitle.Text;
+                obj.Description = txtDescription.Text;
+                obj.Password = txtPassword.Text;
+                obj.UnlockState = chkUnlockState.IsChecked;
+                obj.DueDate = dateDueDate.SelectedDate.HasValue 
+                    ? DateOnly.FromDateTime(dateDueDate.SelectedDate.Value)
+                    : null;
+                obj.Submissions = assign.Submissions;
+
+                _assignmentService.Update(obj);
+
+                Window_Loaded(sender, e);
+            }
+            else { MessageBox.Show("Please choose an assignment to do!!"); }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
                 var assignmentList = _assignmentService.GetAll();
                 var observableAssignmentList = new ObservableCollection<Assignment>(assignmentList);
+
                 var classList = _classService.GetAll();
                 var observableClassList = new ObservableCollection<Class>(classList);
 
                 ClassSelector.ItemsSource = observableClassList;
                 AssignmentData.ItemsSource = observableAssignmentList;
+
             }
             catch (Exception ex)
             {
@@ -71,49 +168,46 @@ namespace WPFApp
             }
         }
 
-        private void LoadRowInformation(object sender, RoutedEventArgs e)
+        private void AssignmentData_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            if (AssignmentData.SelectedItem != null)
             {
-                if (AssignmentData.SelectedItem != null)
+
+                var assign = AssignmentData.SelectedItem as Assignment;
+
+                if (assign != null)
                 {
-                    var assign = AssignmentData.SelectedItem as Assignment;
-
-                    if (assign != null) 
-                    {
-                        txtAssignmentId.Text = assign.AssignmentId.ToString();
-                        ClassSelector.SelectedValue = assign.ClassId;
-                        txtTitle.Text = assign.Title;
-                        txtDescription.Text = assign.Description;
-                        txtPassword.Text = assign.Password;
-                        chkUnlockState.IsChecked = assign.UnlockState;
-                        dateDueDate.SelectedDate = assign.DueDate.GetValueOrDefault().ToDateTime(TimeOnly.MinValue);
-                        lstSubmissions.ItemsSource = assign.Submissions.ToList();
-                    }
-                    else { MessageBox.Show("Please chose which Assignment to display!"); }
+                    txtAssignmentId.Text = assign.AssignmentId.ToString();
+                    ClassSelector.SelectedValue = assign.ClassId;
+                    txtTitle.Text = assign.Title;
+                    txtDescription.Text = assign.Description;
+                    txtPassword.Text = assign.Password;
+                    chkUnlockState.IsChecked = assign.UnlockState;
+                    dateDueDate.SelectedDate = assign.DueDate.GetValueOrDefault().ToDateTime(TimeOnly.MinValue);
+                    lstSubmissions.ItemsSource = new ObservableCollection<Submission>(assign.Submissions); 
+                    
                 }
-            } catch (Exception ex) { MessageBox.Show(ex.Message); }
+                else { MessageBox.Show("Please chose which Assignment to display!"); }
+            }
         }
 
-        private void Add_btn(object sender, RoutedEventArgs e)
+        private void Grade_btn(object sender, RoutedEventArgs e)
         {
+            if(AssignmentData.SelectedItem != null)
+            {
+                if(lstSubmissions.SelectedItem != null)
+                {
+                    var list = lstSubmissions.SelectedItem as List<Submission>;
+                    IService<Submission> service = App.ServiceProvider.GetService<IService<Submission>>();
 
+                    SubmissionGradingWindow submissionGradingWindow = new(service);
+                    submissionGradingWindow.SubmissionGrading = list;
+                    submissionGradingWindow.Show();
+                    this.Close();
+
+                } else { MessageBox.Show("Please chose which Submission to display!"); }
+            }
+            else { MessageBox.Show("Please chose which Assignment to Grade!"); }
         }
-
-        private void Search_btn(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Delete_btn(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void Update_btn(object sender, RoutedEventArgs e)
-        {
-
-        }
-
     }
 }

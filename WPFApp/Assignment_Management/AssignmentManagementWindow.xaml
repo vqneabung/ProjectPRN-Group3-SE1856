@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WPFApp"
         mc:Ignorable="d"
-        Title="AssignmentManagementWindow" Height="450" Width="800">
+        Title="AssignmentManagementWindow" Height="450" Width="800" Loaded="Window_Loaded">
     <Grid Background="#FF009688">
         <!--10x10-->
         <Grid.ColumnDefinitions>
@@ -88,46 +88,46 @@
         <Label Content="Assignment ID:" Grid.Column="1" Grid.Row="1" 
            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
         <TextBox x:Name="txtAssignmentId" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="1" 
-             HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="16" 
-             IsReadOnly="True" />
+             HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="11" />
         <!-- Read-only nếu không cho phép chỉnh sửa -->
 
         <!-- Class -->
         <Label Content="Class:" Grid.Column="1" Grid.Row="2"
            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
-        <ComboBox x:Name="ClassSelector" 
-                  Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="3"
-                  HorizontalAlignment="Left" VerticalAlignment="Top" Width="238" FontSize="16" 
-                  
-                  DisplayMemberPath="ClassName"
-                  SelectedValuePath="ClassId"
-                  SelectedValue="{Binding ClassId}"
-                  IsReadOnly="True" />
+        <ComboBox 
+            x:Name="ClassSelector"
+            Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="3"
+            HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="10" 
+            
+            DisplayMemberPath="ClassName"
+            SelectedValuePath="ClassId"
+            SelectedValue="{Binding ClassId}" />
+
 
 
         <!-- Title -->
         <Label Content="Title:" Grid.Column="1" Grid.Row="3" 
            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
         <TextBox x:Name="txtTitle" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="3" 
-             HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="14" />
+             HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="10" />
 
         <!-- Password -->
         <Label Content="Password:" Grid.Column="1" Grid.Row="4" 
            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
         <TextBox x:Name="txtPassword" Grid.Column="2" Grid.ColumnSpan="3" Grid.Row="4" 
-                 HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="14" />
+                 HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" FontSize="10" />
 
         <!-- UnlockState -->
         <Label Content="Unlock State:" Grid.Column="1" Grid.Row="5" 
            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
-        <CheckBox x:Name="chkUnlockState" Grid.Column="2" Grid.Row="5" 
+        <CheckBox x:Name="chkUnlockState" Grid.Column="2" Grid.Row="5" FontSize="10"
               VerticalAlignment="Center" HorizontalAlignment="Center" />
 
         <!-- Description -->
-        <Label Content="Description:" Grid.Column="5" Grid.Row="2" 
+        <Label Content="Description:" Grid.Column="5" Grid.Row="1" 
            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
-        <TextBox x:Name="txtDescription" Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="2" Grid.RowSpan="2"
-             HorizontalAlignment="Left" VerticalAlignment="Top" Width="238" FontSize="14"
+        <TextBox x:Name="txtDescription" Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2"
+             HorizontalAlignment="Left" VerticalAlignment="Top" Width="238" FontSize="10"
              AcceptsReturn="True" TextWrapping="Wrap" Height="60" />
 
         <!-- DueDate -->
@@ -140,12 +140,12 @@
 
 
         <!-- Submissions (chỉ để hiển thị nếu có) -->
-        <Label Content="Submissions:" Grid.Column="5" Grid.Row="4" 
+        <Label Content="Submissions:" Grid.Column="5" Grid.Row="3" 
            HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="9" />
-        <ListBox x:Name="lstSubmissions"
-                 Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="4" Grid.RowSpan="4"
+        <DataGrid x:Name="lstSubmissions" AutoGenerateColumns="True"
+                 Grid.Column="6" Grid.ColumnSpan="3" Grid.Row="3" Grid.RowSpan="4"
                  HorizontalAlignment="Left" VerticalAlignment="Top" Width="238" 
-                 Height="100" FontSize="14" />
+                 Height="100" FontSize="8" />
         <!-- Hiển thị danh sách các Submissions -->
 
         
@@ -213,19 +213,40 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+            <!--Details Submission-->
+        <Button Click="Grade_btn" Content="Grade" Width="80" Height="30"
+                Grid.Column="9" Grid.ColumnSpan="2" Grid.Row="5"
+                Background="#FFCDFFB6">
+            <Button.Template>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border x:Name="booking" Height="24" CornerRadius="15" Background="{TemplateBinding Background}">
+                        <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="booking" Property="Background">
+                                <Setter.Value>
+                                    <SolidColorBrush Color="#FFFFF8F8" Opacity="1"/>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
 
 
         <!--Data of Assignment-->
         <DataGrid
             x:Name="AssignmentData"
-            Grid.Row="8" Grid.RowSpan="5"
+            Grid.Row="7" Grid.RowSpan="6"
             Grid.Column="1" Grid.ColumnSpan="10"
             VerticalAlignment="Top" HorizontalAlignment="Stretch"
-            MinHeight="160" MaxHeight="160"
+            Height="194"
+            FontSize="9"
             AutoGenerateColumns="False"
-            
-            SelectionChanged="LoadRowInformation"
+            SelectionChanged="AssignmentData_SelectionChanged"
 >
             <!-- Background of DataGrid -->
             <DataGrid.Background>
@@ -298,7 +319,7 @@
 
                 <DataGridTextColumn Width="90" Header="DueDate" Binding="{Binding DueDate}"/>
             </DataGrid.Columns>
-            
+
             <!--<DataGrid.RowDetailsTemplate>
                 <DataTemplate>
                     <DataGrid   AutoGenerateColumns="True"
