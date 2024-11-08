@@ -153,10 +153,24 @@ namespace WPFApp
             try
             {
                 var assignmentList = _assignmentService.GetAll();
-                var observableAssignmentList = new ObservableCollection<Assignment>(assignmentList);
+                var observableAssignmentList = new ObservableCollection<Assignment>();
+                if (assignmentList != null)
+                {
+                    foreach (var assignment in assignmentList)
+                    {
+                        observableAssignmentList.Add(assignment);
+                    }
+                }
 
                 var classList = _classService.GetAll();
-                var observableClassList = new ObservableCollection<Class>(classList);
+                var observableClassList = new ObservableCollection<Class>();
+                if (classList != null)
+                {
+                    foreach (var c in classList)
+                    {
+                        observableClassList.Add(c);
+                    }
+                }
 
                 ClassSelector.ItemsSource = observableClassList;
                 AssignmentData.ItemsSource = observableAssignmentList;

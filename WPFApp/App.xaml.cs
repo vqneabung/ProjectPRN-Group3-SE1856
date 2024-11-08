@@ -25,6 +25,7 @@ using Services;
 using WPFApp.Enrollment_Manager;
 using WPFApp.Document_Management;
 using WPFApp.Department_Management;
+using WPFApp.Submission_Grading;
 
 namespace WPFApp
 {
@@ -103,6 +104,7 @@ namespace WPFApp
             services.AddScoped<DocumentManagePopup>();
             services.AddScoped<DepartmentManagementWindow>();
             services.AddScoped<DepartmentManagementPopup>();
+            services.AddScoped<SubmissionGradingWindow>();
 
             services.AddDbContext<LmsContext>();
         }
