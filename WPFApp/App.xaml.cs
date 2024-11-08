@@ -13,6 +13,7 @@ using WPFApp.Blog___News;
 using WPFApp.Course_Overview;
 using WPFApp.Enrollment_Manager;
 using WPFApp.Forum;
+using WPFApp.Data;
 using WPFApp.Course_Overview;
 using Repositories;
 using DataAccessObjects;
@@ -24,7 +25,6 @@ using Services;
 using WPFApp.Enrollment_Manager;
 using WPFApp.Document_Management;
 using WPFApp.Department_Management;
-
 
 namespace WPFApp
 {
@@ -86,6 +86,7 @@ namespace WPFApp
             //Repository
             services.AddScoped<IRepository<BussinessObjects.Enrollment>, EnrollmentRepository>();
             services.AddScoped<IRepository<BlogNews>, BlogNewsRepository>();
+            services.AddScoped<IRepository<Post>, PostRepository>();
             services.AddScoped<IRepository<BussinessObjects.Forum>, ForumRespository>();
             //services.AddSingleton<IConfiguration>(configuration);
 
@@ -119,6 +120,8 @@ namespace WPFApp
             services.AddScoped<IService<BussinessObjects.Enrollment>, EnrollmentService>();
             services.AddScoped<IEnrollmentService, EnrollmentService>();
             services.AddScoped<IService<BlogNews>, BlogNewsService>();
+            services.AddScoped<IService<Post>, PostService>();
+            
 
             //Data
             services.AddScoped<IBlogNewsData, BlogNewsData>();
@@ -131,6 +134,9 @@ namespace WPFApp
             services.AddScoped<BlogNewsManagementWindow>();
             services.AddScoped<UpdateBlogNews>();
             services.AddScoped<MainWindow>();
+            services.AddScoped<PostWindow>();
+            //Other
+            services.AddScoped<ReturnToDashboard>();
             //services.AddSingleton<IRoomInformationRepository, RoomInformationRepository>();
             services.AddDbContext<LmsContext>();
 
@@ -140,6 +146,7 @@ namespace WPFApp
             services.AddScoped<DocumentManagePopup>();
             services.AddScoped<DepartmentManagementWindow>();
             services.AddScoped<DepartmentManagementPopup>();
+
 
         }
     }

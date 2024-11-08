@@ -17,9 +17,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
-            <Button Content="Home" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
-            <Button Content="Manage" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
-            <Button Content="Profile" HorizontalAlignment="Left" Margin="530,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
+            <Button Content="Home" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent" Click="btnHome_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
             <Button Content="Create" x:Name="btnCreate" HorizontalAlignment="Left" Margin="5,90,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFD4EDDA" Click="btnCreate_Click"/>
@@ -28,10 +26,10 @@
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
             <Label Content="Course"/>
-            <TextBox TextWrapping="Wrap" Text="TextBox" Width="1136" Height="46" x:Name="tbCourse"/>
+            <TextBox TextWrapping="Wrap" Text="TextBox" Width="1136" Height="46" x:Name="tbCourse" />
             <Label Content="Title" Height="35"/>
             <TextBox TextWrapping="Wrap" Text="TextBox" Width="1136" Height="39" x:Name="tbTitle"/>
-            <DataGrid x:Name="dgForum"  Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="536">
+            <DataGrid x:Name="dgForum"  Grid.Column="1" Grid.Row="1" Margin="0,10,0,0" Height="536" SelectionChanged="dgForum_SelectionChanged">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="ID" Binding="{Binding ForumId}" Width="*"/>
                     <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>

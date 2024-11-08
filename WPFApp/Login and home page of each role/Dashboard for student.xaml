@@ -50,7 +50,6 @@
 
                 <Button Content="Course Overview" Click="CourseOverview_Click" Width="150" Margin="5,0" Grid.Column="0"/>
                 <Button Content="Assignment Submission" Click="AssignmentSubmission_Click" Width="150" Margin="5,0" Grid.Column="1"/>
-                <Button Content="Forum/Discussion" Click="ForumDiscussion_Click" Width="150" Margin="5,0" Grid.Column="2"/>
                 <Button Content="Document Management" Click="DocumentManagement_Click" Width="150" Margin="5,0" Grid.Column="3"/>
             </Grid>
         </Border>

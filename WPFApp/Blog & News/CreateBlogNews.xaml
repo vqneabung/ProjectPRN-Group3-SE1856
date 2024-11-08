@@ -16,9 +16,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.ColumnSpan="2">
-            <Button Content="Home" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
-            <Button Content="Manage" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
-            <Button Content="Profile" HorizontalAlignment="Left" Margin="530,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent"/>
+            <Button Content="Return" HorizontalAlignment="Left" Margin="20,0,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="Transparent" Click="btnReturn_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="0">
             <Button Content="Create" HorizontalAlignment="Left" Margin="5,90,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFD4EDDA" Click="btnCreate_Click"/>

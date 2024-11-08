@@ -24,6 +24,7 @@
             <Button Content="Search" HorizontalAlignment="Left" Margin="5,10,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FF3A4551" Foreground="White" Click="Search_Click"/>
             <Button Content="Enroll" HorizontalAlignment="Left" Margin="5,90,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFD4EDDA" Click="Enroll_Click"/>
             <Button Content="Uneroll" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="#FFF6D7DA" Click="Unenroll_Click"/>
+            <Button Content="Forum" HorizontalAlignment="Left" Margin="5,20,0,0" VerticalAlignment="Center" Height="30" Width="70" Background="AliceBlue" Click="Forum_Click"/>
         </StackPanel>
         <StackPanel Grid.Row="1" Grid.Column="1">
             <TextBox x:Name="txtSearch" TextWrapping="Wrap" Margin="0,10,0,0" Width="720" Height="30" FontSize="20"/>
